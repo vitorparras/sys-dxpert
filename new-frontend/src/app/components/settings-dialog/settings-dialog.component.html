@@ -1,1 +1,25 @@
-<p>settings-dialog works!</p>
+<h2 mat-dialog-title>{{ data.id ? 'Edit Setting' : 'Add Setting' }}</h2>
+<mat-dialog-content>
+  <form [formGroup]="settingForm">
+    <mat-form-field appearance="fill">
+      <mat-label>Key</mat-label>
+      <input matInput formControlName="key" required>
+      <mat-error *ngIf="settingForm.get('key')?.hasError('required')">Key is required</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Value</mat-label>
+      <input matInput formControlName="value" required>
+      <mat-error *ngIf="settingForm.get('value')?.hasError('required')">Value is required</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Description</mat-label>
+      <textarea matInput formControlName="description" required></textarea>
+      <mat-error *ngIf="settingForm.get('description')?.hasError('required')">Description is required</mat-error>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="settingForm.invalid">Save</button>
+</mat-dialog-actions>
+

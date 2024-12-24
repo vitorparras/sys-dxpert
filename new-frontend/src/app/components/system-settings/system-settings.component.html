@@ -1,1 +1,29 @@
-<p>system-settings works!</p>
+<div class="system-settings-container">
+    <h1>Configurações do Sistema</h1>
+    <button mat-raised-button color="primary" (click)="openSettingsDialog()">Adicionar Configuração</button>
+    <table mat-table [dataSource]="settings" class="mat-elevation-z8">
+      <ng-container matColumnDef="key">
+        <th mat-header-cell *matHeaderCellDef> Chave </th>
+        <td mat-cell *matCellDef="let setting"> {{setting.key}} </td>
+      </ng-container>
+      <ng-container matColumnDef="value">
+        <th mat-header-cell *matHeaderCellDef> Valor </th>
+        <td mat-cell *matCellDef="let setting"> {{setting.value}} </td>
+      </ng-container>
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Ações </th>
+        <td mat-cell *matCellDef="let setting">
+          <button mat-icon-button color="primary" (click)="openSettingsDialog(setting)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deleteSetting(setting.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+  
+  

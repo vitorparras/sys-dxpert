@@ -1,0 +1,100 @@
+@import 'variables';
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+// Reset & Base Styles
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  height: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  height: 100%;
+  font-family: map-get($typography, 'fontFamily');
+  font-size: map-get(map-get($typography, 'body1'), 'fontSize');
+  line-height: map-get(map-get($typography, 'body1'), 'lineHeight');
+  background-color: map-get(map-get($colors, 'background'), 'default');
+  color: map-get(map-get($colors, 'text'), 'primary');
+}
+
+// Modern Scrollbar
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  
+  &:hover {
+    background: rgba(0, 0, 0, 0.3);
+  }
+}
+
+// Typography
+@each $level, $styles in $typography {
+  @if $level != 'fontFamily' {
+    .#{$level} {
+      font-size: map-get($styles, 'fontSize');
+      font-weight: map-get($styles, 'fontWeight');
+      line-height: map-get($styles, 'lineHeight');
+      @if map-has-key($styles, 'textTransform') {
+        text-transform: map-get($styles, 'textTransform');
+      }
+    }
+  }
+}
+
+// Animations
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+// Utility Classes
+.fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.slide-up {
+  animation: slideUp 0.3s ease-out;
+}
+
+.slide-in-right {
+  animation: slideInRight 0.3s ease-out;
+}
+

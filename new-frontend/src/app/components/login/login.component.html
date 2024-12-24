@@ -1,1 +1,50 @@
-<p>login works!</p>
+<div class="particles">
+  <div class="particle" *ngFor="let i of [].constructor(50)"></div>
+</div>
+
+<div class="login-container">
+  <div class="logo-container">
+    <img src="assets/logo.jpg" alt="dxpert logo">
+  </div>
+
+  <div class="login-card">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="form-field">
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" placeholder="Digite seu email" type="email">
+          <mat-icon matPrefix>email</mat-icon>
+          <mat-error *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+            {{getErrorMessage('email')}}
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form-field">
+        <mat-form-field appearance="outline">
+          <mat-label>Senha</mat-label>
+          <input matInput formControlName="password" [type]="hidePassword ? 'password' : 'text'" placeholder="Digite sua senha">
+          <mat-icon matPrefix>lock</mat-icon>
+          <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" type="button">
+            <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+            {{getErrorMessage('password')}}
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <button mat-flat-button class="login-button" type="submit" [disabled]="loginForm.invalid || isLoading">
+        <ng-container *ngIf="!isLoading">
+          ENTRAR
+        </ng-container>
+        <mat-spinner class="spinner" diameter="24" *ngIf="isLoading"></mat-spinner>
+      </button>
+
+      <div class="forgot-password">
+        <a href="#">Esqueceu sua senha?</a>
+      </div>
+    </form>
+  </div>
+</div>
+

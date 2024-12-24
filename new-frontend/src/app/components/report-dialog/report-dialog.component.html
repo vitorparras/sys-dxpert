@@ -1,1 +1,27 @@
-<p>report-dialog works!</p>
+<h2 mat-dialog-title>{{ data.id ? 'Edit Report' : 'Add Report' }}</h2>
+<mat-dialog-content>
+  <form [formGroup]="reportForm">
+    <mat-form-field appearance="fill">
+      <mat-label>Title</mat-label>
+      <input matInput formControlName="title" required>
+      <mat-error *ngIf="reportForm.get('title')?.hasError('required')">Title is required</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Description</mat-label>
+      <textarea matInput formControlName="description" required></textarea>
+      <mat-error *ngIf="reportForm.get('description')?.hasError('required')">Description is required</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Date</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="date" required>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="reportForm.get('date')?.hasError('required')">Date is required</mat-error>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="reportForm.invalid">Save</button>
+</mat-dialog-actions>
+

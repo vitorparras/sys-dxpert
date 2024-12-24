@@ -1,0 +1,68 @@
+@use 'variables' as *;
+
+// Breakpoint mixins
+@mixin breakpoint($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media (min-width: map-get($breakpoints, $breakpoint)) {
+      @content;
+    }
+  } @else {
+    @warn "Invalid breakpoint: #{$breakpoint}.";
+  }
+}
+
+// Typography mixins
+@mixin font-size($size) {
+  @if map-has-key(map-get($typography, sizes), $size) {
+    font-size: map-get(map-get($typography, sizes), $size);
+  } @else {
+    @warn "Invalid font size: #{$size}.";
+  }
+}
+
+@mixin font-weight($weight) {
+  @if map-has-key(map-get($typography, weights), $weight) {
+    font-weight: map-get(map-get($typography, weights), $weight);
+  } @else {
+    @warn "Invalid font weight: #{$weight}.";
+  }
+}
+
+// Flex mixins
+@mixin flex($direction: row, $justify: flex-start, $align: stretch, $wrap: nowrap) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+  flex-wrap: $wrap;
+}
+
+// Glass effect mixin
+@mixin glass-effect($opacity: 0.1, $blur: 10px) {
+  background: rgba(255, 255, 255, $opacity);
+  backdrop-filter: blur($blur);
+  -webkit-backdrop-filter: blur($blur);
+}
+
+// Theme mode mixin
+@mixin theme-mode($mode) {
+  @if $mode == 'light' {
+    @content;
+  } @else if $mode == 'dark' {
+    .dark-mode & {
+      @content;
+    }
+  }
+}
+
+// Animation mixins
+@mixin keyframes($name) {
+  @keyframes #{$name} {
+    @content;
+  }
+}
+
+@mixin animate($name, $duration: 0.3s, $timing: ease, $delay: 0s) {
+  animation: $name $duration $timing $delay;
+}
+

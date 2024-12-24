@@ -85,6 +85,7 @@ export class LoginComponent implements OnInit {
       Email: $('#Email').val()?.toString(),
       Senha: $('#Senha').val()?.toString(),
     };
+    this.router.navigate(['index']);
     this.authService.logar(usuario).subscribe((response: any) => {
       var btn = document.getElementById('btncancel');
       this.sucesso = response.success;
@@ -99,9 +100,9 @@ export class LoginComponent implements OnInit {
         }, 3700);
       } else {
         this.message = 'Erro ao realizar o Login!';
-        setTimeout(() => {
+       /* setTimeout(() => {
           btn?.click();
-        }, 3700);
+        }, 3700);*/
       }
     });
   }

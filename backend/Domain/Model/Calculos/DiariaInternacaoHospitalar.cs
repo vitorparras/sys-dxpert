@@ -10,9 +10,9 @@ namespace Domain.Model.Calculos
         public double T200 { get; set; }
         public double T250 { get; set; }
 
-        public static void InsertData(ModelBuilder modelBuilder)
+        public static List<DiariaInternacaoHospitalar> GetDados()
         {
-            modelBuilder.Entity<DiariaInternacaoHospitalar>().HasData(
+            return new List<DiariaInternacaoHospitalar>() {
                 new DiariaInternacaoHospitalar { Idade = 16, T150 = 3.07, T200 = 3.17, T250 = 3.33 },
                 new DiariaInternacaoHospitalar { Idade = 17, T150 = 3.07, T200 = 3.17, T250 = 3.33 },
                 new DiariaInternacaoHospitalar { Idade = 18, T150 = 3.07, T200 = 3.17, T250 = 3.33 },
@@ -62,7 +62,8 @@ namespace Domain.Model.Calculos
                 new DiariaInternacaoHospitalar { Idade = 62, T150 = 17.47, T200 = 18.73, T250 = 20.45 },
                 new DiariaInternacaoHospitalar { Idade = 63, T150 = 17.47, T200 = 18.73, T250 = 20.45 },
                 new DiariaInternacaoHospitalar { Idade = 64, T150 = 17.47, T200 = 18.73, T250 = 20.45 },
-                new DiariaInternacaoHospitalar { Idade = 65, T150 = 17.47, T200 = 18.73, T250 = 20.45 });
+                new DiariaInternacaoHospitalar { Idade = 65, T150 = 17.47, T200 = 18.73, T250 = 20.45 }
+            };
         }
     }
 }

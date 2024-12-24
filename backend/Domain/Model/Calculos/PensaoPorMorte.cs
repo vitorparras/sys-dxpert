@@ -10,9 +10,9 @@ namespace Domain.Model.Calculos
         public double I15 { get; set; }
         public double I20 { get; set; }
 
-        public static void InsertData(ModelBuilder modelBuilder)
+        public static List<PensaoPorMorte> GetDados()
         {
-            modelBuilder.Entity<PensaoPorMorte>().HasData(
+            return new List<PensaoPorMorte>() {
                 new PensaoPorMorte { Idade = 16, I10 = 24.62, I15 = 34.83, I20 = 43.85 },
                 new PensaoPorMorte { Idade = 17, I10 = 24.62, I15 = 34.83, I20 = 43.85 },
                 new PensaoPorMorte { Idade = 18, I10 = 24.62, I15 = 34.83, I20 = 43.85 },
@@ -77,7 +77,8 @@ namespace Domain.Model.Calculos
                 new PensaoPorMorte { Idade = 77, I10 = 1072.75, I15 = 1517.6, I20 = 1910.78 },
                 new PensaoPorMorte { Idade = 78, I10 = 1167.06, I15 = 1651.02, I20 = 2078.77 },
                 new PensaoPorMorte { Idade = 79, I10 = 1266.52, I15 = 1791.72, I20 = 2255.92 },
-                new PensaoPorMorte { Idade = 80, I10 = 1374.88, I15 = 1945.01, I20 = 2448.93 });
+                new PensaoPorMorte { Idade = 80, I10 = 1374.88, I15 = 1945.01, I20 = 2448.93 }
+            };
         }
     }
 }

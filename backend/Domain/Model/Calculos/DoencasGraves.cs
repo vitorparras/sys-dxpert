@@ -10,9 +10,9 @@ namespace Domain.Model.Calculos
         public double Plus { get; set; }
         public double Premium { get; set; }
 
-        public static void InsertData(ModelBuilder modelBuilder)
+        public static List<DoencasGraves> GetDados()
         {
-            modelBuilder.Entity<DoencasGraves>().HasData(
+            return new List<DoencasGraves>() {
                 new DoencasGraves { Idade = 16, Essencial = 0.16, Plus = 0.22, Premium = 0.45 },
                 new DoencasGraves { Idade = 17, Essencial = 0.16, Plus = 0.22, Premium = 0.45 },
                 new DoencasGraves { Idade = 18, Essencial = 0.16, Plus = 0.22, Premium = 0.45 },
@@ -62,7 +62,8 @@ namespace Domain.Model.Calculos
                 new DoencasGraves { Idade = 62, Essencial = 1.81, Plus = 3.06, Premium = 3.51 },
                 new DoencasGraves { Idade = 63, Essencial = 1.81, Plus = 3.06, Premium = 3.51 },
                 new DoencasGraves { Idade = 64, Essencial = 1.81, Plus = 3.06, Premium = 3.51 },
-                new DoencasGraves { Idade = 65, Essencial = 1.81, Plus = 3.06, Premium = 3.51 });
+                new DoencasGraves { Idade = 65, Essencial = 1.81, Plus = 3.06, Premium = 3.51 }
+            };
         }
     }
 }

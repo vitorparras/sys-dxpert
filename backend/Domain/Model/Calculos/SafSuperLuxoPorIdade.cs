@@ -11,9 +11,9 @@ namespace Domain.Model.Calculos
         public double Individual { get; set; }
         public double Familiar { get; set; }
 
-        public static void InsertData(ModelBuilder modelBuilder)
+        public static List<SafSuperLuxoPorIdade> GetDados()
         {
-            modelBuilder.Entity<SafSuperLuxoPorIdade>().HasData(
+            return new List<SafSuperLuxoPorIdade>() {
                 new SafSuperLuxoPorIdade { IdadeMinima = 16, IdadeMaxima = 35, Individual = 1.99, Familiar = 6.38 },
                 new SafSuperLuxoPorIdade { IdadeMinima = 36, IdadeMaxima = 40, Individual = 3.02, Familiar = 8.61 },
                 new SafSuperLuxoPorIdade { IdadeMinima = 41, IdadeMaxima = 45, Individual = 4.53, Familiar = 1.52 },
@@ -44,7 +44,8 @@ namespace Domain.Model.Calculos
                 new SafSuperLuxoPorIdade { IdadeMinima = 82, IdadeMaxima = 82, Individual = 137.31, Familiar = 257.21 },
                 new SafSuperLuxoPorIdade { IdadeMinima = 83, IdadeMaxima = 83, Individual = 150.21, Familiar = 263.11 },
                 new SafSuperLuxoPorIdade { IdadeMinima = 84, IdadeMaxima = 84, Individual = 164.25, Familiar = 287.14 },
-                new SafSuperLuxoPorIdade { IdadeMinima = 85, IdadeMaxima = 85, Individual = 179.12, Familiar = 292.72 });
+                new SafSuperLuxoPorIdade { IdadeMinima = 85, IdadeMaxima = 85, Individual = 179.12, Familiar = 292.72 }
+            };
         }
     }
 }

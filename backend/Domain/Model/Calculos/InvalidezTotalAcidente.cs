@@ -8,9 +8,9 @@ namespace Domain.Model.Calculos
         public int Idade { get; set; }
         public double Valor { get; set; }
 
-        public static void InsertData(ModelBuilder modelBuilder)
+        public static List<InvalidezTotalAcidente> GetDados()
         {
-            modelBuilder.Entity<InvalidezTotalAcidente>().HasData(
+            return new List<InvalidezTotalAcidente>() {
                 new InvalidezTotalAcidente { Idade = 61, Valor = 0.07 },
                 new InvalidezTotalAcidente { Idade = 62, Valor = 0.07 },
                 new InvalidezTotalAcidente { Idade = 63, Valor = 0.07 },
@@ -30,7 +30,8 @@ namespace Domain.Model.Calculos
                 new InvalidezTotalAcidente { Idade = 77, Valor = 0.07 },
                 new InvalidezTotalAcidente { Idade = 78, Valor = 0.07 },
                 new InvalidezTotalAcidente { Idade = 79, Valor = 0.07 },
-                new InvalidezTotalAcidente { Idade = 80, Valor = 0.07 });
+                new InvalidezTotalAcidente { Idade = 80, Valor = 0.07 }
+            };
         }
     }
 }

@@ -41,6 +41,5 @@ namespace Domain.Model
                     DataAlteracao = DateTime.Now
                 });
         }
-
     }
 }

@@ -17,9 +17,9 @@ namespace Domain.Model.Calculos
         public double Feminino25 { get; set; }
         public double Feminino30 { get; set; }
 
-        public static void InsertData(ModelBuilder modelBuilder)
+        public static List<TermLife> GetDados()
         {
-            modelBuilder.Entity<TermLife>().HasData(
+            return new List<TermLife>() {
                     new TermLife { Idade = 25, Masculino10 = 0.0974, Masculino15 = 0.1047, Masculino20 = 0.1169, Masculino25 = 0.13763, Masculino30 = 0.17086, Feminino10 = 0.04355, Feminino15 = 0.05132, Feminino20 = 0.06272, Feminino25 = 0.08008, Feminino30 = 0.10271 },
                     new TermLife { Idade = 26, Masculino10 = 0.09868, Masculino15 = 0.1074, Masculino20 = 0.12149, Masculino25 = 0.14528, Masculino30 = 0.18266, Feminino10 = 0.04597, Feminino15 = 0.05454, Feminino20 = 0.06726, Feminino25 = 0.08653, Feminino30 = 0.11099 },
                     new TermLife { Idade = 27, Masculino10 = 0.10048, Masculino15 = 0.11076, Masculino20 = 0.12686, Masculino25 = 0.15423, Masculino30 = 0.19579, Feminino10 = 0.04868, Feminino15 = 0.05829, Feminino20 = 0.07231, Feminino25 = 0.09363, Feminino30 = 0.12013 },
@@ -70,7 +70,8 @@ namespace Domain.Model.Calculos
                     new TermLife { Idade = 72, Masculino10 = 3.15272, Masculino15 = 0, Masculino20 = 0, Masculino25 = 0, Masculino30 = 0, Feminino10 = 1.98053, Feminino15 = 0, Feminino20 = 0, Feminino25 = 0, Feminino30 = 0 },
                     new TermLife { Idade = 73, Masculino10 = 3.46399, Masculino15 = 0, Masculino20 = 0, Masculino25 = 0, Masculino30 = 0, Feminino10 = 2.2046, Feminino15 = 0, Feminino20 = 0, Feminino25 = 0, Feminino30 = 0 },
                     new TermLife { Idade = 74, Masculino10 = 3.79505, Masculino15 = 0, Masculino20 = 0, Masculino25 = 0, Masculino30 = 0, Feminino10 = 2.46169, Feminino15 = 0, Feminino20 = 0, Feminino25 = 0, Feminino30 = 0 },
-                    new TermLife { Idade = 75, Masculino10 = 4.15114, Masculino15 = 0, Masculino20 = 0, Masculino25 = 0, Masculino30 = 0, Feminino10 = 2.749, Feminino15 = 0, Feminino20 = 0, Feminino25 = 0, Feminino30 = 0 });
+                    new TermLife { Idade = 75, Masculino10 = 4.15114, Masculino15 = 0, Masculino20 = 0, Masculino25 = 0, Masculino30 = 0, Feminino10 = 2.749, Feminino15 = 0, Feminino20 = 0, Feminino25 = 0, Feminino30 = 0 }
+            };
         }
     }
 }

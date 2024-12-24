@@ -9,9 +9,9 @@ namespace Domain.Model.Calculos
         public double Homem { get; set; }
         public double Mulher { get; set; }
 
-        public static void InsertData(ModelBuilder modelBuilder)
+        public static List<VidaInteiraConjuge> GetDados()
         {
-            modelBuilder.Entity<VidaInteiraConjuge>().HasData(
+            return new List<VidaInteiraConjuge>() {
                 new VidaInteiraConjuge { Idade = 16, Homem = 0.19, Mulher = 0.17 },
                 new VidaInteiraConjuge { Idade = 17, Homem = 0.19, Mulher = 0.17 },
                 new VidaInteiraConjuge { Idade = 18, Homem = 0.19, Mulher = 0.17 },
@@ -81,7 +81,8 @@ namespace Domain.Model.Calculos
                 new VidaInteiraConjuge { Idade = 82, Homem = 12.66, Mulher = 11.4 },
                 new VidaInteiraConjuge { Idade = 83, Homem = 13.66, Mulher = 12.3 },
                 new VidaInteiraConjuge { Idade = 84, Homem = 14.71, Mulher = 13.24 },
-                new VidaInteiraConjuge { Idade = 85, Homem = 15.8, Mulher = 14.22 });
+                new VidaInteiraConjuge { Idade = 85, Homem = 15.8, Mulher = 14.22 }
+            };
         }
     }
 }

@@ -9,9 +9,9 @@ namespace Domain.Model.Calculos
         public double Individual { get; set; }
         public double Familiar { get; set; }
 
-        public static void InsertData(ModelBuilder modelBuilder)
+        public static List<SafSuperLuxo> GetDados()
         {
-            modelBuilder.Entity<SafSuperLuxo>().HasData(
+            return new List<SafSuperLuxo>() {
                 new SafSuperLuxo { Idade = 16, Individual = 1.99, Familiar = 6.38 },
                 new SafSuperLuxo { Idade = 17, Individual = 1.99, Familiar = 6.38 },
                 new SafSuperLuxo { Idade = 18, Individual = 1.99, Familiar = 6.38 },
@@ -81,7 +81,8 @@ namespace Domain.Model.Calculos
                 new SafSuperLuxo { Idade = 82, Individual = 137.31, Familiar = 257.21 },
                 new SafSuperLuxo { Idade = 83, Individual = 150.21, Familiar = 263.11 },
                 new SafSuperLuxo { Idade = 84, Individual = 164.25, Familiar = 287.14 },
-                new SafSuperLuxo { Idade = 85, Individual = 179.12, Familiar = 292.72 });
+                new SafSuperLuxo { Idade = 85, Individual = 179.12, Familiar = 292.72 }
+            };
         }
     }
 }

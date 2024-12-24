@@ -9,9 +9,9 @@ namespace Domain.Model.Calculos
         public double I20 { get; set; }
         public double I30 { get; set; }
 
-        public static void InsertData(ModelBuilder modelBuilder)
+        public static List<RendaInvalidez> GetDados()
         {
-            modelBuilder.Entity<RendaInvalidez>().HasData(
+            return new List<RendaInvalidez>() {
                 new RendaInvalidez { Idade = 16, I20 = 14.14, I30 = 18.87 },
                 new RendaInvalidez { Idade = 17, I20 = 14.14, I30 = 18.87 },
                 new RendaInvalidez { Idade = 18, I20 = 14.14, I30 = 18.87 },
@@ -56,7 +56,8 @@ namespace Domain.Model.Calculos
                 new RendaInvalidez { Idade = 57, I20 = 97.25, I30 = 117.28 },
                 new RendaInvalidez { Idade = 58, I20 = 97.25, I30 = 117.28 },
                 new RendaInvalidez { Idade = 59, I20 = 97.25, I30 = 117.28 },
-                new RendaInvalidez { Idade = 60, I20 = 97.25, I30 = 117.28 });
+                new RendaInvalidez { Idade = 60, I20 = 97.25, I30 = 117.28 }
+            };
         }
     }
 }

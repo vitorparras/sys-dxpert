@@ -8,9 +8,9 @@ namespace Domain.Model.Calculos
         public int Idade { get; set; }
         public double Valor { get; set; }
 
-        public static void InsertData(ModelBuilder modelBuilder)
+        public static List<AdicionalDiariaInternacaoHospitalar> GetDados()
         {
-            modelBuilder.Entity<AdicionalDiariaInternacaoHospitalar>().HasData(
+            return new List<AdicionalDiariaInternacaoHospitalar>() {
                 new AdicionalDiariaInternacaoHospitalar { Idade = 16, Valor = 0.12 },
                 new AdicionalDiariaInternacaoHospitalar { Idade = 17, Valor = 0.12 },
                 new AdicionalDiariaInternacaoHospitalar { Idade = 18, Valor = 0.12 },
@@ -60,7 +60,8 @@ namespace Domain.Model.Calculos
                 new AdicionalDiariaInternacaoHospitalar { Idade = 62, Valor = 1.09 },
                 new AdicionalDiariaInternacaoHospitalar { Idade = 63, Valor = 1.09 },
                 new AdicionalDiariaInternacaoHospitalar { Idade = 64, Valor = 1.09 },
-                new AdicionalDiariaInternacaoHospitalar { Idade = 65, Valor = 1.09 });
+                new AdicionalDiariaInternacaoHospitalar { Idade = 65, Valor = 1.09 }
+            };
         }
     }
 }

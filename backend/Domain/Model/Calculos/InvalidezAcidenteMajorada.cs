@@ -1,5 +1,4 @@
 ﻿using Domain.Model.Bases;
-using Microsoft.EntityFrameworkCore;
 
 namespace Domain.Model.Calculos
 {
@@ -8,9 +7,9 @@ namespace Domain.Model.Calculos
         public int Idade { get; set; }
         public double Valor { get; set; }
 
-        public static void InsertData(ModelBuilder modelBuilder)
+        public static List<InvalidezAcidenteMajorada> GetDados()
         {
-            modelBuilder.Entity<InvalidezAcidenteMajorada>().HasData(
+            return new List<InvalidezAcidenteMajorada>() {
                 new InvalidezAcidenteMajorada { Idade = 16, Valor = 0.12 },
                 new InvalidezAcidenteMajorada { Idade = 17, Valor = 0.12 },
                 new InvalidezAcidenteMajorada { Idade = 18, Valor = 0.12 },
@@ -60,7 +59,8 @@ namespace Domain.Model.Calculos
                 new InvalidezAcidenteMajorada { Idade = 62, Valor = 1.09 },
                 new InvalidezAcidenteMajorada { Idade = 63, Valor = 1.09 },
                 new InvalidezAcidenteMajorada { Idade = 64, Valor = 1.09 },
-                new InvalidezAcidenteMajorada { Idade = 65, Valor = 1.09 });
+                new InvalidezAcidenteMajorada { Idade = 65, Valor = 1.09 }
+            };
         }
     }
 }

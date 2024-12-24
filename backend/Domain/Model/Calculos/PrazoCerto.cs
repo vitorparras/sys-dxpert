@@ -11,9 +11,9 @@ namespace Domain.Model.Calculos
         public double I15 { get; set; }
         public double I20 { get; set; }
 
-        public static void InsertData(ModelBuilder modelBuilder)
+        public static List<PrazoCerto> GetDados()
         {
-            modelBuilder.Entity<PrazoCerto>().HasData(
+            return new List<PrazoCerto>() {
                 new PrazoCerto { Idade = 16, I5 = 0.2, I10 = 0.21, I15 = 0.23, I20 = 0.26 },
                 new PrazoCerto { Idade = 17, I5 = 0.2, I10 = 0.21, I15 = 0.23, I20 = 0.26 },
                 new PrazoCerto { Idade = 18, I5 = 0.2, I10 = 0.21, I15 = 0.23, I20 = 0.26 },
@@ -58,7 +58,8 @@ namespace Domain.Model.Calculos
                 new PrazoCerto { Idade = 57, I5 = 1.89, I10 = 2.36, I15 = 0, I20 = 0 },
                 new PrazoCerto { Idade = 58, I5 = 1.89, I10 = 2.36, I15 = 0, I20 = 0 },
                 new PrazoCerto { Idade = 59, I5 = 1.89, I10 = 2.36, I15 = 0, I20 = 0 },
-                new PrazoCerto { Idade = 60, I5 = 1.89, I10 = 2.36, I15 = 0, I20 = 0 });
+                new PrazoCerto { Idade = 60, I5 = 1.89, I10 = 2.36, I15 = 0, I20 = 0 }
+                };
         }
     }
 }

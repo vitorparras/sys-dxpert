@@ -1,5 +1,6 @@
 ﻿using Domain.Model;
 using Domain.Model.Calculos;
+using Infrastructure.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure
@@ -21,28 +22,43 @@ namespace Infrastructure
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            AdicionalDiariaInternacaoHospitalar.InsertData(modelBuilder);
-            DiariaIncapacidadeTemporariaAcidente.InsertData(modelBuilder);
-            DiariaInternacaoHospitalar.InsertData(modelBuilder);
-            DitMedico.InsertData(modelBuilder);
-            DoencasGraves.InsertData(modelBuilder);
-            DoencasGravesMaster.InsertData(modelBuilder);
-            InvalidezAcidenteMajorada.InsertData(modelBuilder);
-            InvalidezAcidenteMajoradaDoenca.InsertData(modelBuilder);
-            InvalidezTotalAcidente.InsertData(modelBuilder);
-            MortePorAcidente.InsertData(modelBuilder);
-            PensaoPorMorte.InsertData(modelBuilder);
-            PrazoCerto.InsertData(modelBuilder);
-            RendaInvalidez.InsertData(modelBuilder);
-            SafLuxo.InsertData(modelBuilder);
-            SafSuperLuxo.InsertData(modelBuilder);
-            SafSuperLuxoPorIdade.InsertData(modelBuilder);
-            TaxaPrevcom.InsertData(modelBuilder);
-            TermLife.InsertData(modelBuilder);
-            VidaInteira.InsertData(modelBuilder);
-            VidaInteiraConjuge.InsertData(modelBuilder);
-
             base.OnModelCreating(modelBuilder);
+
+            foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+            {
+                var idProperty = entityType.FindProperty("Id");
+                if (idProperty != null && idProperty.ClrType == typeof(int))
+                {
+                    idProperty.ValueGenerated = Microsoft.EntityFrameworkCore.Metadata.ValueGenerated.OnAdd;
+                }
+            }
+
+            ContextExtension.SeedWithAutoIncrement(modelBuilder, AdicionalDiariaInternacaoHospitalar.GetDados());
+            ContextExtension.SeedWithAutoIncrement(modelBuilder, DiariaIncapacidadeTemporariaAcidente.GetDados());
+            ContextExtension.SeedWithAutoIncrement(modelBuilder, DiariaInternacaoHospitalar.GetDados());
+            ContextExtension.SeedWithAutoIncrement(modelBuilder, DitMedico.GetDados());
+            ContextExtension.SeedWithAutoIncrement(modelBuilder, DoencasGraves.GetDados());
+            ContextExtension.SeedWithAutoIncrement(modelBuilder, DoencasGravesMaster.GetDados());
+            ContextExtension.SeedWithAutoIncrement(modelBuilder, InvalidezAcidenteMajorada.GetDados());
+            ContextExtension.SeedWithAutoIncrement(modelBuilder, InvalidezAcidenteMajoradaDoenca.GetDados());
+            ContextExtension.SeedWithAutoIncrement(modelBuilder, InvalidezTotalAcidente.GetDados());
+            ContextExtension.SeedWithAutoIncrement(modelBuilder, MortePorAcidente.GetDados());
+            ContextExtension.SeedWithAutoIncrement(modelBuilder, PensaoPorMorte.GetDados());
+            ContextExtension.SeedWithAutoIncrement(modelBuilder, PrazoCerto.GetDados());
+            ContextExtension.SeedWithAutoIncrement(modelBuilder, RendaInvalidez.GetDados());
+            ContextExtension.SeedWithAutoIncrement(modelBuilder, SafLuxo.GetDados());
+            ContextExtension.SeedWithAutoIncrement(modelBuilder, SafSuperLuxo.GetDados());
+            ContextExtension.SeedWithAutoIncrement(modelBuilder, SafSuperLuxoPorIdade.GetDados());
+            ContextExtension.SeedWithAutoIncrement(modelBuilder, TaxaPrevcom.GetDados());
+            ContextExtension.SeedWithAutoIncrement(modelBuilder, TermLife.GetDados());
+            ContextExtension.SeedWithAutoIncrement(modelBuilder, VidaInteira.GetDados());
+            ContextExtension.SeedWithAutoIncrement(modelBuilder, VidaInteiraConjuge.GetDados());
+
+
+            Usuario.InsertData(modelBuilder);
+
+
+
         }
 
         #region Sistema

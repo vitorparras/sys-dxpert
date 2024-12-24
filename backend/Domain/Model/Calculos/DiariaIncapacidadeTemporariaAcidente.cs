@@ -6,7 +6,6 @@ namespace Domain.Model.Calculos
 {
     public class DiariaIncapacidadeTemporariaAcidente : BaseEntity
     {
-        [Key]
         public double RendaMensal { get; set; }
         public double MorteAcidental { get; set; }
         public double InvalidezAcidentalMajorada { get; set; }
@@ -19,9 +18,9 @@ namespace Domain.Model.Calculos
         public double I56a60 { get; set; }
         public double I61a65 { get; set; }
 
-        public static void InsertData(ModelBuilder modelBuilder)
+        public static List<DiariaIncapacidadeTemporariaAcidente> GetDados()
         {
-            modelBuilder.Entity<DiariaIncapacidadeTemporariaAcidente>().HasData(
+            return new List<DiariaIncapacidadeTemporariaAcidente>() {
                    new DiariaIncapacidadeTemporariaAcidente { RendaMensal = 750.00, MorteAcidental = 50000.00, InvalidezAcidentalMajorada = 50000.00, I13a30 = 15.5, I31a35 = 16.77, I36a40 = 18.03, I41a45 = 19.6, I46a50 = 21.68, I51a55 = 24.1, I56a60 = 26.31, I61a65 = 28.38 },
                    new DiariaIncapacidadeTemporariaAcidente { RendaMensal = 750.00, MorteAcidental = 75000.00, InvalidezAcidentalMajorada = 75000.00, I13a30 = 21.07, I31a35 = 22.34, I36a40 = 23.6, I41a45 = 25.18, I46a50 = 27.25, I51a55 = 29.67, I56a60 = 31.88, I61a65 = 33.96 },
                    new DiariaIncapacidadeTemporariaAcidente { RendaMensal = 1000.00, MorteAcidental = 50000.00, InvalidezAcidentalMajorada = 50000.00, I13a30 = 16.96, I31a35 = 18.65, I36a40 = 20.33, I41a45 = 22.43, I46a50 = 25.2, I51a55 = 28.42, I56a60 = 31.37, I61a65 = 34.13 },
@@ -140,7 +139,8 @@ namespace Domain.Model.Calculos
                    new DiariaIncapacidadeTemporariaAcidente { RendaMensal = 29000.00, MorteAcidental = 2900000.00, InvalidezAcidentalMajorada = 2900000.00, I13a30 = 814.83, I31a35 = 863.95, I36a40 = 912.70, I41a45 = 973.46, I46a50 = 1053.81, I51a55 = 1147.22, I56a60 = 1232.71, I61a65 = 1312.93 },
                    new DiariaIncapacidadeTemporariaAcidente { RendaMensal = 30000.00, MorteAcidental = 300000.00, InvalidezAcidentalMajorada = 300000.00, I13a30 = 241.25, I31a35 = 292.06, I36a40 = 342.49, I41a45 = 405.35, I46a50 = 488.47, I51a55 = 585.10, I56a60 = 673.54, I61a65 = 756.53 },
                    new DiariaIncapacidadeTemporariaAcidente { RendaMensal = 30000.00, MorteAcidental = 600000.00, InvalidezAcidentalMajorada = 600000.00, I13a30 = 308.10, I31a35 = 358.92, I36a40 = 409.34, I41a45 = 472.20, I46a50 = 555.33, I51a55 = 651.96, I56a60 = 740.39, I61a65 = 823.38 },
-                   new DiariaIncapacidadeTemporariaAcidente { RendaMensal = 30000.00, MorteAcidental = 1500000.00, InvalidezAcidentalMajorada = 1500000.00, I13a30 = 508.66, I31a35 = 559.48, I36a40 = 609.90, I41a45 = 672.76, I46a50 = 755.89, I51a55 = 852.51, I56a60 = 940.95, I61a65 = 1023.94 });
+                   new DiariaIncapacidadeTemporariaAcidente { RendaMensal = 30000.00, MorteAcidental = 1500000.00, InvalidezAcidentalMajorada = 1500000.00, I13a30 = 508.66, I31a35 = 559.48, I36a40 = 609.90, I41a45 = 672.76, I46a50 = 755.89, I51a55 = 852.51, I56a60 = 940.95, I61a65 = 1023.94 }
+            };
         }
     }
 }

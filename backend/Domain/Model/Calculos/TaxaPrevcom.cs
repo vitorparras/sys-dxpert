@@ -11,9 +11,9 @@ namespace Domain.Model.Calculos
         public double PercentualReajusteMorte { get; set; }
         public double PercentualReajusteInvalidez { get; set; }
 
-        public static void InsertData(ModelBuilder modelBuilder)
+        public static List<TaxaPrevcom> GetDados()
         {
-            modelBuilder.Entity<TaxaPrevcom>().HasData(
+            return new List<TaxaPrevcom>() {
                 new TaxaPrevcom { Idade = 14, Morte = 0.0000560, Invalidez = 0.0000691, PercentualReajusteMorte = 0, PercentualReajusteInvalidez = 0 },
                 new TaxaPrevcom { Idade = 15, Morte = 0.0000560, Invalidez = 0.0000691, PercentualReajusteMorte = 0, PercentualReajusteInvalidez = 0 },
                 new TaxaPrevcom { Idade = 16, Morte = 0.0000560, Invalidez = 0.0000691, PercentualReajusteMorte = 0, PercentualReajusteInvalidez = 0 },
@@ -115,7 +115,8 @@ namespace Domain.Model.Calculos
                 new TaxaPrevcom { Idade = 111, Morte = 0.0909634, Invalidez = 0.2205148, PercentualReajusteMorte = 11.23, PercentualReajusteInvalidez = 15.96 },
                 new TaxaPrevcom { Idade = 112, Morte = 0.0983739, Invalidez = 0.2356117, PercentualReajusteMorte = 11.24, PercentualReajusteInvalidez = 16.02 },
                 new TaxaPrevcom { Idade = 113, Morte = 0.1062007, Invalidez = 0.2513588, PercentualReajusteMorte = 11.25, PercentualReajusteInvalidez = 16.08 },
-                new TaxaPrevcom { Idade = 114, Morte = 0.1144529, Invalidez = 0.2677636, PercentualReajusteMorte = 11.26, PercentualReajusteInvalidez = 16.14 });
+                new TaxaPrevcom { Idade = 114, Morte = 0.1144529, Invalidez = 0.2677636, PercentualReajusteMorte = 11.26, PercentualReajusteInvalidez = 16.14 }
+            };
         }
 
     }

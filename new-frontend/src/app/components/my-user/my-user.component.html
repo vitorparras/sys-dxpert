@@ -1,4 +1,5 @@
 <div class="my-user-container">
+  <!-- Header -->
   <div class="header">
     <h1>Meu Perfil</h1>
   </div>
@@ -11,7 +12,7 @@
           <mat-icon>attach_money</mat-icon>
           <div class="metric-info">
             <span class="metric-label">Total de Vendas</span>
-            <span class="metric-value">R$ {{userMetrics.totalSales | number:'1.2-2'}}</span>
+            <span class="metric-value">R$ {{userMetrics.totalSales | number}}</span>
           </div>
         </div>
       </mat-card-content>
@@ -20,7 +21,7 @@
     <mat-card>
       <mat-card-content>
         <div class="metric">
-          <mat-icon>policy</mat-icon>
+          <mat-icon>description</mat-icon>
           <div class="metric-info">
             <span class="metric-label">Apólices Vendidas</span>
             <span class="metric-value">{{userMetrics.policiesSold}}</span>
@@ -52,10 +53,35 @@
         </div>
       </mat-card-content>
     </mat-card>
+
+    <mat-card>
+      <mat-card-content>
+        <div class="metric">
+          <mat-icon>receipt</mat-icon>
+          <div class="metric-info">
+            <span class="metric-label">Ticket Médio</span>
+            <span class="metric-value">R$ {{userMetrics.averageTicket | number}}</span>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+      <mat-card-content>
+        <div class="metric">
+          <mat-icon>leaderboard</mat-icon>
+          <div class="metric-info">
+            <span class="metric-label">Ranking</span>
+            <span class="metric-value">#{{userMetrics.ranking}}</span>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
   </div>
 
+  <!-- Content Grid -->
   <div class="content-grid">
-    <!-- Profile Information -->
+    <!-- Profile Form -->
     <mat-card class="form-card">
       <mat-card-header>
         <mat-card-title>Informações Pessoais</mat-card-title>
@@ -64,83 +90,151 @@
         <form [formGroup]="profileForm" (ngSubmit)="onUpdateProfile()">
           <div class="form-grid">
             <mat-form-field appearance="outline">
-              <mat-label>Nome Completo</mat-label>
-              <input matInput formControlName="name" placeholder="Seu nome">
-              <mat-error>{{getErrorMessage('name')}}</mat-error>
+              <mat-label>Nome</mat-label>
+              <input matInput formControlName="name" placeholder="Digite seu nome">
+              <mat-error *ngIf="profileForm.get('name')?.invalid">{{getErrorMessage('name')}}</mat-error>
             </mat-form-field>
 
             <mat-form-field appearance="outline">
               <mat-label>Email</mat-label>
-              <input matInput formControlName="email" placeholder="seu@email.com">
-              <mat-error>{{getErrorMessage('email')}}</mat-error>
+              <input matInput formControlName="email" type="email" placeholder="Digite seu email">
+              <mat-error *ngIf="profileForm.get('email')?.invalid">{{getErrorMessage('email')}}</mat-error>
             </mat-form-field>
 
             <mat-form-field appearance="outline">
               <mat-label>Telefone</mat-label>
               <input matInput formControlName="phone" placeholder="(99) 99999-9999">
-              <mat-error>{{getErrorMessage('phone')}}</mat-error>
+              <mat-error *ngIf="profileForm.get('phone')?.invalid">{{getErrorMessage('phone')}}</mat-error>
             </mat-form-field>
 
             <mat-form-field appearance="outline">
               <mat-label>CPF</mat-label>
               <input matInput formControlName="cpf" placeholder="999.999.999-99">
-              <mat-error>{{getErrorMessage('cpf')}}</mat-error>
+              <mat-error *ngIf="profileForm.get('cpf')?.invalid">{{getErrorMessage('cpf')}}</mat-error>
             </mat-form-field>
 
             <mat-form-field appearance="outline">
-              <mat-label>Código do Corretor</mat-label>
-              <input matInput formControlName="insuranceCode" placeholder="Seu código">
-              <mat-error>{{getErrorMessage('insuranceCode')}}</mat-error>
+              <mat-label>Código de Seguro</mat-label>
+              <input matInput formControlName="insuranceCode" placeholder="Digite seu código">
+              <mat-error *ngIf="profileForm.get('insuranceCode')?.invalid">{{getErrorMessage('insuranceCode')}}</mat-error>
             </mat-form-field>
 
             <mat-form-field appearance="outline">
               <mat-label>Departamento</mat-label>
-              <input matInput formControlName="department" placeholder="Seu departamento">
-              <mat-error>{{getErrorMessage('department')}}</mat-error>
+              <input matInput formControlName="department" placeholder="Digite seu departamento">
+              <mat-error *ngIf="profileForm.get('department')?.invalid">{{getErrorMessage('department')}}</mat-error>
             </mat-form-field>
           </div>
 
           <div class="form-actions">
-            <button mat-raised-button color="primary" type="submit" [disabled]="isLoading">
-              <mat-icon>save</mat-icon>
-              Salvar Alterações
+            <button mat-raised-button type="submit" [disabled]="profileForm.invalid || isProfileSaving">
+              <div class="button-content">
+                <mat-icon *ngIf="!isProfileSaving">save</mat-icon>
+                <mat-spinner *ngIf="isProfileSaving" [diameter]="20"></mat-spinner>
+                <span>{{ isProfileSaving ? 'Salvando...' : 'Salvar Alterações' }}</span>
+              </div>
             </button>
           </div>
         </form>
       </mat-card-content>
     </mat-card>
 
-    <!-- Password Change -->
+    <!-- Password Form -->
     <mat-card class="form-card">
       <mat-card-header>
         <mat-card-title>Alterar Senha</mat-card-title>
       </mat-card-header>
       <mat-card-content>
         <form [formGroup]="passwordForm" (ngSubmit)="onUpdatePassword()">
-          <div class="form-grid">
+          <div class="form-grid-single">
             <mat-form-field appearance="outline">
               <mat-label>Senha Atual</mat-label>
-              <input matInput type="password" formControlName="currentPassword">
-              <mat-error>{{getErrorMessage('currentPassword', passwordForm)}}</mat-error>
+              <input 
+                matInput 
+                [type]="hideCurrentPassword ? 'password' : 'text'" 
+                formControlName="currentPassword"
+                placeholder="Digite sua senha atual">
+              <button 
+                mat-icon-button 
+                matSuffix 
+                type="button"
+                (click)="hideCurrentPassword = !hideCurrentPassword">
+                <mat-icon>{{hideCurrentPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+              <mat-error *ngIf="passwordForm.get('currentPassword')?.invalid">
+                {{getErrorMessage('currentPassword', passwordForm)}}
+              </mat-error>
             </mat-form-field>
 
             <mat-form-field appearance="outline">
               <mat-label>Nova Senha</mat-label>
-              <input matInput type="password" formControlName="newPassword">
-              <mat-error>{{getErrorMessage('newPassword', passwordForm)}}</mat-error>
+              <input 
+                matInput 
+                [type]="hideNewPassword ? 'password' : 'text'" 
+                formControlName="newPassword"
+                placeholder="Digite sua nova senha">
+              <button 
+                mat-icon-button 
+                matSuffix 
+                type="button"
+                (click)="hideNewPassword = !hideNewPassword">
+                <mat-icon>{{hideNewPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+              <mat-error *ngIf="passwordForm.get('newPassword')?.invalid">
+                {{getErrorMessage('newPassword', passwordForm)}}
+              </mat-error>
             </mat-form-field>
 
             <mat-form-field appearance="outline">
               <mat-label>Confirmar Nova Senha</mat-label>
-              <input matInput type="password" formControlName="confirmPassword">
-              <mat-error>{{getErrorMessage('confirmPassword', passwordForm)}}</mat-error>
+              <input 
+                matInput 
+                [type]="hideConfirmPassword ? 'password' : 'text'" 
+                formControlName="confirmPassword"
+                placeholder="Confirme sua nova senha">
+              <button 
+                mat-icon-button 
+                matSuffix 
+                type="button"
+                (click)="hideConfirmPassword = !hideConfirmPassword">
+                <mat-icon>{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+              <mat-error *ngIf="passwordForm.get('confirmPassword')?.invalid">
+                {{getErrorMessage('confirmPassword', passwordForm)}}
+              </mat-error>
             </mat-form-field>
           </div>
 
+          <div class="password-rules">
+            <div class="rule" [class.valid]="passwordStrength.hasMinLength">
+              <mat-icon>{{ passwordStrength.hasMinLength ? 'check_circle' : 'cancel' }}</mat-icon>
+              <span>Mínimo de 8 caracteres</span>
+            </div>
+            <div class="rule" [class.valid]="passwordStrength.hasUpperCase">
+              <mat-icon>{{ passwordStrength.hasUpperCase ? 'check_circle' : 'cancel' }}</mat-icon>
+              <span>Pelo menos uma letra maiúscula</span>
+            </div>
+            <div class="rule" [class.valid]="passwordStrength.hasLowerCase">
+              <mat-icon>{{ passwordStrength.hasLowerCase ? 'check_circle' : 'cancel' }}</mat-icon>
+              <span>Pelo menos uma letra minúscula</span>
+            </div>
+            <div class="rule" [class.valid]="passwordStrength.hasNumber">
+              <mat-icon>{{ passwordStrength.hasNumber ? 'check_circle' : 'cancel' }}</mat-icon>
+              <span>Pelo menos um número</span>
+            </div>
+            <div class="rule" [class.valid]="passwordStrength.hasSpecialChar">
+              <mat-icon>{{ passwordStrength.hasSpecialChar ? 'check_circle' : 'cancel' }}</mat-icon>
+              <span>Pelo menos um caractere especial</span>
+            </div>
+          </div>
+
           <div class="form-actions">
-            <button mat-raised-button color="primary" type="submit" [disabled]="isLoading">
-              <mat-icon>lock</mat-icon>
-              Alterar Senha
+            <button mat-raised-button type="submit" [disabled]="passwordForm.invalid || isPasswordSaving">
+              <div class="button-content">
+                <mat-icon *ngIf="!isPasswordSaving">lock</mat-icon>
+                <mat-spinner *ngIf="isPasswordSaving" [diameter]="20"></mat-spinner>
+                <span>{{ isPasswordSaving ? 'Atualizando...' : 'Atualizar Senha' }}</span>
+              </div>
             </button>
           </div>
         </form>
@@ -155,35 +249,98 @@
       <mat-card-content>
         <form [formGroup]="notificationForm" (ngSubmit)="onUpdateNotifications()">
           <div class="notifications-grid">
-            <mat-slide-toggle formControlName="emailNotifications">
-              Notificações por Email
-            </mat-slide-toggle>
+            <!-- Email Notifications -->
+            <div class="notification-option" [class.active]="notificationForm.get('emailNotifications')?.value" (click)="toggleNotification('emailNotifications')">
+              <div class="notification-content">
+                <div class="notification-header">
+                  <mat-icon>email</mat-icon>
+                  <span>Notificações por Email</span>
+                </div>
+                <div class="notification-status">
+                  <div class="status-indicator"></div>
+                  <span>{{notificationForm.get('emailNotifications')?.value ? 'Ativado' : 'Desativado'}}</span>
+                </div>
+              </div>
+            </div>
 
-            <mat-slide-toggle formControlName="smsNotifications">
-              Notificações por SMS
-            </mat-slide-toggle>
+            <!-- SMS Notifications -->
+            <div class="notification-option" [class.active]="notificationForm.get('smsNotifications')?.value" (click)="toggleNotification('smsNotifications')">
+              <div class="notification-content">
+                <div class="notification-header">
+                  <mat-icon>sms</mat-icon>
+                  <span>Notificações por SMS</span>
+                </div>
+                <div class="notification-status">
+                  <div class="status-indicator"></div>
+                  <span>{{notificationForm.get('smsNotifications')?.value ? 'Ativado' : 'Desativado'}}</span>
+                </div>
+              </div>
+            </div>
 
-            <mat-slide-toggle formControlName="weeklyReport">
-              Relatório Semanal
-            </mat-slide-toggle>
+            <!-- Weekly Report -->
+            <div class="notification-option" [class.active]="notificationForm.get('weeklyReport')?.value" (click)="toggleNotification('weeklyReport')">
+              <div class="notification-content">
+                <div class="notification-header">
+                  <mat-icon>assessment</mat-icon>
+                  <span>Relatório Semanal</span>
+                </div>
+                <div class="notification-status">
+                  <div class="status-indicator"></div>
+                  <span>{{notificationForm.get('weeklyReport')?.value ? 'Ativado' : 'Desativado'}}</span>
+                </div>
+              </div>
+            </div>
 
-            <mat-slide-toggle formControlName="monthlyReport">
-              Relatório Mensal
-            </mat-slide-toggle>
+            <!-- Monthly Report -->
+            <div class="notification-option" [class.active]="notificationForm.get('monthlyReport')?.value" (click)="toggleNotification('monthlyReport')">
+              <div class="notification-content">
+                <div class="notification-header">
+                  <mat-icon>insert_chart</mat-icon>
+                  <span>Relatório Mensal</span>
+                </div>
+                <div class="notification-status">
+                  <div class="status-indicator"></div>
+                  <span>{{notificationForm.get('monthlyReport')?.value ? 'Ativado' : 'Desativado'}}</span>
+                </div>
+              </div>
+            </div>
 
-            <mat-slide-toggle formControlName="newPolicyAlert">
-              Alertas de Novas Apólices
-            </mat-slide-toggle>
+            <!-- New Policy Alerts -->
+            <div class="notification-option" [class.active]="notificationForm.get('newPolicyAlert')?.value" (click)="toggleNotification('newPolicyAlert')">
+              <div class="notification-content">
+                <div class="notification-header">
+                  <mat-icon>policy</mat-icon>
+                  <span>Alertas de Novas Apólices</span>
+                </div>
+                <div class="notification-status">
+                  <div class="status-indicator"></div>
+                  <span>{{notificationForm.get('newPolicyAlert')?.value ? 'Ativado' : 'Desativado'}}</span>
+                </div>
+              </div>
+            </div>
 
-            <mat-slide-toggle formControlName="renewalReminders">
-              Lembretes de Renovação
-            </mat-slide-toggle>
+            <!-- Renewal Reminders -->
+            <div class="notification-option" [class.active]="notificationForm.get('renewalReminders')?.value" (click)="toggleNotification('renewalReminders')">
+              <div class="notification-content">
+                <div class="notification-header">
+                  <mat-icon>update</mat-icon>
+                  <span>Lembretes de Renovação</span>
+                </div>
+                <div class="notification-status">
+                  <div class="status-indicator"></div>
+                  <span>{{notificationForm.get('renewalReminders')?.value ? 'Ativado' : 'Desativado'}}</span>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div class="form-actions">
-            <button mat-raised-button color="primary" type="submit" [disabled]="isLoading">
-              <mat-icon>notifications</mat-icon>
-              Salvar Preferências
+            <button mat-raised-button type="submit" [disabled]="notificationForm.invalid || isNotificationsSaving">
+              <div class="button-content">
+                <mat-icon *ngIf="!isNotificationsSaving">notifications</mat-icon>
+                <mat-spinner *ngIf="isNotificationsSaving" [diameter]="20"></mat-spinner>
+                <span>{{ isNotificationsSaving ? 'Salvando...' : 'Salvar Preferências' }}</span>
+              </div>
             </button>
           </div>
         </form>

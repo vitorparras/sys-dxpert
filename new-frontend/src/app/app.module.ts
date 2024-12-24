@@ -23,6 +23,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -83,6 +84,8 @@ import { ForgotPasswordModalComponent } from './components/forgot-password-modal
     MatMenuModule,
     MatDividerModule,
     MatTooltipModule,
+    MatSlideToggleModule
+    
   ],
   providers: [AuthGuard, AdminGuard],
   bootstrap: [AppComponent]

@@ -1,49 +1,57 @@
-<div class="particles">
-  <div class="particle" *ngFor="let i of [].constructor(50)"></div>
-</div>
+<canvas #canvas class="background-canvas"></canvas>
 
 <div class="login-container">
   <div class="logo-container">
-    <img src="assets/logo.jpg" alt="dxpert logo">
+    <img src="assets/logo.png" alt="Logo" class="logo">
   </div>
 
-  <div class="login-card">
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <div class="login-box">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
       <div class="form-field">
-        <mat-form-field appearance="outline">
-          <mat-label>Email</mat-label>
-          <input matInput formControlName="email" placeholder="Digite seu email" type="email">
-          <mat-icon matPrefix>email</mat-icon>
-          <mat-error *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
-            {{getErrorMessage('email')}}
-          </mat-error>
-        </mat-form-field>
+        <label class="field-label">Email</label>
+        <div class="input-container">
+          <mat-icon class="field-icon">email</mat-icon>
+          <input 
+            type="email" 
+            formControlName="email" 
+            placeholder="Digite seu email"
+            [class.error]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+        </div>
+        <div class="error-message" *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+          {{getErrorMessage('email')}}
+        </div>
       </div>
 
       <div class="form-field">
-        <mat-form-field appearance="outline">
-          <mat-label>Senha</mat-label>
-          <input matInput formControlName="password" [type]="hidePassword ? 'password' : 'text'" placeholder="Digite sua senha">
-          <mat-icon matPrefix>lock</mat-icon>
-          <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" type="button">
+        <label class="field-label">Senha</label>
+        <div class="input-container">
+          <mat-icon class="field-icon">lock</mat-icon>
+          <input 
+            [type]="hidePassword ? 'password' : 'text'" 
+            formControlName="password" 
+            placeholder="Digite sua senha"
+            [class.error]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+          <button 
+            type="button" 
+            class="visibility-toggle" 
+            (click)="hidePassword = !hidePassword">
             <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
-          <mat-error *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
-            {{getErrorMessage('password')}}
-          </mat-error>
-        </mat-form-field>
+        </div>
+        <div class="error-message" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+          {{getErrorMessage('password')}}
+        </div>
       </div>
 
-      <button mat-flat-button class="login-button" type="submit" [disabled]="loginForm.invalid || isLoading">
-        <ng-container *ngIf="!isLoading">
-          ENTRAR
-        </ng-container>
-        <mat-spinner class="spinner" diameter="24" *ngIf="isLoading"></mat-spinner>
+      <button 
+        type="submit" 
+        class="login-button" 
+        [disabled]="loginForm.invalid || isLoading">
+        <span *ngIf="!isLoading">Entrar</span>
+        <mat-spinner *ngIf="isLoading" diameter="24"></mat-spinner>
       </button>
 
-      <div class="forgot-password">
-        <a href="#">Esqueceu sua senha?</a>
-      </div>
+      <a href="#" class="forgot-password">Esqueceu sua senha?</a>
     </form>
   </div>
 </div>

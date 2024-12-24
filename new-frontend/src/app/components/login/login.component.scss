@@ -36,19 +36,25 @@ $box-border: rgba(255, 165, 0, 0.3);
 
 .logo-container {
   margin-bottom: 2rem;
-  animation: logoAnimation 1s ease-out;
+  animation: floatAnimation 4s ease-in-out infinite;
 
   .logo {
-    width: 180px;
+    width: 280px;
     height: auto;
     filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2));
   }
+}
+
+@keyframes floatAnimation {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
 }
 
 @keyframes logoAnimation {
   0% { transform: translateY(-20px); opacity: 0; }
   100% { transform: translateY(0); opacity: 1; }
 }
+
 
 .login-box {
   background: rgba(0, 0, 0, 0.3);
@@ -198,7 +204,7 @@ $box-border: rgba(255, 165, 0, 0.3);
   }
 
   .logo-container .logo {
-    width: 140px;
+    width: 220px; 
   }
 }
 

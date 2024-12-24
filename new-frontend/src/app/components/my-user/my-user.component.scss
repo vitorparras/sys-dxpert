@@ -1,0 +1,176 @@
+.my-user-container {
+    padding: 24px;
+    background-color: #f8f9fa;
+    min-height: 100vh;
+  
+    .header {
+      margin-bottom: 24px;
+  
+      h1 {
+        margin: 0;
+        font-size: 24px;
+        font-weight: 500;
+        color: rgba(0, 0, 0, 0.87);
+      }
+    }
+  
+    // Performance Metrics
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+      margin-bottom: 24px;
+  
+      mat-card {
+        background: white;
+        border-radius: 12px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+  
+        .metric {
+          display: flex;
+          align-items: center;
+          padding: 16px;
+  
+          mat-icon {
+            width: 40px;
+            height: 40px;
+            font-size: 40px;
+            margin-right: 16px;
+            color: #FF6B00;
+          }
+  
+          .metric-info {
+            display: flex;
+            flex-direction: column;
+  
+            .metric-label {
+              font-size: 14px;
+              color: rgba(0, 0, 0, 0.6);
+              margin-bottom: 4px;
+            }
+  
+            .metric-value {
+              font-size: 24px;
+              font-weight: 500;
+              color: rgba(0, 0, 0, 0.87);
+            }
+          }
+        }
+      }
+    }
+  
+    // Content Grid
+    .content-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 24px;
+  
+      .form-card {
+        background: white;
+        border-radius: 12px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+  
+        mat-card-header {
+          padding: 16px;
+          border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  
+          mat-card-title {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 500;
+          }
+        }
+  
+        mat-card-content {
+          padding: 24px;
+  
+          .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+          }
+  
+          .notifications-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+  
+            mat-slide-toggle {
+              margin: 8px 0;
+            }
+          }
+  
+          .form-actions {
+            display: flex;
+            justify-content: flex-end;
+  
+            button {
+              min-width: 150px;
+  
+              mat-icon {
+                margin-right: 8px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  // Responsive Adjustments
+  @media (max-width: 767px) {
+    .my-user-container {
+      padding: 16px;
+  
+      .metrics-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+  
+      .content-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+  
+        .form-card {
+          mat-card-content {
+            .form-grid,
+            .notifications-grid {
+              grid-template-columns: 1fr;
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  // Form Field Styles
+  mat-form-field {
+    width: 100%;
+  }
+  
+  // Success/Error Snackbar Styles
+  ::ng-deep {
+    .success-snackbar {
+      background: #4caf50;
+      color: white;
+    }
+  
+    .error-snackbar {
+      background: #f44336;
+      color: white;
+    }
+  }
+  
+  

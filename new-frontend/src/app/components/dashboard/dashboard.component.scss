@@ -1,110 +1,158 @@
 .dashboard-container {
-    padding: 24px;
+  padding: 24px;
+  background-color: #f8f9fa;
+  min-height: 100%;
+}
+
+// Header
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+
+  h1 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.87);
   }
-  
-  .dashboard-header {
+
+  .mat-form-field {
+    width: 200px;
+    margin-bottom: -1.25em;
+  }
+}
+
+// Metrics Grid
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.metric-card {
+  background: white;
+  border-radius: 12px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  .metric-content {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin-bottom: 24px;
-    
-    h1 {
-      margin: 0;
-      font-size: 24px;
-      font-weight: 500;
-    }
+    padding: 16px;
   }
-  
-  .dashboard-actions {
-    .period-select {
-      width: 200px;
-      margin: 0;
-    }
-  }
-  
-  .dashboard-stats {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 24px;
-    margin-bottom: 24px;
-    
-    .mat-card {
-      margin: 0;
-    }
-  }
-  
-  .stat-content {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-  
-  .stat-icon {
+
+  .metric-icon {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 48px;
     height: 48px;
     border-radius: 12px;
-    background-color: rgba(63, 81, 181, 0.1);
-    
-    .mat-icon {
-      color: #3f51b5;
+    background-color: rgba(255, 107, 0, 0.1);
+    margin-right: 16px;
+
+    mat-icon {
+      color: #FF6B00;
       font-size: 24px;
       width: 24px;
       height: 24px;
     }
   }
-  
-  .stat-info {
+
+  .metric-info {
     display: flex;
     flex-direction: column;
-  }
-  
-  .stat-label {
-    font-size: 14px;
-    color: rgba(0, 0, 0, 0.6);
-  }
-  
-  .stat-value {
-    font-size: 24px;
-    font-weight: 500;
-    margin: 4px 0;
-  }
-  
-  .stat-change {
-    font-size: 14px;
-    font-weight: 500;
-    
-    &.positive {
-      color: #4caf50;
+
+    .metric-title {
+      font-size: 14px;
+      color: rgba(0, 0, 0, 0.6);
+      margin-bottom: 4px;
     }
-    
-    &.negative {
-      color: #f44336;
+
+    .metric-value {
+      font-size: 24px;
+      font-weight: 500;
+      color: rgba(0, 0, 0, 0.87);
+      margin-bottom: 4px;
     }
-  }
-  
-  .dashboard-charts {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-    gap: 24px;
-    
-    @media (max-width: 599px) {
-      grid-template-columns: 1fr;
+
+    .metric-change {
+      font-size: 14px;
+      font-weight: 500;
+
+      &.positive {
+        color: #4caf50;
+      }
+
+      &.negative {
+        color: #f44336;
+      }
     }
   }
-  
+}
+
+// Charts Grid
+.charts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 24px;
+
   .chart-card {
-    margin: 0;
-    height: 400px;
-    
-    .mat-card-content {
-      height: calc(100% - 64px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    background: white;
+    border-radius: 12px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    mat-card-content {
+      padding: 16px;
+    }
+
+    .chart-container {
+      height: 300px;
+      position: relative;
     }
   }
-  
-  
+}
+
+// Responsive Adjustments
+@media (max-width: 767px) {
+  .dashboard-container {
+    padding: 16px;
+  }
+
+  .dashboard-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+
+    .mat-form-field {
+      width: 100%;
+    }
+  }
+
+  .metrics-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .charts-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+
+    .chart-card .chart-container {
+      height: 250px;
+    }
+  }
+}
+

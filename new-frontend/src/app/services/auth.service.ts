@@ -13,11 +13,15 @@ export class AuthService {
 
   login(email: string, password: string): Observable<boolean> {
     // Mock de autenticação
+
+    this.isAuthenticated = true;
+    // var teste = email == "admin@example.com";
+    this.isAdminUser = true;
+    return of(true).pipe(delay(1000));
+
+
     if (email === 'user@example.com' && password === 'password') {
-      this.isAuthenticated = true;
-      // var teste = email == "admin@example.com";
-      this.isAdminUser = true;
-      return of(true).pipe(delay(1000)); // Simula delay de rede
+      // Simula delay de rede
     }
     return of(false).pipe(delay(1000));
   }

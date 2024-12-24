@@ -1,0 +1,717 @@
+
+/* FORMULARIO */
+
+:host #formulario {
+    width: 94%;
+    max-width: 700px;
+    margin: -240px auto 80px;
+  }
+  
+  :host #formulario.relatorio {
+    max-width: 625px;
+  }
+  
+  :host #formulario .logo-form {
+    text-align: center;
+    margin: 0 0 2.8em;
+  }
+  
+  :host .titulo-principal {
+    color: #fff;
+    font-size: 2.8em;
+    font-weight: 500;
+    line-height: 1.2em;
+    text-align: center;
+    margin: 0 0 48px;
+  }
+  
+  :host #formulario.relatorio .titulo-principal {
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  :host #formulario.relatorio .titulo-principal a {
+    color: #ff8400;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 16px 44px;
+    border-radius: 10px;
+    background-color: #fff;
+  }
+  
+  :host #formulario.relatorio .titulo-principal a img {
+    margin: 0 0 0 4px;
+    vertical-align: middle;
+  }
+  
+  :host .subtitulo,
+  :host .subtitulo-laranja {
+    color: #2f353c;
+    font-size: 2.8em;
+    font-weight: 500;
+    line-height: 1.2em;
+    text-align: center;
+    margin: 0 0 1em;
+  }
+  
+  :host .subtitulo-laranja {
+    color: #ff8400;
+    font-size: 2.5em;
+    margin: 0 0 0.8em;
+  }
+  
+  :host .subtitulo-laranja.tp2 {
+    font-size: 17px;
+    text-align: left;
+  }
+  
+  :host .subtitulo2 {
+    color: #6d7278;
+    font-size: 1.8em;
+    font-weight: 500;
+    line-height: 1.2em;
+    margin: 0 0 1em;
+  }
+  
+  :host .icone-sucesso {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  :host #formulario .form {
+    padding: 50px;
+    border-radius: 30px;
+    background-color: #fff;
+    position: relative;
+  }
+  
+  :host #formulario .form .tp2 label {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  :host #formulario .form label span {
+    font-size: 1.6em;
+    line-height: 1.4em;
+    margin: 0 0 1em;
+    display: block;
+  }
+  
+  :host #formulario .form .box3 label span {
+    font-size: 1.5em;
+  }
+  
+  :host #formulario .form .tp2 label span {
+    width: 40%;
+  }
+  
+  :host #formulario .form input[type="text"],
+  :host .form input[type="email"],
+  :host .form input[type="date"],
+  :host #formulario .form input[type="password"],
+  :host #formulario .form textarea {
+    color: #6d7278;
+    width: 100%;
+    font-size: 15px;
+    margin: 0 0 22px;
+    padding: 22px 24px;
+    border-radius: 10px;
+    border: solid 1px #f3f3f3;
+    background-color: #f3f3f3;
+    font-family: "Poppins", sans-serif;
+  }
+  
+  :host #formulario .form textarea {
+    min-height: 120px;
+  }
+  
+  :host #formulario .form .box3 input {
+    font-size: 13px;
+    padding: 22px 4px;
+  }
+  
+  :host #formulario .form .tp2 label input {
+    width: 60%;
+  }
+  
+  :host #formulario .form .bg-porcentagem input {
+    background: url(/assets/imgs/cadastro/bg-porcentagem.png) no-repeat 97% center
+      #f3f3f3;
+  }
+  
+  :host .radio {
+    margin: 0 0 18px;
+  }
+  
+  :host .radio input[type="radio"] {
+    display: none;
+  }
+  
+  :host .radio label {
+    cursor: pointer;
+    position: relative;
+    font-size: 16px;
+    padding: 0 0 0 25px;
+    margin-right: 20px;
+  }
+  
+  :host .radio label::before {
+    content: "";
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    background-color: transparent;
+    border: 2px solid #ff8400;
+    border-radius: 50%;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    transition: border-color 400ms ease;
+  }
+  
+  :host .radio label::after {
+    content: "";
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    background-color: #ff8400;
+    border: 2px solid #ff8400;
+    border-radius: 50%;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%) scale(0);
+    transition: transform 400ms ease;
+  }
+  
+  :host .radio input[type="radio"]:checked + label::before {
+    border-color: #ff8400;
+  }
+  
+  :host .radio input[type="radio"]:checked + label::after {
+    transform: translateY(-50%) scale(0.55);
+  }
+  
+  :host #formulario .form .selecione {
+    margin: 0 0 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  :host #formulario .form .feminino,
+  :host #formulario .form .masculino {
+    width: 48%;
+    min-height: 70px;
+    padding: 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #f3f3f3;
+  }
+  
+  :host #formulario .form .feminino {
+    background-image: url(/assets/imgs/cadastro/icone-feminino.png);
+  }
+  
+  :host #formulario .form .feminino.selecionado {
+    background-color: #ff8400;
+    background-image: url(/assets/imgs/cadastro/icone-feminino2.png);
+  }
+  
+  :host #formulario .form .masculino {
+    background-image: url(/assets/imgs/cadastro/icone-masculino.png);
+  }
+  
+  :host #formulario .form .masculino.selecionado {
+    background-color: #ff8400;
+    background-image: url(/assets/imgs/cadastro/icone-masculino2.png);
+  }
+  
+  :host #formulario .form .selecione input {
+    opacity: 0;
+  }
+  
+  :host #formulario .form .esqueci-dados {
+    color: #758696;
+    font-size: 1.6em;
+    line-height: 1.1em;
+    font-weight: 500;
+    text-align: center;
+    margin: 10px 0 32px;
+  }
+  
+  :host #formulario .form button {
+    width: 100%;
+    color: #fff;
+    font-size: 1.6em;
+    line-height: 1em;
+    font-weight: 500;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #ff8400;
+    border: solid 2px #ff8400;
+  }
+  
+  :host #formulario .form button img {
+    margin: 0 0 2px 5px;
+    vertical-align: middle;
+  }
+  
+  :host #formulario .form button:hover {
+    border: solid 2px #ff6b00;
+  }
+  
+  :host #formulario .form button.bg-cinza {
+    background-color: #758696;
+    border: solid 2px #758696;
+  }
+  
+  :host .info-filho {
+    margin: 0 -18px;
+    padding: 22px 18px 0;
+    border-top: solid 2px #eeeeee;
+  }
+  
+  :host .add-dados-filho,
+  :host .add-mais-beneficiario {
+    color: #ff8400;
+    font-size: 16px;
+    font-weight: 500;
+    margin: 0 0 22px;
+    text-align: center;
+    cursor: pointer;
+  }
+  
+  :host .select {
+    position: relative;
+    display: block;
+    max-width: 700px;
+    /*AQUi*/
+    min-width: 180px;
+    margin: 0 auto 22px;
+    border-radius: 10px;
+    border: 1px solid #f3f3f3;
+    background: url(/assets/imgs/cadastro/bg-select.png) no-repeat 95% center
+      #f3f3f3;
+    z-index: 10;
+  }
+  
+  :host .select select {
+    border: none;
+    outline: none;
+    background: transparent;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 0;
+    margin: 0;
+    display: block;
+    width: 100%;
+    border-radius: 10px;
+    padding: 20px 55px 20px 24px;
+    font-size: 15px;
+    color: #6d7278;
+    font-family: "Poppins", sans-serif;
+  }
+  
+  :host .loading {
+    text-align: center;
+    margin: 0 0 26px;
+  }
+  
+  :host .msg-info {
+    font-size: 16px;
+    line-height: 1.4em;
+    text-align: center;
+    margin: 0 0 48px;
+  }
+  
+  :host .msg-beneficio-fiscar {
+    font-size: 1.6em;
+    line-height: 1.6em;
+    text-align: center;
+    padding: 2em 0;
+    margin: 0 0 32px;
+    border-top: solid 1px #e3e3e4;
+    border-bottom: solid 1px #e3e3e4;
+  }
+  
+  :host .msg-beneficio-fiscar .destaque {
+    color: #ff8400;
+    font-size: 28px;
+    font-weight: 500;
+    margin: 0 0.2em;
+  }
+  
+  :host #formulario .form .capital-segurado {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  :host #formulario .form .capital-segurado label {
+    width: 24%;
+    font-size: 1.6em;
+  }
+  
+  :host #formulario .form .capital-segurado input {
+    width: 46%;
+  }
+  
+  :host #formulario .form .capital-segurado span {
+    font-size: 1.6em;
+    display: none;
+  }
+  
+  :host #formulario .form .capital-segurado .valor {
+    width: 20%;
+    color: #ff8400;
+    font-size: 1.6em;
+    font-weight: 500;
+  }
+  
+  :host #formulario .form .capital-segurado .Remover {
+    width: 4%;
+    color: #ff8400;
+    font-size: 1.6em;
+    font-weight: 500;
+    padding-right: 3%;
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+    text-decoration: wavy;
+  }
+  
+  :host .msg-total-investimento {
+    font-size: 1.6em;
+    line-height: 1.6em;
+    padding: 2em 0;
+    margin: 0 0 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top: solid 1px #e3e3e4;
+    border-bottom: solid 1px #e3e3e4;
+  }
+  
+  :host .msg-total-investimento .destaque {
+    width: 70%;
+    color: #ff8400;
+    font-size: 28px;
+    font-weight: 500;
+    margin: 0 0.2em;
+  }
+  
+  :host .msg-renda {
+    font-size: 1.6em;
+    text-align: center;
+    margin: -16px 0 40px;
+  }
+  
+  :host #formulario .form .renda-mensal {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+  :host #formulario .form .renda-mensal span {
+    font-size: 1.6em;
+    display: none;
+    margin: 0 0 0.7em;
+  }
+  
+  :host #formulario .form .renda-mensal input {
+    width: calc(100% - 220px);
+    padding: 22px 16px;
+  }
+  
+  :host #formulario .form .renda-mensal .item {
+    width: 160px;
+    margin: 8px 0 0;
+  }
+  
+  :host #formulario .form .renda-mensal .item .valor {
+    font-size: 2em;
+    font-weight: 500;
+    line-height: 1.2em;
+    margin: 0 0 0.1em;
+  }
+  
+  :host #formulario .form .renda-mensal .item .txt {
+    font-size: 1.6em;
+  }
+  
+  :host #formulario .form .endereco,
+  :host #formulario .form .bairro-complemento {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  :host #formulario .form .div-endereco {
+    width: calc(100% - 125px);
+  }
+  
+  :host #formulario .form .div-numero {
+    width: 100px;
+  }
+  
+  :host #formulario .form .bairro-complemento div {
+    width: 48%;
+  }
+  
+  :host .forma-pagamento {
+    margin: 0 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  :host .forma-pagamento input {
+    opacity: 0;
+  }
+  
+  :host .forma-pagamento .debito,
+  :host .forma-pagamento .credito,
+  :host .forma-pagamento .boleto {
+    width: 32%;
+    height: 75px;
+    border-radius: 10px;
+    cursor: pointer;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #f3f3f3;
+  }
+  
+  :host .forma-pagamento .debito.selecionado,
+  :host .forma-pagamento .credito.selecionado,
+  :host .forma-pagamento .boleto.selecionado {
+    background-color: #ff8400;
+  }
+  
+  :host .forma-pagamento .debito {
+    background-image: url(/assets/imgs/cadastro/icone-debito.png);
+  }
+  
+  :host .forma-pagamento .debito.selecionado {
+    background-image: url(/assets/imgs/cadastro/icone-debito-selecionado.png);
+  }
+  
+  :host .forma-pagamento .credito {
+    background-image: url(/assets/imgs/cadastro/icone-credito.png);
+  }
+  
+  :host .forma-pagamento .credito.selecionado {
+    background-image: url(/assets/imgs/cadastro/icone-credito-selecionado.png);
+  }
+  
+  :host .forma-pagamento .boleto {
+    background-image: url(/assets/imgs/cadastro/icone-boleto.png);
+  }
+  
+  :host .forma-pagamento .boleto.selecionado {
+    background-image: url(/assets/imgs/cadastro/icone-boleto-selecionado.png);
+  }
+  
+  :host .div-forma-pagamento {
+    display: none;
+  }
+  
+  :host .div-forma-pagamento.selecionado {
+    display: block;
+  }
+  
+  :host #formulario.relatorio .personalizar {
+    margin: 0 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  :host #formulario.relatorio .personalizar .txt {
+    color: #1d1d1b;
+    font-size: 12px;
+  }
+  
+  :host #formulario.relatorio .personalizar .txt img {
+    margin: 0 0 0 5px;
+    vertical-align: middle;
+  }
+  
+  :host #formulario.relatorio .personalizar .item {
+    color: #ffffff;
+    font-size: 12px;
+    padding: 12px 18px;
+    border-radius: 5px;
+    background-color: #748595;
+  }
+  
+  :host #formulario.relatorio .personalizar .item span {
+    font-size: 8px;
+  }
+  
+  :host #formulario.relatorio .tabela {
+    width: 100%;
+    margin: 0 0 25px;
+    border-collapse: collapse;
+  }
+  
+  :host #formulario.relatorio .tabela thead th {
+    color: #575756;
+    font-size: 10px;
+    padding: 10px;
+  }
+  
+  :host #formulario.relatorio .tabela tbody th {
+    font-size: 11px;
+    padding: 10px;
+  }
+  
+  :host #formulario.relatorio .tabela tbody th span {
+    color: #ef8118;
+    font-size: 12px;
+  }
+  
+  :host #formulario.relatorio .tabela tbody td {
+    color: #1d1d1b;
+    font-size: 13px;
+    padding: 10px;
+  }
+  
+  :host #formulario.relatorio .tabela tbody tr:nth-child(odd) {
+    background-color: #f5f5f5;
+  }
+  
+  :host #formulario.relatorio .tabela tfoot td {
+    font-size: 12px;
+    text-align: right;
+    padding: 10px;
+  }
+  
+  :host #formulario.relatorio .tabela tfoot td span {
+    color: #ef8118;
+    font-weight: 500;
+  }
+  
+  @media screen and (max-width: 560px) {
+    :host #formulario.relatorio .titulo-principal {
+      flex-direction: column;
+    }
+    :host #formulario.relatorio .titulo-principal a {
+      margin-top: 10px;
+      padding: 10px 30px;
+    }
+  }
+  
+  @media screen and (max-width: 550px) {
+    :host #formulario {
+      margin-bottom: 40px;
+    }
+    :host #formulario .form {
+      padding: 30px 18px;
+      border-radius: 20px;
+    }
+    :host #formulario.relatorio {
+      overflow: hidden;
+    }
+    :host #formulario.relatorio .form {
+      width: 500px;
+      overflow: hidden;
+    }
+  }
+  
+  @media screen and (max-width: 480px) {
+    :host #formulario .form .capital-segurado {
+      margin: 0 0 3em;
+    }
+    :host #formulario .form .capital-segurado label,
+    :host #formulario .form .capital-segurado input {
+      width: 100%;
+      margin: 0 0 14px;
+    }
+    :host #formulario .form .capital-segurado span {
+      display: block;
+    }
+  }
+  
+  @media screen and (max-width: 430px) {
+    :host .msg-total-investimento {
+      flex-wrap: wrap;
+      justify-content: flex-start;
+    }
+    :host .msg-total-investimento .txt {
+      width: 100%;
+      margin: 0 0 5px;
+    }
+    :host .msg-total-investimento .destaque {
+      width: auto;
+      margin: 0 0.2em 0 0;
+    }
+    :host .msg-total-investimento .mes {
+      color: #ff8400;
+      font-size: 28px;
+      font-weight: 500;
+    }
+    :host #formulario .form .renda-mensal {
+      margin: 0 0 30px;
+      justify-content: space-around;
+    }
+    :host #formulario .form .renda-mensal span {
+      width: 100%;
+      display: block;
+    }
+    :host #formulario .form .renda-mensal input {
+      width: 100%;
+      text-align: center;
+    }
+  }
+  
+  @media screen and (max-width: 400px) {
+    :host .msg-beneficio-fiscar {
+      text-align: left;
+    }
+    :host .msg-beneficio-fiscar .destaque-mobile {
+      color: #ff8400;
+      font-size: 28px;
+      font-weight: 500;
+      display: block;
+      margin: 0.2em 0 0;
+    }
+    :host .msg-beneficio-fiscar .destaque {
+      margin: 0;
+    }
+    :host #formulario .form .bairro-complemento {
+      flex-direction: column;
+    }
+    :host #formulario .form .bairro-complemento div {
+      width: 100%;
+    }
+  }
+  
+  @media screen and (max-width: 370px) {
+    :host #formulario .form .tp2 label {
+      flex-direction: column;
+    }
+    :host #formulario .form .tp2 label span,
+    :host #formulario .form .tp2 label input {
+      width: 100%;
+    }
+  }
+  
+  
+  .my-spinner-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(128,128,128,0.5); /* Isso faz o fundo ficar cinza com 50% de opacidade */
+    z-index: 999999999; /* Isso garante que o spinner fique acima de outros elementos */
+  }

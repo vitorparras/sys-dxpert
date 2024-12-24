@@ -1,0 +1,81 @@
+<div class="panel-header panel-header-sm">
+</div>
+<div class="main-content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title"> Configurações </h4>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table">
+              <thead class=" text-primary">
+                <th>
+                  Id
+                </th>
+                <th>
+                  Nome
+                </th>
+                <th>
+                    Tipo
+                </th>
+                <th>
+                    Valor
+                  </th>
+                <th class="text-left d-flex justify-content-end ml-5" style="margin-right: 3em;">
+                  Ações
+                </th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let configuracao of configuracoes; let i = index">
+                  <td>{{configuracao.id?? "Indefinido" }}</td>
+                  <td>{{configuracao.nome}}</td>
+                  <td>{{configuracao.tipo}}</td>
+                  <td>{{configuracao.valor}}</td>
+                  <td class="text-right d-flex justify-content-end">
+                    <button mat-fab extended color="accent" class="m-2" (click)="openEditUserModal(configuracao)"  >
+                      <mat-icon>edit</mat-icon>
+                      Editar
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal edit -->
+<div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true" #editUserModal>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title" id="editUserModalLabel">Editar Configuração {{editNomeConfig}}</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="editValueConfig">{{editNomeConfig}}:</label>
+                <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="editValueConfig"
+                required
+            />
+
+        </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="saveEdit()">Salvar</button>
+          <button type="button" id="btnfecharModalEdit" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

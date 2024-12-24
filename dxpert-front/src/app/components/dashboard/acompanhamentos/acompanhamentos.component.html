@@ -1,0 +1,64 @@
+<div class="panel-header panel-header-sm">
+</div>
+<div class="main-content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title"> Acompanhamentos </h4>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table">
+              <thead class=" text-primary">
+                <th>ID Cadastro</th>
+                <th>Email Cadastro</th>
+                <th>Telefone Cadastro</th>
+                <th>Etapa Cadastro</th>
+                <th>User Responsavel</th>
+                <th class="text-left d-flex justify-content-end ml-5" style="margin-right: 3em;">
+                  Ações
+                </th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let acompanhamento of Acompanhamentos">
+                  <td>{{acompanhamento.cadastroId}}</td>
+                  <td>{{acompanhamento.cadastroEmail}}</td>
+                  <td>{{acompanhamento.cadastroTelefone}}</td>
+                  <td>{{acompanhamento.cadastroEtapa}}</td>
+                  <td>{{acompanhamento.userResponsavel}}</td>
+                
+
+                  <td class="text-right d-flex justify-content-end">
+                  
+                    <button mat-fab extended color="primary" class="m-2" (click)="openEditUserModal(acompanhamento.cadastroId)">
+                      <mat-icon>list</mat-icon>
+                      Detalhes
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal add -->
+<div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true" #addUserModal>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">Adicionar usuário</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      </div>
+      <div class="modal-body">
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="btnfecharModalAdd" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>

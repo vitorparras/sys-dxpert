@@ -1,0 +1,17 @@
+<div class="wrapper">
+  <div class="sidebar" data-color="orange">
+    <app-sidebar></app-sidebar>
+  </div>
+  <div class="main-panel">
+    <app-navbar></app-navbar>
+
+
+    <div *ngIf="loadingService.isLoading$ | async" class="my-spinner-wrapper">
+        <mat-spinner mode="indeterminate"></mat-spinner>
+    </div>
+      
+    
+    <router-outlet></router-outlet>
+    <app-footer></app-footer>
+  </div>
+</div>

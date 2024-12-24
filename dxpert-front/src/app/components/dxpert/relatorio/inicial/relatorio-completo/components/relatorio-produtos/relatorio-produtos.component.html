@@ -1,0 +1,39 @@
+<h2 class="titulo">Produtos Personalizados</h2>
+<table class="tabela" id="tabelaProdutoPai">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Produto</th>
+        <th>Capital segurado</th>
+        <th>Investimento</th>
+      </tr>
+    </thead>
+    <tbody data-bs-toggle="modal" data-bs-target="#staticBackdrop" Id="TabelaProduto">
+      <tr *ngFor="let produto of produtos">
+        <th>
+          <p>{{ produto.Titulo }}</p>
+          <p>
+            <span>{{ produto.Porcentagem }}%</span>
+            COD {{ produto.Codigo }}
+          </p>
+        </th>
+        <td>{{ produto.Nome }}</td>
+        <td>
+          {{ produto.Capital }}
+          <a (click)="redirecionar()">
+            <img src="assets/imgs/cadastro/icone-editar.jpg" alt="">
+          </a>
+        </td>
+        <td>R$ {{ produto.Investimento | number: '1.2-2' }}</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="4">
+          Total do investimento <span id="TotalSomaProduto">R$ {{ somaTotalProdutos | number: '1.2-2' }}</span>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+  
+

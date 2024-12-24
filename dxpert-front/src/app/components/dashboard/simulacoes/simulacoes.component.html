@@ -1,0 +1,64 @@
+<div class="panel-header panel-header-sm">
+</div>
+<div class="main-content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title"> Simulações </h4>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table">
+              <thead class=" text-primary">
+                <th>
+                  Etapa
+                </th>
+                <th>
+                  Nome
+                </th>
+                <th>
+                  Email
+                  </th>
+                <th>
+                  Telefone
+                  </th>
+                <th class="text-left d-flex justify-content-end ml-5" style="margin-right: 3em;">
+                  Ações
+                </th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let cad of cads">
+                  <td>{{cad.etapa ?? "Indefinido" }}</td>
+                  <td>{{cad.nome}}</td>
+                  <td>{{cad.email}}</td>
+                  <td>{{cad.celular}}</td>
+                  <td class="text-right d-flex justify-content-end">
+                  
+                    <button mat-fab extended color="primary" class="m-2" >
+                      <mat-icon>list</mat-icon>
+                      Detalhes
+                    </button>
+                    <button mat-fab extended color="primary" class="m-2" >
+                      <mat-icon>cached</mat-icon>
+                      Recomeçar
+                    </button>
+                    <button mat-fab extended color="primary" class="m-2" (click)="continuarCadastro(cad.id)" >
+                      <mat-icon>launch</mat-icon>
+                      Continuar
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+              <button mat-fab extended color="primary" class="m-2" (click)="add()">
+                <mat-icon>done</mat-icon>
+                Adicionar
+              </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,18 @@
+
+
+
+.my-spinner-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(128,128,128,0.5); /* Isso faz o fundo ficar cinza com 50% de opacidade */
+    z-index: 999999999; /* Isso garante que o spinner fique acima de outros elementos */
+  }
+  
+
+  

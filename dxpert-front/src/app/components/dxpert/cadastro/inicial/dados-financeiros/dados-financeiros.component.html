@@ -1,0 +1,54 @@
+<div id="formulario">
+    <h1 class="titulo-principal">Simulação de seguro</h1>
+    <div class="form">
+      <form [formGroup]="form" (ngSubmit)="enviar()">
+        <h2 class="subtitulo">Dados financeiros</h2>
+        <div>
+          <label class="select">
+            <select formControlName="impostoDeRenda">
+              <option value="" selected disabled>Imposto de renda</option>
+              <option value="Fica devendo">Fica devendo</option>
+              <option value="Tem restituição">Tem restituição</option>
+            </select>
+          </label>
+        </div>
+        <div>
+          <label>
+            <input type="text" (keyup)="this.transformAmountRendaBrutaMensal($event)" formControlName="rendaBruta" placeholder="Renda bruta mensal">
+          </label>
+        </div>
+        <div>
+          <label>
+            <input type="text" (keyup)="this.transformAmountdespesaMensal($event)"  formControlName="despesaMensal" placeholder="Despesa mensal">
+          </label>
+        </div>
+        <div>
+          <label class="bg-porcentagem">
+            <input type="text" formControlName="reservaEmergencia"  placeholder="Reserva de emergência"
+             (keyup)="this.transformPercent()"
+             >
+          </label>
+        </div>
+        <div>
+          <label class="select">
+            <select formControlName="tempoReserva">
+              <option value="" disabled selected>A reserva dura quanto tempo?</option>
+              <option value="Até 6 meses">Até 6 meses</option>
+              <option value="Até 12 meses">Até 12 meses</option>
+              <option value="Até 24 meses">Até 24 meses</option>
+              <option value="Mais de 24">Mais de 24</option>
+            </select>
+          </label>
+        </div>
+
+        <span class="msg-erro-form" *ngIf="err !== ''">{{ err }}</span>
+
+
+        <div class="btn">
+          <button type="submit" class="img-button">Prosseguir
+            <img src="/assets/imgs/cadastro/icones/icone-prosseguir.png"/>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>

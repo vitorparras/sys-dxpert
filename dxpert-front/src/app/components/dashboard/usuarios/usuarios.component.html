@@ -1,0 +1,122 @@
+<div class="panel-header panel-header-sm">
+</div>
+<div class="main-content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title"> Usuarios </h4>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table">
+              <thead class=" text-primary">
+                <th>
+                  Permissão
+                </th>
+                <th>
+                  Nome
+                </th>
+                <th>
+                  Email
+                  </th>
+                <th>
+                  Telefone
+                  </th>
+                <th class="text-left d-flex justify-content-end ml-5" style="margin-right: 3em;">
+                  Ações
+                </th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let user of users">
+                  <td>{{ user.permissao == 1 ? "Admin" : "Padrao"  }}</td>
+                  <td>{{user.nome}}</td>
+                  <td>{{user.email}}</td>
+                  <td>{{user.telefone}}</td>
+
+                  <td class="text-right d-flex justify-content-end">
+                  
+                    <button mat-fab extended color="accent" class="m-2" (click)="openEditUserModal(user.id)"  >
+                      <mat-icon>edit</mat-icon>
+                      Editar
+                    </button>
+
+                    <button mat-fab extended color="warn" class="m-2 red" (click)="openDeleteUserModal(user.id)">
+                      <mat-icon>delete</mat-icon>
+                      Excluir
+                    </button>
+
+
+
+
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+              <button mat-fab extended color="primary" data-bs-toggle="modal" data-bs-target="#addUserModal"  class="m-2">
+                <mat-icon>done</mat-icon>
+                Adicionar
+              </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal add -->
+<div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true" #addUserModal>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">Adicionar usuário</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      </div>
+      <div class="modal-body">
+        <app-add-update-user [userId]="selectedUserId" (userAdded)="onUserAdded()" [isEditMode]="false"></app-add-update-user>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="btnfecharModalAdd" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal de confirmação de exclusão -->
+<div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteUserModalLabel">Excluir usuário</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      </div>
+      <div class="modal-body">
+        Tem certeza de que deseja excluir o usuário {{selectedName}}?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="confirmDeleteUser()">Excluir</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal edit -->
+<div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true" #editUserModal>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="editUserModalLabel">Editar usuário</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      </div>
+      <div class="modal-body">
+        <app-add-update-user [userId]="selectedUserId" (userEdited)="onUserEdited()" [isEditMode]="true"></app-add-update-user>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="btnfecharModalEdit" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>

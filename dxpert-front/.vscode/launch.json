@@ -1,0 +1,28 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Debug Frontend",
+        "type": "pwa-chrome",
+        "request": "launch",
+        "preLaunchTask": "Serve Frontend",
+        "url": "http://localhost:4200/#",
+        "webRoot": "${workspaceFolder}",
+        "sourceMaps": true,
+        "sourceMapPathOverrides": {
+          "webpack:/*": "${webRoot}/*",
+          "/./*": "${webRoot}/*",
+          "/src/*": "${webRoot}/src/*",
+          "/*": "*",
+          "/./~/*": "${workspaceFolder}/node_modules/*"
+        }
+      },
+      {
+        "name": "Docker Node.js Launch",
+        "type": "docker",
+        "request": "launch",
+        "preLaunchTask": "docker-run: debug",
+        "platform": "node"
+      }
+    ]
+}

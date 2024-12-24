@@ -1,0 +1,53 @@
+<form #addUserForm="ngForm" (ngSubmit)="addUser(addUserForm)">
+  <input type="hidden" name="id" [(ngModel)]="userId" />
+
+  <div class="form-group">
+    <label for="nome">Nome</label>
+    <input type="text" class="form-control" id="nome" name="nome" [(ngModel)]="user.nome" required />
+  </div>
+
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input type="email" class="form-control" id="email" name="email" [(ngModel)]="user.email" required />
+  </div>
+
+  <div class="form-group">
+    <label for="telefone">Telefone</label>
+    <input type="text" class="form-control" id="telefone" name="telefone" [(ngModel)]="user.telefone" required />
+  </div>
+
+  <div class="form-group">
+    <label for="senha">Senha</label>
+    <input type="password" class="form-control" id="senha" name="senha" [(ngModel)]="user.senha"
+      (blur)="validatePassword()" required />
+  </div>
+
+  <div class="form-group">
+    <label for="senhaConfirm">Repetir senha</label>
+    <input type="password" class="form-control" id="senhaConfirm" name="senhaConfirm" [(ngModel)]="user.senhaConfirm"
+      (blur)="validatePassword()" required />
+    <div *ngIf="passwordMismatch" class="text-danger">
+      As senhas não coincidem.
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="permissao">Permissão</label>
+    <select class="form-control" id="permissao" name="permissao" [(ngModel)]="user.permissao" required>
+      <option value="1">Admin</option>
+      <option value="0">Padrão</option>
+    </select>
+  </div>
+
+  <button mat-fab extended color="accent" class="m-2 btn btn-primary" *ngIf="!isEditMode" type="submit"
+    [disabled]="addUserForm.invalid || passwordMismatch">
+    <mat-icon>add</mat-icon>
+    Adicionar usuário
+  </button>
+
+  <button mat-fab extended color="accent" class="m-2 btn btn-primary" *ngIf="isEditMode" type="submit"
+    [disabled]="addUserForm.invalid || passwordMismatch">
+    <mat-icon>save</mat-icon>
+    Salvar Alterações
+  </button>
+</form>

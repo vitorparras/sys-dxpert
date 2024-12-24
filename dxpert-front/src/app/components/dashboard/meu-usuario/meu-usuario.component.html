@@ -1,0 +1,20 @@
+<div class="panel-header panel-header-sm"></div>
+<div class="main-content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Meu Usuario</h4>
+        </div>
+        <div class="card-body">
+          <app-add-update-user
+            [userId]="selectedUserId"
+            (userEdited)="reloadUser()"
+            (userReloaded)="reloadUser()"
+            [isEditMode]="true"
+          ></app-add-update-user>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

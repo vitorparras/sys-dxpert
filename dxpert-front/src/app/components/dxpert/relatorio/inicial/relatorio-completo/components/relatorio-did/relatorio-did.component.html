@@ -1,0 +1,15 @@
+<h2 *ngIf="isMedico" class="titulo">DID</h2>
+<div *ngIf="isMedico" class="renda-mensal-contratar">
+    <div class="txt">Qual renda mensal contratar?</div>
+  
+    <select name="RendaMensalDidMedico" id="RendaMensalDidMedico" class="money3 item" (change)="calcularDidMedico()">
+      <option value="0" disabled [selected]="valorDadosDidMedico === 0">R$ ---.---,--</option>
+      <option *ngFor="let i of [].constructor(30); let idx = index" [value]="idx + 1" [selected]="valorDadosDidMedico === 1">
+        R$ {{ idx + 1 }}.000,00
+      </option>
+    </select>
+  
+    <div class="item" id="ValorDidMedico">{{ valorCalculado }}</div>
+    <div class="item" id="TotalDidMedico">{{ somaDid | number: '1.2-2' }}</div>
+  </div>
+  

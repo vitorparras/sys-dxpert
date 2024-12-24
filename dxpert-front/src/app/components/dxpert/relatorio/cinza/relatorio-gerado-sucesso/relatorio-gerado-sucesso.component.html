@@ -1,0 +1,30 @@
+<div id="formulario">
+    <h1 class="titulo-principal">Simulação de seguro</h1>
+    <div class="form">
+      <form id="" (submit)="submitForm()">
+  
+        <div class="icone-sucesso">
+          <img [src]="'Frontend/imgs/icone-concluido.png'" alt="">
+        </div>
+  
+        <h2 class="subtitulo">Gerado com sucesso</h2>
+        <div class="msg-info">
+          O relatório foi enviado para o seu e do cliente. Você pode visualiza-lo agora clicando nos botões
+          abaixo.
+        </div>
+        <div class="btn">
+          <button type="submit" class="img-button">
+            Baixar agora
+            <img [src]="'Frontend/imgs/icone-baixar.png'" alt="">
+          </button>
+        </div>
+        <div class="btn">
+          <button type="button" class="img-button bg-cinza mt-22" (click)="enviarPorEmail()">
+            Enviar por e-mail
+            <img [src]="'Frontend/imgs/icone-email.png'" alt="">
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  

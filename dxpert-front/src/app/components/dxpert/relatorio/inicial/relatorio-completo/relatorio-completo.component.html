@@ -1,0 +1,65 @@
+<div class="book">
+  <div class="page">
+    <header id="header-relatorio">
+      <div id="logo">
+        <img src="/assets/imgs/cadastro/logo-dxexpert.jpg" alt="" />
+      </div>
+      <div class="info">
+        <span>+ 18 90000-0000</span> |
+        <span>www.dxpert.com.br</span>
+      </div>
+    </header>
+
+    <app-relatorio-dados-pessoais  [relatorio]="relatorio"  ></app-relatorio-dados-pessoais>
+    <app-relatorio-calculo-previdenciario  [relatorio]="relatorio"  ></app-relatorio-calculo-previdenciario>
+    <app-relatorio-percas  [relatorio]="relatorio"  ></app-relatorio-percas>
+    <app-relatorio-sugestao-para-recuperar  [relatorio]="relatorio"  ></app-relatorio-sugestao-para-recuperar>
+    
+  </div>
+  <div class="page">
+    
+    <app-protecao-custos  [relatorio]="relatorio"  ></app-protecao-custos>
+
+    <app-relatorio-term-life  [relatorio]="relatorio"  ></app-relatorio-term-life>
+    <app-relatorio-produtos  [relatorio]="relatorio"  ></app-relatorio-produtos>
+    <app-relatorio-did  [relatorio]="relatorio"  ></app-relatorio-did>
+
+    <input
+      type="button"
+      id="btnImprimir"
+      class="btn btn-secondary"
+      value="Imprimir"
+      (click)="printPage()"
+    />
+
+    <form method="POST" action="../cinza/1-cinza-dados-pessoais.php">
+      <input type="text" name="Id" value="<?php echo ($Id); ?>" hidden />
+      <input
+        type="submit"
+        id="btnImprimir"
+        class="btn btn-success"
+        value="Finalizar"
+      />
+    </form>
+
+    <div class="AparecerPrint" style="display: none">
+      <p class="mensagem">
+        Os valores calculados são apenas simulações com base nos dados que você
+        nos forneceu e, de acordo com o previsto na legislação do regime
+        previdenciário que você está vinculado. Para saber o valor exato do seu
+        benefício de aposentadoria procure o INSS, pois será necessário o valor
+        de todas as contribuições realizadas. Caso seja um funcionário público
+        fale com o responsável por sua previdência no Regime Próprio.
+      </p>
+      <p class="mensagem">
+        A aceitação da Proposta de Contratação com os valores apresentados nessa
+        simulação está sujeita à análise de risco e condicionada à política de
+        aceitação vigente à época da apresentação da Proposta. O registro destes
+        planos na SUSEP não implica, por parte da Autarquia, incentivo ou
+        recomendação a sua comercialização. Os valores aqui representados são
+        estimados com base nas premissas dos planos vigentes na data da
+        simulação.
+      </p>
+    </div>
+  </div>
+</div>

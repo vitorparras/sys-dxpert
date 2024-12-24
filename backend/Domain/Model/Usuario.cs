@@ -19,9 +19,9 @@ namespace Domain.Model
         public string? Senha { get; set; }
 
 
-        public bool ValidarSenha(string senha)
+        public bool SenhaValida(string senha)
         {
-            return string.IsNullOrEmpty(senha) || !Senha.Equals(senha);
+            return !string.IsNullOrEmpty(senha) && Senha.Equals(senha);
         }
 
 

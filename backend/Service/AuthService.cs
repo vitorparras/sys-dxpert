@@ -29,7 +29,7 @@ namespace Service
             try
             {
                 var usuario = await _usuarioService.GetByEmailAsync(email);
-                if (usuario.Data.ValidarSenha(senha))
+                if (usuario.Data.SenhaValida(senha))
                 {
                     var token = GenerateJwtToken(usuario.Data);
                     if (token != null)

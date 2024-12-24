@@ -13,7 +13,7 @@ namespace Infrastructure
         {
             if (!optionsBuilder.IsConfigured)
             {
-                var conexao = "Server=localhost;Port=3333;User Id=root;Password=root;Database=DXPERT_BANCO";
+                var conexao = "Server=db;Port=3306;User Id=root;Password=root;Database=DXPERT_BANCO";
                 optionsBuilder
                   .UseMySql(conexao, ServerVersion.AutoDetect(conexao))
                   .EnableSensitiveDataLogging();

@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { ForgotPasswordModalComponent } from '../forgot-password-modal/forgot-password-modal.component';
 
 @Component({
   selector: 'app-login',
@@ -14,12 +16,14 @@ export class LoginComponent implements OnInit, AfterViewInit {
   loginForm: FormGroup;
   isLoading = false;
   hidePassword = true;
+  isModalOpen = false;
 
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog
   ) {
     this.loginForm = this.fb.group({
       email: ['', [
@@ -136,8 +140,10 @@ export class LoginComponent implements OnInit, AfterViewInit {
       this.authService.login(email, password).subscribe({
         next: (response) => {
           this.router.navigate(['/dashboard']);
+          this.isLoading = false;
         },
         error: (error) => {
+          console.log(error);
           this.isLoading = false;
           this.snackBar.open('Email ou senha inválidos', 'Fechar', {
             duration: 4000,
@@ -168,6 +174,18 @@ export class LoginComponent implements OnInit, AfterViewInit {
     }
     
     return '';
+  }
+
+  openForgotPasswordModal() {
+    this.isModalOpen = true;
+    const dialogRef = this.dialog.open(ForgotPasswordModalComponent, {
+      width: '400px',
+      panelClass: 'forgot-password-modal'
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.isModalOpen = false;
+    });
   }
 }
 

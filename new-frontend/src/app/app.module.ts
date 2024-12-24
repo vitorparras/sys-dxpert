@@ -37,6 +37,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { AdminGuard } from './guards/admin.guard';
 import { AppRoutingModule } from './app-routing.module';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ForgotPasswordModalComponent } from './components/forgot-password-modal/forgot-password-modal.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,7 +50,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     LayoutComponent,
     UserDialogComponent,
     ReportDialogComponent,
-    SettingsDialogComponent
+    SettingsDialogComponent,
+    ForgotPasswordModalComponent
   ],
   imports: [
     BrowserModule,

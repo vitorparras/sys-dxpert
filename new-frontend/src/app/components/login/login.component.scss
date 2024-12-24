@@ -220,3 +220,8 @@ $box-border: rgba(255, 165, 0, 0.3);
   }
 }
 
+.blur-background {
+  filter: blur(5px);
+  transition: filter 0.3s ease;
+}
+

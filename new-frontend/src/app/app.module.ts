@@ -28,26 +28,26 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatChipsModule} from '@angular/material/chips';
 
 import { AppComponent } from './app.component';
-import { LoginComponent } from './components/login/login.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { UserListComponent } from './components/user-list/user-list.component';
-import { ReportListComponent } from './components/report-list/report-list.component';
-import { MyUserComponent } from './components/my-user/my-user.component';
-import { SystemSettingsComponent } from './components/system-settings/system-settings.component';
-import { LayoutComponent } from './components/layout/layout.component';
-import { UserDialogComponent } from './components/user-dialog/user-dialog.component';
-import { ReportDialogComponent } from './components/report-dialog/report-dialog.component';
-import { SettingsDialogComponent } from './components/settings-dialog/settings-dialog.component';
+import { LoginComponent } from './components/pages/login/login/login.component';
+import { DashboardComponent } from './components/pages/dashboard/dashboard/dashboard.component';
+import { UserListComponent } from './components/pages/user-list/user-list/user-list.component';
+import { ReportListComponent } from './components/pages/reports/report-list/report-list.component';
+import { MyUserComponent } from './components/pages/my-user/my-user/my-user.component';
+import { SystemSettingsComponent } from './components/pages/settings/system-settings/system-settings.component';
+import { UserDialogComponent } from './components/pages/user-list/user-dialog/user-dialog.component';
+import { ReportDialogComponent } from './components/pages/reports/report-dialog/report-dialog.component';
+import { SettingsDialogComponent } from './components/pages/settings/settings-dialog/settings-dialog.component';
 
 import { AuthGuard } from './guards/auth.guard';
 import { AdminGuard } from './guards/admin.guard';
 import { AppRoutingModule } from './app-routing.module';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { ForgotPasswordModalComponent } from './components/forgot-password-modal/forgot-password-modal.component';
-import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
-import { UserMetricsModalComponent } from './components/user-metrics-modal/user-metrics-modal.component';
-import { ReportNotesComponent } from './components/report-notes/report-notes.component';
+import { ForgotPasswordModalComponent } from './components/pages/login/forgot-password-modal/forgot-password-modal.component';
+import { ConfirmDialogComponent } from './components/shared/confirm-dialog/confirm-dialog.component';
+import { UserMetricsModalComponent } from './components/pages/user-list/user-metrics-modal/user-metrics-modal.component';
+import { ReportNotesComponent } from './components/pages/reports/report-notes/report-notes.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { LayoutComponent } from './components/shared/layout/layout.component';
 @NgModule({
   declarations: [
     AppComponent,

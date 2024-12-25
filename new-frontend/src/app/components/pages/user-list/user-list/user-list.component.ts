@@ -3,9 +3,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { UserService, User } from '../../services/user.service';
+import { UserService, User } from '../../../../services/user.service';
 import { UserDialogComponent } from '../user-dialog/user-dialog.component';
-import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogComponent } from '../../../shared/confirm-dialog/confirm-dialog.component';
 import { UserMetricsModalComponent } from '../user-metrics-modal/user-metrics-modal.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 

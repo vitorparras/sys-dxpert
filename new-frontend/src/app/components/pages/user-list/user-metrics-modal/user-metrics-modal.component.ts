@@ -1,6 +1,6 @@
 import { Component, Inject, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { User } from '../../services/user.service';
+import { User } from '../../../../services/user.service';
 import { Chart, ChartConfiguration } from 'chart.js/auto';
 
 @Component({

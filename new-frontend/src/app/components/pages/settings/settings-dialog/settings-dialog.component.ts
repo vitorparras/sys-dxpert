@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { SystemSetting, SettingType, SettingCategory } from '../../interfaces/system-settings.interface';
+import { SystemSetting, SettingType, SettingCategory } from '../../../../interfaces/system-settings.interface';
 
 @Component({
   selector: 'app-settings-dialog',

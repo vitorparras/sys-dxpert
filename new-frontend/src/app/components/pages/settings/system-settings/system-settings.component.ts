@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { SystemSettingsService } from '../../services/system-settings.service';
-import { SystemSetting, SettingCategory } from '../../interfaces/system-settings.interface';
+import { SystemSettingsService } from '../../../../services/system-settings.service';
+import { SystemSetting, SettingCategory } from '../../../../interfaces/system-settings.interface';
 import { SettingsDialogComponent } from '../settings-dialog/settings-dialog.component';
-import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogComponent } from '../../../shared/confirm-dialog/confirm-dialog.component';
 import { FormControl } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { MatButtonToggleChange } from '@angular/material/button-toggle';

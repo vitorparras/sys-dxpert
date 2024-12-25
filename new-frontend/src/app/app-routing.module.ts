@@ -1,14 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { LayoutComponent } from './components/layout/layout.component';
-import { LoginComponent } from './components/login/login.component';
-import { MyUserComponent } from './components/my-user/my-user.component';
-import { ReportListComponent } from './components/report-list/report-list.component';
-import { SystemSettingsComponent } from './components/system-settings/system-settings.component';
-import { UserListComponent } from './components/user-list/user-list.component';
+import { DashboardComponent } from './components/pages/dashboard/dashboard/dashboard.component';
+
+import { LoginComponent } from './components/pages/login/login/login.component';
+import { MyUserComponent } from './components/pages/my-user/my-user/my-user.component';
+import { ReportListComponent } from './components/pages/reports/report-list/report-list.component';
+import { SystemSettingsComponent } from './components/pages/settings/system-settings/system-settings.component';
+import { UserListComponent } from './components/pages/user-list/user-list/user-list.component';
 import { AdminGuard } from './guards/admin.guard';
 import { AuthGuard } from './guards/auth.guard';
+import { LayoutComponent } from './components/shared/layout/layout.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },

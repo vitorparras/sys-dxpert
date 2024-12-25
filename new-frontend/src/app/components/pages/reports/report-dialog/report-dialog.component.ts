@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Report } from '../../services/report.service';
+import { Report } from '../../../../services/report.service';
 
 @Component({
   selector: 'app-report-dialog',

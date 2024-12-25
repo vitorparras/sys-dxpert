@@ -6,6 +6,7 @@ export interface User {
   id: number;
   name: string;
   email: string;
+  phone: string;
   role: string;
 }
 
@@ -14,32 +15,46 @@ export interface User {
 })
 export class UserService {
   private users: User[] = [
-    { id: 1, name: 'John Doe', email: 'john@example.com', role: 'user' },
-    { id: 2, name: 'Jane Smith', email: 'jane@example.com', role: 'admin' },
-    { id: 3, name: 'Bob Johnson', email: 'bob@example.com', role: 'user' },
+    {
+      id: 1,
+      name: 'John Doe',
+      email: 'john@example.com',
+      phone: '(11) 99999-9999',
+      role: 'user'
+    },
+    {
+      id: 2,
+      name: 'Jane Smith',
+      email: 'jane@example.com',
+      phone: '(11) 98888-8888',
+      role: 'admin'
+    },
+    {
+      id: 3,
+      name: 'Bob Johnson',
+      email: 'bob@example.com',
+      phone: '(11) 97777-7777',
+      role: 'user'
+    },
   ];
 
   constructor() { }
 
   getUsers(): Observable<User[]> {
-    // TODO: Replace with actual API call
     return of(this.users).pipe(delay(500));
   }
 
   getUser(id: number): Observable<User | undefined> {
-    // TODO: Replace with actual API call
     return of(this.users.find(user => user.id === id)).pipe(delay(500));
   }
 
   addUser(user: User): Observable<User> {
-    // TODO: Replace with actual API call
     const newUser = { ...user, id: this.users.length + 1 };
     this.users.push(newUser);
     return of(newUser).pipe(delay(500));
   }
 
   updateUser(user: User): Observable<User> {
-    // TODO: Replace with actual API call
     const index = this.users.findIndex(u => u.id === user.id);
     if (index !== -1) {
       this.users[index] = user;
@@ -48,7 +63,6 @@ export class UserService {
   }
 
   deleteUser(id: number): Observable<boolean> {
-    // TODO: Replace with actual API call
     const index = this.users.findIndex(u => u.id === id);
     if (index !== -1) {
       this.users.splice(index, 1);
@@ -58,7 +72,6 @@ export class UserService {
   }
 
   getCurrentUser(): Observable<User> {
-    // TODO: Replace with actual API call to get the logged-in user
     return of(this.users[0]).pipe(delay(500));
   }
 
@@ -67,4 +80,3 @@ export class UserService {
     return of(true).pipe(delay(500));
   }
 }
-

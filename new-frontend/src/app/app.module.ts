@@ -23,7 +23,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -42,6 +43,8 @@ import { AdminGuard } from './guards/admin.guard';
 import { AppRoutingModule } from './app-routing.module';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ForgotPasswordModalComponent } from './components/forgot-password-modal/forgot-password-modal.component';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+import { UserMetricsModalComponent } from './components/user-metrics-modal/user-metrics-modal.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,7 +58,9 @@ import { ForgotPasswordModalComponent } from './components/forgot-password-modal
     UserDialogComponent,
     ReportDialogComponent,
     SettingsDialogComponent,
-    ForgotPasswordModalComponent
+    ForgotPasswordModalComponent,
+    ConfirmDialogComponent,
+    UserMetricsModalComponent
   ],
   imports: [
     BrowserModule,
@@ -85,7 +90,7 @@ import { ForgotPasswordModalComponent } from './components/forgot-password-modal
     MatDividerModule,
     MatTooltipModule,
     MatSlideToggleModule
-    
+
   ],
   providers: [AuthGuard, AdminGuard],
   bootstrap: [AppComponent]

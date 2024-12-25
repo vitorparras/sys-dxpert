@@ -1,0 +1,299 @@
+.report-list-container {
+    padding: 24px;
+    background-color: #f8f9fa;
+  
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+  
+      h1 {
+        margin: 0;
+        font-size: 24px;
+        font-weight: 500;
+      }
+  
+      .actions {
+        display: flex;
+        gap: 16px;
+        align-items: center;
+  
+        .add-report-button {
+          position: relative;
+          height: 44px;
+          padding: 0 24px;
+          background: rgba(255, 107, 0, 0.1);
+          border: 1px solid rgba(255, 107, 0, 0.2);
+          border-radius: 50px;
+          color: #FF6B00;
+          font-weight: 500;
+          backdrop-filter: blur(8px);
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+          .button-content {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+          }
+  
+          &:hover {
+            background: #FF6B00;
+            border-color: #FF6B00;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(255, 107, 0, 0.2);
+          }
+  
+          &:active {
+            transform: translateY(0);
+          }
+  
+          mat-icon {
+            font-size: 20px;
+            width: 20px;
+            height: 20px;
+          }
+        }
+      }
+    }
+  
+    .filter-field {
+      width: 100%;
+      margin-bottom: 24px;
+    }
+  
+    .table-container {
+      background-color: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  
+      table {
+        width: 100%;
+      }
+  
+      .mat-mdc-row {
+        height: 72px;
+        transition: background-color 0.3s ease;
+  
+        &:hover {
+          background-color: rgba(0, 0, 0, 0.02);
+        }
+      }
+  
+      .mat-mdc-header-row {
+        height: 64px;
+        background-color: #f8f9fa;
+      }
+  
+      .mat-mdc-cell,
+      .mat-mdc-header-cell {
+        padding: 0 16px;
+      }
+  
+      .mat-column-actions {
+        width: 160px;
+      }
+  
+      .action-buttons {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        opacity: 0.7;
+        transition: opacity 0.3s ease;
+  
+        button {
+          transition: transform 0.3s ease;
+  
+          &:hover {
+            transform: translateY(-2px);
+          }
+        }
+      }
+  
+      tr:hover .action-buttons {
+        opacity: 1;
+      }
+    }
+  
+    .status-badge {
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: white;
+    }
+  
+    .report-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+  
+      .report-card {
+        display: flex;
+        flex-direction: column;
+        border-radius: 12px;
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        background: white;
+  
+        &:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+  
+        mat-card-header {
+          padding: 16px 16px 0;
+        }
+  
+        mat-card-content {
+          flex-grow: 1;
+          padding: 16px;
+  
+          p {
+            margin: 0 0 8px;
+            color: rgba(0, 0, 0, 0.6);
+          }
+        }
+  
+        mat-card-actions {
+          display: flex;
+          justify-content: flex-end;
+          padding: 8px 16px;
+          border-top: 1px solid rgba(0, 0, 0, 0.08);
+        }
+      }
+    }
+  
+    .loading-skeleton {
+      background-color: white;
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  
+      .skeleton-row {
+        display: flex;
+        margin-bottom: 16px;
+        gap: 16px;
+        height: 72px;
+        padding: 16px;
+        align-items: center;
+  
+        .skeleton-cell {
+          height: 24px;
+          background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+          background-size: 200% 100%;
+          animation: shimmer 1.5s infinite;
+          border-radius: 4px;
+          flex: 1;
+  
+          &:last-child {
+            width: 160px;
+            flex: none;
+          }
+        }
+      }
+    }
+  }
+  
+  @keyframes shimmer {
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .report-list-container {
+      padding: 16px;
+  
+      .header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+  
+        .actions {
+          width: 100%;
+  
+          .add-report-button {
+            flex: 1;
+          }
+        }
+      }
+  
+      .report-cards {
+        grid-template-columns: 1fr;
+      }
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .report-list-container {
+      .header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+  
+        .actions {
+          width: 100%;
+          justify-content: space-between;
+  
+          .add-report-button {
+            flex: 1;
+          }
+        }
+      }
+  
+      .table-container {
+        overflow-x: auto;
+  
+        table {
+          min-width: 800px;
+        }
+      }
+  
+      .report-cards {
+        grid-template-columns: 1fr;
+      }
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .report-list-container {
+      .header {
+        h1 {
+          font-size: 20px;
+        }
+      }
+  
+      .filter-field {
+        font-size: 14px;
+      }
+  
+      .report-cards {
+        .report-card {
+          mat-card-header {
+            flex-direction: column;
+            align-items: flex-start;
+          }
+  
+          mat-card-actions {
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            gap: 8px;
+  
+            button {
+              flex: 1 0 calc(50% - 4px);
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  

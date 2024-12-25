@@ -1,0 +1,65 @@
+<div class="notes-modal">
+  <!-- Header -->
+  <div class="modal-header">
+    <h2>Anotações do Relatório</h2>
+    <button mat-icon-button class="close-button" (click)="onClose()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <!-- Add Note Button/Form -->
+  <div class="add-note-section">
+    <ng-container *ngIf="!isAddingNote">
+      <button mat-flat-button class="add-note-button" (click)="toggleAddNote()">
+        <mat-icon>add</mat-icon>
+        Adicionar Anotação
+      </button>
+    </ng-container>
+
+    <form *ngIf="isAddingNote" 
+          [@slideIn] 
+          [formGroup]="noteForm" 
+          (ngSubmit)="addNote()" 
+          class="note-form">
+      <mat-form-field appearance="outline">
+        <textarea matInput 
+                  formControlName="descricao" 
+                  placeholder="Digite sua anotação aqui"
+                  rows="3">
+        </textarea>
+        <mat-error *ngIf="noteForm.get('descricao')?.hasError('required')">
+          Anotação é obrigatória
+        </mat-error>
+        <mat-error *ngIf="noteForm.get('descricao')?.hasError('minlength')">
+          Anotação deve ter pelo menos 3 caracteres
+        </mat-error>
+      </mat-form-field>
+      <div class="form-actions">
+        <button mat-button type="button" (click)="toggleAddNote()">Cancelar</button>
+        <button mat-flat-button 
+                color="primary" 
+                type="submit" 
+                [disabled]="noteForm.invalid">
+          Salvar
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Notes List -->
+  <div class="notes-list">
+    <div *ngFor="let note of notes" class="note-item" [@fadeIn]>
+      <div class="note-avatar" [attr.data-initial]="getInitials(note.responsavel)">
+        {{getInitials(note.responsavel)}}
+      </div>
+      <div class="note-content">
+        <div class="note-header">
+          <span class="note-author">{{note.responsavel}}</span>
+          <span class="note-date">{{formatDate(note.date)}}</span>
+        </div>
+        <p class="note-text">{{note.descricao}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+

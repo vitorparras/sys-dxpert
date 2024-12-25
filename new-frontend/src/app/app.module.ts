@@ -45,6 +45,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ForgotPasswordModalComponent } from './components/forgot-password-modal/forgot-password-modal.component';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import { UserMetricsModalComponent } from './components/user-metrics-modal/user-metrics-modal.component';
+import { ReportNotesComponent } from './components/report-notes/report-notes.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,7 +61,8 @@ import { UserMetricsModalComponent } from './components/user-metrics-modal/user-
     SettingsDialogComponent,
     ForgotPasswordModalComponent,
     ConfirmDialogComponent,
-    UserMetricsModalComponent
+    UserMetricsModalComponent,
+    ReportNotesComponent
   ],
   imports: [
     BrowserModule,

@@ -28,15 +28,15 @@ export class LayoutComponent implements OnInit {
   
   menuItems = [
     { 
-      icon: 'person_outline', 
-      text: 'Meu Perfil', 
-      route: '/my-user' 
-    },
-    { 
       icon: 'dashboard', 
       text: 'Dashboard', 
       route: '/dashboard',
       active: true
+    },
+    { 
+      icon: 'person_outline', 
+      text: 'Meu Perfil', 
+      route: '/my-user' 
     },
     { 
       icon: 'group', 

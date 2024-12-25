@@ -1,29 +1,104 @@
-<div class="system-settings-container">
-    <h1>Configurações do Sistema</h1>
-    <button mat-raised-button color="primary" (click)="openSettingsDialog()">Adicionar Configuração</button>
-    <table mat-table [dataSource]="settings" class="mat-elevation-z8">
-      <ng-container matColumnDef="key">
-        <th mat-header-cell *matHeaderCellDef> Chave </th>
-        <td mat-cell *matCellDef="let setting"> {{setting.key}} </td>
-      </ng-container>
-      <ng-container matColumnDef="value">
-        <th mat-header-cell *matHeaderCellDef> Valor </th>
-        <td mat-cell *matCellDef="let setting"> {{setting.value}} </td>
-      </ng-container>
-      <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef> Ações </th>
-        <td mat-cell *matCellDef="let setting">
-          <button mat-icon-button color="primary" (click)="openSettingsDialog(setting)">
-            <mat-icon>edit</mat-icon>
-          </button>
-          <button mat-icon-button color="warn" (click)="deleteSetting(setting.id)">
-            <mat-icon>delete</mat-icon>
-          </button>
-        </td>
-      </ng-container>
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
+<div class="settings-container">
+  <!-- Header -->
+  <div class="settings-header">
+    <div class="header-content">
+      <h1>Configurações do Sistema</h1>
+      <button mat-flat-button color="primary" (click)="openSettingsDialog()" class="add-setting-button">
+        <mat-icon>add</mat-icon>
+        Nova Configuração
+      </button>
+    </div>
+
+    <!-- Search and Filter -->
+    <div class="search-filter-container">
+      <mat-form-field appearance="outline" class="search-field">
+        <mat-label>Buscar configurações</mat-label>
+        <input matInput [formControl]="searchControl" placeholder="Digite para buscar...">
+        <mat-icon matPrefix>search</mat-icon>
+      </mat-form-field>
+
+      <mat-button-toggle-group [value]="selectedCategory" (change)="onCategoryChange($event)" class="category-filter">
+        <mat-button-toggle value="all">
+          <mat-icon>apps</mat-icon>
+          Todas
+        </mat-button-toggle>
+        <mat-button-toggle *ngFor="let category of categories" [value]="category">
+          <mat-icon>{{getCategoryIcon(category)}}</mat-icon>
+          {{getCategoryLabel(category)}}
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
   </div>
-  
-  
+
+  <!-- Settings List -->
+  <div class="settings-content" [class.loading]="isLoading">
+    <ng-container *ngIf="!isLoading; else loadingTemplate">
+      <div class="settings-grid" *ngIf="filteredSettings.length > 0; else noSettings">
+        <mat-card *ngFor="let setting of filteredSettings" class="setting-card">
+          <mat-card-header>
+            <div mat-card-avatar class="setting-icon" [class]="setting.category">
+              <mat-icon>{{getSettingTypeIcon(setting.type)}}</mat-icon>
+            </div>
+            <mat-card-title>{{setting.label}}</mat-card-title>
+            <mat-card-subtitle>{{setting.key}}</mat-card-subtitle>
+          </mat-card-header>
+          
+          <mat-card-content>
+            <p class="setting-description">{{setting.description}}</p>
+            <div class="setting-value" [ngSwitch]="setting.type">
+              <ng-container *ngSwitchCase="'boolean'">
+                <mat-chip-set>
+                  <mat-chip [color]="setting.value === 'true' ? 'primary' : undefined" 
+                            [highlighted]="setting.value === 'true'">
+                    {{setting.value === 'true' ? 'Ativado' : 'Desativado'}}
+                  </mat-chip>
+                </mat-chip-set>
+              </ng-container>
+              <ng-container *ngSwitchDefault>
+                <p class="value-text">{{setting.value}}</p>
+              </ng-container>
+            </div>
+          </mat-card-content>
+
+          <mat-card-actions align="end">
+            <button mat-icon-button color="primary" (click)="openSettingsDialog(setting)" matTooltip="Editar">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="deleteSetting(setting)" matTooltip="Excluir">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </ng-container>
+  </div>
+
+  <!-- Loading Template -->
+  <ng-template #loadingTemplate>
+    <div class="loading-grid">
+      <mat-card *ngFor="let i of [1,2,3,4,5,6]" class="setting-card loading">
+        <mat-card-header>
+          <div class="skeleton avatar"></div>
+          <div class="skeleton-content">
+            <div class="skeleton title"></div>
+            <div class="skeleton subtitle"></div>
+          </div>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="skeleton text"></div>
+          <div class="skeleton text short"></div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </ng-template>
+
+  <!-- No Settings Template -->
+  <ng-template #noSettings>
+    <div class="no-settings">
+      <mat-icon>settings_off</mat-icon>
+      <h3>Nenhuma configuração encontrada</h3>
+      <p>Tente ajustar seus filtros ou adicione uma nova configuração</p>
+    </div>
+  </ng-template>
+</div>
+

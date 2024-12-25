@@ -24,7 +24,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatChipsModule} from '@angular/material/chips';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -46,6 +47,7 @@ import { ForgotPasswordModalComponent } from './components/forgot-password-modal
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import { UserMetricsModalComponent } from './components/user-metrics-modal/user-metrics-modal.component';
 import { ReportNotesComponent } from './components/report-notes/report-notes.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
 @NgModule({
   declarations: [
     AppComponent,
@@ -62,7 +64,8 @@ import { ReportNotesComponent } from './components/report-notes/report-notes.com
     ForgotPasswordModalComponent,
     ConfirmDialogComponent,
     UserMetricsModalComponent,
-    ReportNotesComponent
+    ReportNotesComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -91,8 +94,10 @@ import { ReportNotesComponent } from './components/report-notes/report-notes.com
     MatMenuModule,
     MatDividerModule,
     MatTooltipModule,
-    MatSlideToggleModule
-
+    MatSlideToggleModule,
+    MatFormFieldModule,
+    MatButtonToggleModule,
+    MatChipsModule,
   ],
   providers: [AuthGuard, AdminGuard],
   bootstrap: [AppComponent]

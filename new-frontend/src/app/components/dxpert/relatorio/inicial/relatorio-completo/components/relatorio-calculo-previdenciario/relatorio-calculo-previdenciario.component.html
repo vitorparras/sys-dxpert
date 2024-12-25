@@ -1,0 +1,45 @@
+<h2 class="titulo">Cálculo Previdenciário</h2>
+<div class="box-info tp2">
+  <div class="info">
+    <p class="label">Minha renda hoje</p>
+    <p class="item" id="MinhaRendaHoje">{{ relatorio?.rendaHoje ?? " -- " }}</p>
+  </div>
+
+  <div class="info">
+    <p class="label">Despesa total</p>
+    <p class="item">{{ relatorio?.despesaTotal ?? " -- " }}</p>
+  </div>
+
+  <div class="info">
+    <p class="label">Reserva de emergência</p>
+    <p class="item">
+      {{ (relatorio?.duracaoReservaDeEmergencia ?? " -- ") + " %" }}
+    </p>
+  </div>
+
+  <div class="info">
+    <p class="label">Aposentadoria</p>
+    <p class="item">{{ formatarParaReal(relatorio?.aposentadoria) }}</p>
+  </div>
+
+  <div class="info">
+    <p class="label">Me aposento aos</p>
+    <p class="item">{{ relatorio?.meAposentoAos }} Anos</p>
+  </div>
+
+  <div class="info">
+    <p class="label">Benefício Invalidez(hoje)</p>
+    <p class="item">{{ formatarParaReal(relatorio?.beneficioInvalidez) }}</p>
+  </div>
+
+  <div class="info">
+    <p class="label">Pensão por morte (hoje)</p>
+    <p class="item">{{ formatarParaReal(relatorio?.pensaoPorMorte) }}</p>
+  </div>
+
+  <div class="info">
+    <p class="label">Receberá por</p>
+    <p class="item">{{ relatorio?.receberaPor ?? " -- Anos" }}</p>
+  </div>
+</div>
+<!-- Fim -->

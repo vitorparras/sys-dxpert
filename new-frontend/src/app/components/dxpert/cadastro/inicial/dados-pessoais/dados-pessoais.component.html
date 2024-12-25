@@ -1,0 +1,117 @@
+<div id="formulario">
+  <h1 class="titulo-principal">Simulação de seguro</h1>
+  <div class="form">
+    <form id="formSeguro" [formGroup]="form" (ngSubmit)="enviar()">
+      <ng-container *ngIf="id">
+        <input type="text" name="Id" hidden value="{{ id }}" />
+      </ng-container>
+      
+      <h2 class="subtitulo">Dados Pessoais</h2>
+      <div>
+        <label>
+          <input
+            type="text"
+            placeholder="Nome completo"
+            required
+            formControlName="nome"
+          />
+        </label>
+      </div>
+      <div>
+        <label>
+          <input
+            type="date"
+            placeholder="Data de nascimento"
+            formControlName="dataNascimento"
+            required
+          />
+        </label>
+      </div>
+
+      <div class="selecione">
+        <label class="feminino" [class.selecionado]="selecao === 1">
+          <input
+            type="radio"
+            [value]="1"
+            formControlName="sexo"
+          />
+        </label>
+        <label class="masculino" [class.selecionado]="selecao === 0">
+          <input
+            type="radio"
+            formControlName="sexo"
+            [value]="0"
+          />
+        </label>
+      </div>
+
+      <div>
+        <label>
+          <input
+            type="email"
+            placeholder="Endereço de e-mail"
+            formControlName="email"
+            required
+          />
+          
+        </label>
+      </div>
+      <div>
+        <label>
+          <input
+            type="text"
+            placeholder="Telefone celular"
+            formControlName="celular"
+            required
+            mask="(00) 00000-0000"
+            maxlength="15"
+          />
+        </label>
+      </div>
+
+      <span
+        class="msg-erro-form"
+        *ngIf="form.controls['celular'].errors?.['required'] && form.controls['celular'].touched"
+        >Celular obrigatório</span
+      >
+      <span
+        class="msg-erro-form"
+        *ngIf="form.controls['email'].errors?.['required'] && form.controls['email'].touched"
+        >Email obrigatório</span
+      >
+      <span
+        class="msg-erro-form"
+        *ngIf="form.controls['email'].errors?.['email'] "
+        >Email Invalido</span
+      >
+      <span
+        class="msg-erro-form"
+        *ngIf="form.controls['sexo'].errors?.['required'] && form.controls['sexo'].touched"
+        >Sexo obrigatório</span
+      >
+      <span
+        class="msg-erro-form"
+        *ngIf="form.controls['dataNascimento'].errors?.['required'] && form.controls['dataNascimento'].touched"
+        >Data de nascimento obrigatória</span
+      >
+      <span
+        class="msg-erro-form"
+        *ngIf="form.controls['nome'].errors?.['required'] && form.controls['nome'].touched"
+        >Nome obrigatório</span
+      >
+
+      <span
+        class="msg-erro-form"
+        *ngIf="err !== ''"
+        >{{err}}</span
+      >
+
+      <div class="btn">
+        <button type="submit" class="img-button">
+          Prosseguir
+          <img src="/assets/imgs/cadastro/icones/icone-prosseguir.png"/>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

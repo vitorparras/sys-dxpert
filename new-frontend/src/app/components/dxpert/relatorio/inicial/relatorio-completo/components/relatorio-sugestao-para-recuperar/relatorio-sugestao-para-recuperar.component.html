@@ -1,0 +1,17 @@
+ <!-- Inicio -->
+<h2 class="titulo">Sugestão para recuperar</h2>
+<div id="sugestao-para-recuperar">
+    <div class="opcao" *ngFor="let produ of relatorio?.produtosSugestaoParaRecuperar">
+        
+        <p class="txt">{{ produ.nome }}</p>
+
+        <p class="valor">{{ convertValor(produ.valor1) |  currency:'BRL':'symbol':'1.2-2':'pt-BR'  }}</p>
+        <p class="valor2">{{ convertValor(produ.valor2) | currency:'BRL':'symbol':'1.2-2':'pt-BR'  }}</p>
+   
+    </div>
+</div>
+<div class="sugestao-investimento-total">
+    Investimento total
+    <span>{{ somaValores() | currency:'BRL':'symbol':'1.2-2':'pt-BR'  }}</span>
+</div>
+<!-- Fim -->

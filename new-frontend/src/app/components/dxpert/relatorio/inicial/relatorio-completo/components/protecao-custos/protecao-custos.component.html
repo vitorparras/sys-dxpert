@@ -1,0 +1,98 @@
+<h2 class="titulo">Evolução de custos dos venefícios de riscos Prevcom</h2>
+<div class="evolucao-custos">
+  <div class="info">
+    <div class="txt">Contribuição para a previdencia social</div>
+    <div class="txt2">{{ relatorio?.anosContribuicao ?? " --- " }} Anos</div>
+  </div>
+  <div class="info">
+    <div class="txt">Idade mínima para me aposentar</div>
+    <div class="txt2">{{ relatorio?.meAposentoAos }} Anos</div>
+  </div>
+  <div class="info">
+    <div class="txt">Devo contribuir pelo menos mais</div>
+    <div class="txt2">{{ relatorio?.devoContribuirPeloMenosMais }} Anos</div>
+  </div>
+</div>
+
+<div class="evolucao-custos2">
+  <div class="div-a">
+    <div class="info-box">
+      <span class="text-white"
+        >Benefício por invalidez:
+        <input
+          type="text"
+          class="beneficios text-white"
+          [(ngModel)]="beneficiosInvalides"
+          (keyup)="onInputKeyUp($event)"
+        />
+      </span>
+      <img src="assets/imgs/cadastro/icone-seta1.jpg" alt="" />
+      <span> {{ req.valorInvalidez  }}</span>
+    </div>
+
+    <div class="info-box">
+      <span
+        >Benefício por morte:
+        <input
+          type="text"
+          id="BeneficioPorMorte"
+          class="beneficios text-white"
+          [(ngModel)]="beneficiosMorte"
+          (keyup)="onInputKeyUp($event)"
+        />
+      </span>
+      <img src="assets/imgs/cadastro/icone-seta1.jpg" alt="" />
+      <span> {{ req.valorMorte }}</span>
+    </div>
+  </div>
+  <div class="div-b">
+    <div class="icone">
+      <img src="assets/imgs/cadastro/icone-money.jpg" alt="" />
+    </div>
+    <div class="info">
+      <p>Total de custo hoje</p>
+      <p id="TotalDeCustoBeneficios" class="valor">
+         {{ req.totalDeCusto  }}
+      </p>
+    </div>
+  </div>
+</div>
+
+<h2 class="titulo">Quanto pagará por esta proteção ao longo do tempo?</h2>
+<div id="ProtecaoPeriodo" class="protecao-periodo">
+  <div class="info-box">
+    <span>Aos {{ req.valorAno1.idade }} anos</span>
+    <img src="assets/imgs/cadastro/icone-seta1.jpg" alt="" />
+    <span> {{ req.valorAno1.valor  }}</span>
+  </div>
+
+  <div class="info-box">
+    <span>Aos {{ req.valorAno2.idade }} anos</span>
+    <img src="assets/imgs/cadastro/icone-seta1.jpg" alt="" />
+    <span> {{ req.valorAno2.valor  }}</span>
+  </div>
+
+  <div class="info-box">
+    <span>Aos {{ req.valorAno3.idade }} anos</span>
+    <img src="assets/imgs/cadastro/icone-seta1.jpg" alt="" />
+    <span> {{ req.valorAno3.valor  }}</span>
+  </div>
+
+  <div class="info-box">
+    <span>Aos {{ req.valorAno4.idade }} anos</span>
+    <img src="assets/imgs/cadastro/icone-seta1.jpg" alt="" />
+    <span> {{ req.valorAno4.valor  }}</span>
+  </div>
+
+  <div class="info-box">
+    <span>Aos {{ req.valorAno5.idade }} anos</span>
+    <img src="assets/imgs/cadastro/icone-seta1.jpg" alt="" />
+    <span> {{ req.valorAno5.valor  }}</span>
+  </div>
+
+  <div class="total-investido-seguros">
+    <div class="txt">Total investido em seguros durante esse período</div>
+    <img src="assets/imgs/cadastro/icone-seta2.jpg" alt="" />
+    <div class="valor"> {{ req.valorAnoTotal }}</div>
+  </div>
+</div>

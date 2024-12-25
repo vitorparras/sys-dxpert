@@ -1,6 +1,6 @@
 <div class="report-list-container">
   <div class="header">
-    <h1>Relatórios</h1>
+    <h1>Simulações</h1>
     <div class="actions">
       <button 
         mat-flat-button 
@@ -9,7 +9,7 @@
         class="add-report-button">
         <span class="button-content">
           <mat-icon>add</mat-icon>
-          <span>Adicionar Relatório</span>
+          <span>Adicionar Simulação</span>
         </span>
       </button>
       <button 
@@ -80,7 +80,7 @@
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
           <tr class="mat-row" *matNoDataRow>
-            <td class="mat-cell" colspan="6">Nenhum relatório encontrado para "{{input.value}}"</td>
+            <td class="mat-cell" colspan="6">Nenhuma Simulação encontrada para "{{input.value}}"</td>
           </tr>
         </table>
 

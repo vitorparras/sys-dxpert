@@ -45,7 +45,7 @@ export class LayoutComponent implements OnInit {
     },
     { 
       icon: 'assessment', 
-      text: 'Relatórios', 
+      text: 'Simulações', 
       route: '/reports' 
     },
     { 

@@ -28,7 +28,7 @@ const routes: Routes = [
   },
   { 
     path: 'relatorio',
-    loadChildren: () => import('./components/dxpert/relatorio.module').then(m => m.RelatorioModule),
+    loadChildren: () => import('./components/dxpert/cadastro-inicial/relatorio.module').then(m => m.RelatorioModule),
    // canActivate: [AuthGuard],
     },
   { path: '**', redirectTo: '/dashboard' }

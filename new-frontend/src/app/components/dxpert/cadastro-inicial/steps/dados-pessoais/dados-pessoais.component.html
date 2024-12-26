@@ -1,0 +1,137 @@
+<div id="formulario">
+  <h1 class="titulo-principal">Simulação de seguro</h1>
+  <div class="form">
+    <form [formGroup]="form" id="formSeguro" (ngSubmit)="enviar()">
+      <h2 class="subtitulo">Dados Pessoais</h2>
+
+      <div class="form-group">
+        <label>
+          <input
+            type="text"
+            placeholder="Nome completo"
+            formControlName="nome"
+            required
+            aria-label="Nome completo"
+          />
+        </label>
+        <span
+          class="msg-erro-form"
+          *ngIf="form.get('nome')?.errors?.['required'] && form.get('nome')?.touched"
+          >Nome obrigatório</span
+        >
+        <span
+          class="msg-erro-form"
+          *ngIf="form.get('nome')?.errors?.['minlength'] && form.get('nome')?.touched"
+          >Nome deve ter no mínimo 3 caracteres</span
+        >
+      </div>
+
+      <div class="form-group">
+        <label>
+          <input
+            type="date"
+            placeholder="Data de nascimento"
+            formControlName="dataNascimento"
+            required
+            aria-label="Data de nascimento"
+          />
+        </label>
+        <span
+          class="msg-erro-form"
+          *ngIf="form.get('dataNascimento')?.errors?.['required'] && form.get('dataNascimento')?.touched"
+          >Data de nascimento obrigatória</span
+        >
+        <span
+          class="msg-erro-form"
+          *ngIf="form.get('dataNascimento')?.errors?.['pattern'] && form.get('dataNascimento')?.touched"
+          >Data de nascimento inválida</span
+        >
+      </div>
+
+      <div class="form-group selecione">
+        <label
+          class="feminino"
+          [class.selecionado]="form.get('sexo')?.value === 1"
+        >
+          <input
+            type="radio"
+            [value]="1"
+            formControlName="sexo"
+            aria-label="Feminino"
+          />
+        </label>
+        <label
+          class="masculino"
+          [class.selecionado]="form.get('sexo')?.value === 0"
+        >
+          <input
+            type="radio"
+            [value]="0"
+            formControlName="sexo"
+            aria-label="Masculino"
+          />
+        </label>
+        <span
+          class="msg-erro-form"
+          *ngIf="form.get('sexo')?.errors?.['required'] && form.get('sexo')?.touched"
+          >Sexo obrigatório</span
+        >
+      </div>
+
+      <div class="form-group">
+        <label>
+          <input
+            type="email"
+            placeholder="Endereço de e-mail"
+            formControlName="email"
+            required
+            aria-label="Endereço de e-mail"
+          />
+        </label>
+        <span
+          class="msg-erro-form"
+          *ngIf="form.get('email')?.errors?.['required'] && form.get('email')?.touched"
+          >E-mail obrigatório</span
+        >
+        <span
+          class="msg-erro-form"
+          *ngIf="form.get('email')?.errors?.['email'] && form.get('email')?.touched"
+          >E-mail inválido</span
+        >
+      </div>
+
+      <div class="form-group">
+        <label>
+          <input
+            type="text"
+            placeholder="Telefone celular"
+            formControlName="celular"
+            required
+            aria-label="Telefone celular"
+            appMask="(00) 00000-0000"
+          />
+        </label>
+        <span
+          class="msg-erro-form"
+          *ngIf="form.get('celular')?.errors?.['required'] && form.get('celular')?.touched"
+          >Celular obrigatório</span
+        >
+        <span
+          class="msg-erro-form"
+          *ngIf="form.get('celular')?.errors?.['pattern'] && form.get('celular')?.touched"
+          >Celular inválido</span
+        >
+      </div>
+
+      <span class="msg-erro-form" *ngIf="err">{{ err }}</span>
+
+      <div class="btn">
+        <button type="submit" class="img-button" [disabled]="form.invalid">
+          Prosseguir
+          <img src="/assets/imgs/cadastro/icones/icone-prosseguir.png" alt="Prosseguir" />
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+

@@ -1,0 +1,56 @@
+<div id="formulario">
+  <h1 class="titulo-principal">Simulação de seguro</h1>
+  <div class="form">
+    <form [formGroup]="form" (ngSubmit)="enviarFormulario()">
+      <h2 class="subtitulo">Dados familiares</h2>
+      <div>
+        <label>
+          <input type="text" formControlName="quantidadeFilhos" placeholder="Quantos filhos?">
+        </label>
+        <span class="msg-erro-form" *ngIf="form.get('quantidadeFilhos')?.errors?.['required'] && form.get('quantidadeFilhos')?.touched">
+          Quantidade de filhos é obrigatória
+        </span>
+        <span class="msg-erro-form" *ngIf="form.get('quantidadeFilhos')?.errors?.['min'] && form.get('quantidadeFilhos')?.touched">
+          A quantidade de filhos não pode ser negativa
+        </span>
+      </div>
+      <div>
+        <label>
+          <input type="text" formControlName="filhosMaiores" placeholder="Filhos menores de 21 anos">
+        </label>
+        <span class="msg-erro-form" *ngIf="form.get('filhosMaiores')?.errors?.['required'] && form.get('filhosMaiores')?.touched">
+          Quantidade de filhos menores de 21 anos é obrigatória
+        </span>
+        <span class="msg-erro-form" *ngIf="form.get('filhosMaiores')?.errors?.['min'] && form.get('filhosMaiores')?.touched">
+          A quantidade de filhos menores de 21 anos não pode ser negativa
+        </span>
+      </div>
+    </form>
+    <div id="bloco-add-filho" *ngFor="let filho of filhos; let i = index">
+      <div class="info-filho">
+        <label>
+          <input type="text" [(ngModel)]="filho.nome" [ngModelOptions]="{standalone: true}" placeholder="Nome do filho">
+        </label>
+      </div>
+      <div>
+        <label>
+          <input [type]="filho.dtNasc ? 'date' : 'text'" [(ngModel)]="filho.dtNasc" [ngModelOptions]="{standalone: true}" (focus)="onFocus($event)" (blur)="onBlur($event)" placeholder="Data de nascimento">
+        </label>
+      </div>
+    </div>
+
+    <div class="add-dados-filho" (click)="adicionarFilho()">
+      + Adicionar dados de mais um filho
+    </div>
+
+    <span class="msg-erro-form" *ngIf="err">{{ err }}</span>
+
+    <div class="btn">
+      <button type="submit" class="img-button" (click)="enviarFormulario()">
+        Prosseguir
+        <img src="/assets/imgs/cadastro/icones/icone-prosseguir.png" alt="Prosseguir"/>
+      </button>
+    </div>
+  </div>
+</div>
+

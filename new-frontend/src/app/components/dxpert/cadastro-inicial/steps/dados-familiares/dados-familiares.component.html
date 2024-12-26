@@ -1,0 +1,110 @@
+<div id="formulario">
+  <h1 class="titulo-principal">Simulação de seguro</h1>
+  <div class="form">
+    <form [formGroup]="formularioSeguroForm" (ngSubmit)="onSubmit()">
+      <h2 class="subtitulo">Dados familiares</h2>
+      <div class="form-group">
+        <label class="select">
+          <select
+            formControlName="estadoCivil"
+            placeholder="Estado civil"
+            required
+          >
+            <option value="" disabled selected>Estado civil</option>
+            <option value="Casado">Casado (a)</option>
+            <option value="Solteiro">Solteiro (a)</option>
+          </select>
+        </label>
+        <span
+          class="msg-erro-form"
+          *ngIf="formularioSeguroForm.get('estadoCivil')?.errors?.['required'] && formularioSeguroForm.get('estadoCivil')?.touched"
+          >Estado civil obrigatório</span
+        >
+      </div>
+      <div *ngIf="mostrarCamposConjuge">
+        <div class="form-group">
+          <label>
+            <input
+              type="text"
+              formControlName="dataCasamento"
+              placeholder="Data do casamento"
+              appMask="00/00/0000"
+            />
+          </label>
+          <span
+            class="msg-erro-form"
+            *ngIf="formularioSeguroForm.get('dataCasamento')?.errors?.['required'] && formularioSeguroForm.get('dataCasamento')?.touched"
+            >Data de casamento obrigatória</span
+          >
+          <span
+            class="msg-erro-form"
+            *ngIf="formularioSeguroForm.get('dataCasamento')?.errors?.['pattern'] && formularioSeguroForm.get('dataCasamento')?.touched"
+            >Data de casamento inválida</span
+          >
+        </div>
+        <div class="form-group">
+          <label>
+            <input
+              type="text"
+              formControlName="ConjugeNome"
+              placeholder="Nome do cônjuge"
+            />
+          </label>
+          <span
+            class="msg-erro-form"
+            *ngIf="formularioSeguroForm.get('ConjugeNome')?.errors?.['required'] && formularioSeguroForm.get('ConjugeNome')?.touched"
+            >Nome do cônjuge obrigatório</span
+          >
+        </div>
+        <div class="form-group">
+          <label>
+            <input
+              type="text"
+              formControlName="conjugeDataNasc"
+              placeholder="Nascimento do cônjuge"
+              appMask="00/00/0000"
+            />
+          </label>
+          <span
+            class="msg-erro-form"
+            *ngIf="formularioSeguroForm.get('conjugeDataNasc')?.errors?.['required'] && formularioSeguroForm.get('conjugeDataNasc')?.touched"
+            >Data de nascimento do cônjuge obrigatória</span
+          >
+          <span
+            class="msg-erro-form"
+            *ngIf="formularioSeguroForm.get('conjugeDataNasc')?.errors?.['pattern'] && formularioSeguroForm.get('conjugeDataNasc')?.touched"
+            >Data de nascimento do cônjuge inválida</span
+          >
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="select">
+          <select
+            formControlName="possuiFilhos"
+            placeholder="Possui filhos?"
+            required
+          >
+            <option value="" disabled selected>Possui filhos?</option>
+            <option value="Sim">Sim</option>
+            <option value="Nao">Não</option>
+          </select>
+        </label>
+        <span
+          class="msg-erro-form"
+          *ngIf="formularioSeguroForm.get('possuiFilhos')?.errors?.['required'] && formularioSeguroForm.get('possuiFilhos')?.touched"
+          >Informação sobre filhos obrigatória</span
+        >
+      </div>
+
+      <span class="msg-erro-form" *ngIf="err">{{ err }}</span>
+
+      <div class="btn">
+        <button type="submit" class="img-button" [disabled]="formularioSeguroForm.invalid">
+          Prosseguir
+          <img src="/assets/imgs/cadastro/icones/icone-prosseguir.png" alt="Prosseguir" />
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+

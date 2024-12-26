@@ -1,0 +1,50 @@
+<div id="formulario">
+  <h1 class="titulo-principal">Simulação de seguro</h1>
+  <div class="form">
+    <form [formGroup]="form" (ngSubmit)="enviar()">
+      <h2 class="subtitulo">Dados financeiros</h2>
+      <div>
+        <label class="select">
+          <select formControlName="impostoDeRenda">
+            <option value="" disabled selected>Faixa de imposto de renda</option>
+            <option value="Isento">Isento</option>
+            <option value="7.5%">7.5%</option>
+            <option value="15%">15%</option>
+            <option value="22.5%">22.5%</option>
+            <option value="27.5%">27.5%</option>
+          </select>
+        </label>
+      </div>
+      <div>
+        <label>
+          <input type="text" formControlName="rendaBruta" placeholder="Renda bruta mensal" (input)="transformAmountRendaBrutaMensal($event)">
+        </label>
+      </div>
+      <div>
+        <label>
+          <input type="text" formControlName="despesaMensal" placeholder="Despesa mensal" (input)="transformAmountdespesaMensal($event)">
+        </label>
+      </div>
+      <div>
+        <label>
+          <input type="text" formControlName="reservaEmergencia" placeholder="Reserva de emergência" (input)="transformPercent()">
+        </label>
+      </div>
+      <div>
+        <label>
+          <input type="text" formControlName="tempoReserva" placeholder="Tempo de reserva (em meses)" (input)="transformTempoReserva($event)">
+        </label>
+      </div>
+
+      <span class="msg-erro-form" *ngIf="err">{{ err }}</span>
+
+      <div class="btn">
+        <button type="submit" class="img-button">
+          Prosseguir
+          <img src="/assets/imgs/cadastro/icones/icone-prosseguir.png" alt="Prosseguir"/>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+

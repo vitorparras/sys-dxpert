@@ -49,6 +49,9 @@ import { ReportNotesComponent } from './components/pages/reports/report-notes/re
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { LayoutComponent } from './components/shared/layout/layout.component';
 import { ReportPresentationComponent } from './components/pages/reports/report-presentation/report-presentation.component';
+import { PhoneMaskDirective } from './directives/phone-mask.directive';
+import { InputMaskDirective } from './directives/input-mask.directive';
+import { DateMaskDirective } from './directives/date-mask.directive';
 @NgModule({
   declarations: [
     AppComponent,

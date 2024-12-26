@@ -3,11 +3,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { ReportService, Report } from '../../../../services/report.service';
 import { ReportDialogComponent } from '../report-dialog/report-dialog.component';
-import { ConfirmDialogComponent } from '../../../shared/confirm-dialog/confirm-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ReportNotesComponent } from '../report-notes/report-notes.component';
+import { ReportPresentationComponent } from '../report-presentation/report-presentation.component';
+import { ConfirmDialogComponent } from 'src/app/components/shared/confirm-dialog/confirm-dialog.component';
+import { ReportService, Report } from 'src/app/services/report.service';
 
 @Component({
   selector: 'app-report-list',
@@ -23,6 +24,8 @@ export class ReportListComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+
+  showPresentation = false;
 
   constructor(
     private reportService: ReportService,
@@ -159,6 +162,19 @@ export class ReportListComponent implements OnInit {
         });
       }
     });
+  }
+
+  openReportPresentation() {
+    this.showPresentation = true;
+  }
+
+  closeReportPresentation() {
+    this.showPresentation = false;
+  }
+
+  startNewReport() {
+    this.showPresentation = false;
+    this.openReportDialog();
   }
 }
 

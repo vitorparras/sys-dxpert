@@ -48,6 +48,7 @@ import { UserMetricsModalComponent } from './components/pages/user-list/user-met
 import { ReportNotesComponent } from './components/pages/reports/report-notes/report-notes.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { LayoutComponent } from './components/shared/layout/layout.component';
+import { ReportPresentationComponent } from './components/pages/reports/report-presentation/report-presentation.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -65,7 +66,7 @@ import { LayoutComponent } from './components/shared/layout/layout.component';
     ConfirmDialogComponent,
     UserMetricsModalComponent,
     ReportNotesComponent,
-    
+    ReportPresentationComponent
   ],
   imports: [
     BrowserModule,

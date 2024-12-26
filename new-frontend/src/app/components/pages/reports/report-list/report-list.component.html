@@ -1,15 +1,15 @@
 <div class="report-list-container">
   <div class="header">
-    <h1>Simulações</h1>
+    <h1>Relatórios</h1>
     <div class="actions">
       <button 
         mat-flat-button 
-        (click)="openReportDialog()" 
+        (click)="openReportPresentation()" 
         matTooltip="Adicionar novo relatório"
         class="add-report-button">
         <span class="button-content">
           <mat-icon>add</mat-icon>
-          <span>Adicionar Simulação</span>
+          <span>Cadastrar Relatório</span>
         </span>
       </button>
       <button 
@@ -80,7 +80,7 @@
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
           <tr class="mat-row" *matNoDataRow>
-            <td class="mat-cell" colspan="6">Nenhuma Simulação encontrada para "{{input.value}}"</td>
+            <td class="mat-cell" colspan="6">Nenhum relatório encontrado para "{{input.value}}"</td>
           </tr>
         </table>
 
@@ -126,5 +126,11 @@
       </div>
     </div>
   </ng-template>
+
+  <app-report-presentation 
+    *ngIf="showPresentation"
+    (startReport)="startNewReport()"
+    (closePresentation)="closeReportPresentation()">
+  </app-report-presentation>
 </div>
 

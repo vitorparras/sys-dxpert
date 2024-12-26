@@ -56,3 +56,7 @@ html, body {
 .text-primary { color: mat.get-color-from-palette($primary, 500) !important; }
 .bg-primary { background-color: mat.get-color-from-palette($primary, 500) !important; }
 
+body.report-presentation-active {
+  overflow: hidden;
+}
+

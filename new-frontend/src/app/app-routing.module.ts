@@ -26,6 +26,11 @@ const routes: Routes = [
       { path: '', redirectTo: '/dashboard', pathMatch: 'full' }
     ]
   },
+  { 
+    path: 'relatorio',
+    loadChildren: () => import('./components/dxpert/relatorio.module').then(m => m.RelatorioModule),
+   // canActivate: [AuthGuard],
+    },
   { path: '**', redirectTo: '/dashboard' }
 ];
 

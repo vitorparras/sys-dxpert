@@ -1,78 +1,60 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Sexo } from 'src/app/domain/enums/sexo';
-import { CadastroService } from 'src/app/services/cadastro.service';
-import { LoadingService } from 'src/app/services/loading.service';
-import { localStorageVarNames } from 'src/environments/localStorageVarNames';
 
 @Component({
   selector: 'app-dados-pessoais',
   templateUrl: './dados-pessoais.component.html',
-  styleUrls: ['./dados-pessoais.component.css'],
+  styleUrls: ['./dados-pessoais.component.scss'], // Agora referenciado como SCSS
 })
-export class DadosPessoaisComponent {
-  selecao: Sexo | undefined;
-  err: string | undefined;
-  form!: FormGroup;
-  @Input() id: string | undefined;
+export class DadosPessoaisComponent implements OnInit {
+  @Input() id: string | undefined; // Recebe o ID para busca
+  form!: FormGroup; // Formulário reativo
+  err: string = ''; // Mensagem de erro, inicializada como string vazia
 
-  constructor(
-    private fb: FormBuilder,
-    public loadingService: LoadingService,
-    private router: Router,
-    private _cadastroService: CadastroService
-  ) {}
+  constructor(private fb: FormBuilder, private router: Router) {}
 
-  ngOnInit() {
-
-    var id = localStorage.getItem(localStorageVarNames.IdUser);
-
+  ngOnInit(): void {
+    // Inicializa o formulário
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      celular: ['', Validators.required],
+      celular: ['', [Validators.required]],
       nome: ['', Validators.required],
       dataNascimento: ['', Validators.required],
       sexo: ['', Validators.required],
-      etapa: 'Dados Pessoais',
-      IdUsuarioResponsavel: id,
     });
 
-    this.form.get('sexo')?.valueChanges.subscribe((val) => {
-      this.selecao = val;
-    });
+    // Se houver um ID, simula a busca de dados do backend
+    if (this.id) {
+      this.mockBackendFetch(this.id);
+    }
   }
 
-  enviar() {
-    this.loadingService.show();
-
+  enviar(): void {
     if (this.form.valid) {
-      this._cadastroService.edit(this.form.value).subscribe(
-        (res) => {
-          if (res.sucesso) {
-            var idcadastro = res.cadastro.id;
-            localStorage.setItem(
-              localStorageVarNames.IdCadastroAtual,
-              idcadastro
-            );
-
-            setTimeout(() => {
-              this.loadingService.hide();
-              this.router.navigate(['/cadastro/dados-familiares']);
-            }, 2000);
-          } else {
-            this.err = res.Message;
-            this.loadingService.hide();
-          }
-        },
-        (err) => {
-          this.err = err;
-          this.loadingService.hide();
-        }
-      );
+      // Simula o envio dos dados
+      console.log('Enviando dados...', this.form.value);
+      // Redireciona para outra página após o envio (simulado)
+      this.router.navigate(['/sucesso']);
     } else {
-      this.err = 'Formulario Com campos invalidos';
-      this.loadingService.hide();
+      this.err = 'Por favor, preencha todos os campos obrigatórios.';
     }
+  }
+
+  // Simula a busca dos dados com base no ID
+  private mockBackendFetch(id: string): void {
+    console.log(`Buscando dados para o ID: ${id}`);
+    // Simula um retorno do backend
+    setTimeout(() => {
+      const mockData = {
+        email: 'usuario@example.com',
+        celular: '(11) 98765-4321',
+        nome: 'Usuário Simulado',
+        dataNascimento: '1990-01-01',
+        sexo: 1, // 1 = Feminino, 0 = Masculino
+      };
+      // Atualiza o formulário com os dados simulados
+      this.form.patchValue(mockData);
+    }, 1000); // Simula tempo de resposta do backend
   }
 }

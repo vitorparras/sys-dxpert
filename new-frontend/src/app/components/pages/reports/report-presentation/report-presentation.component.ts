@@ -1,6 +1,7 @@
 import { Component, OnInit, ElementRef, ViewChild, Output, EventEmitter, AfterViewInit, OnDestroy, Inject } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { DOCUMENT } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-report-presentation',
@@ -23,8 +24,7 @@ export class ReportPresentationComponent implements OnInit, AfterViewInit, OnDes
 
   isLoading = false;
   progress = 0;
-
-  constructor(@Inject(DOCUMENT) private document: Document) {}
+  constructor(@Inject(DOCUMENT) private document: Document, private router: Router) {}
 
   ngOnInit() {
     this.addBodyClass();
@@ -96,7 +96,12 @@ export class ReportPresentationComponent implements OnInit, AfterViewInit, OnDes
         clearInterval(interval);
         this.isLoading = false;
         document.body.style.overflow = '';
-        this.startReport.emit();
+        //this.startReport.emit();
+
+        //relatorio/dados-pessoais
+
+        this.router.navigate(['/relatorio/cadastro/dados-pessoais']);
+
       }
     }, 30);
   }

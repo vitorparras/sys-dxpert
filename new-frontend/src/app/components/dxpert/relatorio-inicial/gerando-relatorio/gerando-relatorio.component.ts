@@ -13,11 +13,11 @@ export class GerandoRelatorioComponent {
   ngOnInit(): void {
     
     setTimeout(() => {
-      this.router.navigate(['/relatorio/gerado']);
+      this.router.navigate(['/relatorio/steps/gerado']);
     }, 5000);
 
   }
-
+  
   cancelar() {
     this.router.navigate(['/cadastro/dados-saude']);
   }

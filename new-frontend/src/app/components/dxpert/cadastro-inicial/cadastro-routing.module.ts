@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { RelatorioComponent } from './relatorio.component';
 
 import { DadosPessoaisComponent } from './steps/dados-pessoais/dados-pessoais.component';
 import { DadosDescendentesComponent } from './steps/dados-descendentes/dados-descendentes.component';
@@ -9,10 +8,11 @@ import { DadosProfissionaisComponent } from './steps/dados-profissionais/dados-p
 import { DadosFinanceirosComponent } from './steps/dados-financeiros/dados-financeiros.component';
 import { DadosSaudeComponent } from './steps/dados-saude/dados-saude.component';
 import { DadosFamiliaresComponent } from './steps/dados-familiares/dados-familiares.component';
+import { CadastroComponent } from './cadastro.component';
 
 const routes: Routes = [
-  {path: '', component: RelatorioComponent},
-  { path: 'cadastro', component: RelatorioComponent,
+  {path: '', component: CadastroComponent},
+  { path: 'cadastro', component: CadastroComponent,
     children: [
       { path: 'dados-pessoais', component: DadosPessoaisComponent },
       { path: 'dados-familiares', component: DadosFamiliaresComponent },
@@ -28,4 +28,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class RelatorioRoutingModule { }
+export class CadastroRoutingModule { }

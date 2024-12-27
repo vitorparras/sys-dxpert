@@ -26,11 +26,18 @@ const routes: Routes = [
       { path: '', redirectTo: '/dashboard', pathMatch: 'full' }
     ]
   },
-  { 
+  {
     path: 'relatorio',
-    loadChildren: () => import('./components/dxpert/cadastro-inicial/relatorio.module').then(m => m.RelatorioModule),
-   // canActivate: [AuthGuard],
-    },
+    loadChildren: () => import('./components/dxpert/cadastro-inicial/cadastro.module').then(m => m.CadastroModule),
+    // canActivate: [AuthGuard],
+  },
+
+  {
+    path: 'relatorio',
+    loadChildren: () => import('./components/dxpert/relatorio-inicial/relatorio.module').then(m => m.RelatorioModule),
+    // canActivate: [AuthGuard],
+  },
+
   { path: '**', redirectTo: '/dashboard' }
 ];
 

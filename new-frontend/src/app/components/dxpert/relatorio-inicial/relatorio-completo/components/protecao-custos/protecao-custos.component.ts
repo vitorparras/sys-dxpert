@@ -6,9 +6,6 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { RelatorioService } from 'src/app/services/relatorio.service';
-import { SharedService } from 'src/app/services/shared.service';
-import { localStorageVarNames } from 'src/environments/localStorageVarNames';
 
 @Component({
   selector: 'app-protecao-custos',
@@ -25,8 +22,6 @@ export class ProtecaoCustosComponent implements OnInit, OnDestroy {
   }
 
   constructor(
-    public sharedService: SharedService,
-    private _relatorioService: RelatorioService
   ) {}
 
   onInputKeyUp(element: any) {
@@ -63,24 +58,10 @@ export class ProtecaoCustosComponent implements OnInit, OnDestroy {
 
   ConverteValor(element: any) {
     let val = element.target.value;
-    val = this.sharedService.transformAmount(val);
     element.target.value = val;
   }
 
   RecalcularEvolucao() {
-    var idCad = localStorage.getItem(localStorageVarNames.IdCadastroAtual) ?? 0;
-    const beneficiosMorteValor = this.sharedService.transformAmount(this.beneficiosMorte);
-    const beneficiosInvalidesValor = this.sharedService.transformAmount(this.beneficiosInvalides);
   
-    this._relatorioService
-      .getEvolucaoDeCustos(
-        Number(idCad),
-        beneficiosMorteValor,
-        beneficiosInvalidesValor
-      )
-      .subscribe((res) => {
-        console.log(res);
-        this.req = res;
-      });
   }
 }

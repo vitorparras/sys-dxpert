@@ -31,7 +31,7 @@ export class DadosSaudeComponent {
   enviar() {
     if (this.form.valid) {
       console.log('Formulário válido:', this.form.value);
-      this.router.navigate(['/relatorio/gerando']);
+      this.router.navigate(['/relatorio/steps/gerando']);
     } else {
       this.err = 'Por favor, preencha todos os campos obrigatórios.';
       this.markFormGroupTouched(this.form);

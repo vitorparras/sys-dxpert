@@ -4,9 +4,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { RelatorioRoutingModule } from './relatorio-routing.module';
 
-import { RelatorioComponent } from './relatorio.component';
 import { DadosPessoaisComponent } from './steps/dados-pessoais/dados-pessoais.component';
 import { DateMaskDirective } from 'src/app/directives/date-mask.directive';
 import { InputMaskDirective } from 'src/app/directives/input-mask.directive';
@@ -20,9 +18,13 @@ import { DadosFinanceirosComponent } from './steps/dados-financeiros/dados-finan
 import { DadosSaudeComponent } from './steps/dados-saude/dados-saude.component';
 import { DadosFamiliaresComponent } from './steps/dados-familiares/dados-familiares.component';
 
+
+import { CadastroComponent } from './cadastro.component';
+import { CadastroRoutingModule } from './cadastro-routing.module';
+
 @NgModule({
   declarations: [
-    RelatorioComponent,
+    CadastroComponent,
     DadosPessoaisComponent,
     DadosFamiliaresComponent,
     DadosDescendentesComponent,
@@ -36,7 +38,7 @@ import { DadosFamiliaresComponent } from './steps/dados-familiares/dados-familia
   ],
   imports: [
     CommonModule,
-    RelatorioRoutingModule,
+    CadastroRoutingModule,
     ReactiveFormsModule,
     MatDatepickerModule,
     MatNativeDateModule,
@@ -46,4 +48,4 @@ import { DadosFamiliaresComponent } from './steps/dados-familiares/dados-familia
   ]
 })
 
-export class RelatorioModule { }
+export class CadastroModule { }

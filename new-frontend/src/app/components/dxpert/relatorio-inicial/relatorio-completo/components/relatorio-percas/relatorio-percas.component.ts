@@ -2,11 +2,8 @@ import { CurrencyPipe } from '@angular/common';
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { ChartDataset } from 'chart.js';
 import { Chart, ChartOptions, ChartType, registerables } from 'chart.js';
-import { Label } from 'chartist';
-import ChartDataLabels from 'chartjs-plugin-datalabels';
-import { SharedService } from 'src/app/services/shared.service';
 
-Chart.register(...registerables, ChartDataLabels);
+Chart.register(...registerables);
 
 @Component({
   selector: 'app-relatorio-percas',
@@ -16,10 +13,9 @@ Chart.register(...registerables, ChartDataLabels);
 export class RelatorioPercasComponent {
   @Input() relatorio: any;
 
-  constructor(private sharedService: SharedService) {}
+  constructor() {}
 
-  formatarParaReal(valor: number): string | null {
-    return this.sharedService.formatarParaReal(valor);
+  formatarParaReal(valor: number): any{
   }
 
   limpaValor(valor: any): number {
@@ -27,30 +23,10 @@ export class RelatorioPercasComponent {
   }
 
   public barChartOptions: ChartOptions = {
-    responsive: true,
-    plugins: {
-      datalabels: {
-        color: '#000000',
-        anchor: 'end',
-        align: 'start',
-        offset: -20,
-        formatter: function (value, context) {
-          return value.toLocaleString('pt-BR', {
-            style: 'currency',
-            currency: 'BRL',
-          });
-        },
-      },
-    },
+
   };
 
-  public barChartLabels: Label[] = [
-    'Renda',
-    'Despesa',
-    'Na Aposentadoria',
-    'Na invalidez',
-    'Pensão por morte',
-  ];
+  
   public barChartType: ChartType = 'bar';
   public barChartLegend = true;
   public barChartData: ChartDataset[] = [

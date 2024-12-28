@@ -1,0 +1,104 @@
+# Compilados do Visual Studio
+bin/
+obj/
+debug/
+release/
+
+# Logs
+*.log
+
+# Arquivos gerados por usuários
+*.user
+*.userosscache
+*.suo
+*.sln.docstates
+
+# Configurações locais do Visual Studio
+.vscode/
+.vs/
+
+# Arquivos de backup do sistema
+*.bak
+*.swp
+*~
+
+# Build e publicação
+out/
+publish/
+dist/
+
+# Informações de sistema do MacOS
+.DS_Store
+._*
+
+# Informações do sistema do Windows
+Thumbs.db
+desktop.ini
+
+# Configurações do Rider ou IDEs JetBrains
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Arquivos de dependências locais
+node_modules/
+bower_components/
+
+# Arquivos temporários
+*.tmp
+*.temp
+*.cache
+*.pdb
+*.ilk
+*.idb
+*.pidb
+*.aps
+*.mdb
+
+# Dados do Runtime e Containers
+*.log
+*.lock
+*.pid
+*.seed
+*.log*
+
+# Pastas de cache do .NET
+**/packages/
+**/.vs/
+**/obj/
+**/bin/
+**/Debug/
+**/Release/
+
+# Arquivos específicos do NuGet
+.nuget/
+*.nupkg
+project.lock.json
+project.fragment.lock.json
+
+# Configurações e credenciais sensíveis
+appsettings.json
+appsettings.*.json
+secrets.json
+.env
+*.env
+
+# Arquivos de migração
+Migrations/
+
+# Arquivos gerados por teste
+TestResults/
+*.coverage
+*.testlog
+coverage/
+
+# Arquivos temporários do Docker
+**/Dockerfile
+**/docker-compose*
+
+# Arquivos para editor e IDE
+*.editorconfig
+*.resharper
+*.DotSettings.user
+_ReSharper.*

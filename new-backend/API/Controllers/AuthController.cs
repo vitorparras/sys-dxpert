@@ -1,8 +1,6 @@
-﻿using Domain.DTO.Request;
-using Infrastructure.Extensions;
-using Microsoft.AspNetCore.Authorization;
+﻿using Application.DTOs;
+using Application.UseCases;
 using Microsoft.AspNetCore.Mvc;
-using Service.Interfaces;
 
 namespace API.Controllers
 {
@@ -10,56 +8,74 @@ namespace API.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly IAuthService _authService;
+        private readonly LoginUserUseCase _loginUserUseCase;
+        private readonly RefreshTokenUseCase _refreshTokenUseCase;
+        private readonly RegisterUserUseCase _registerUserUseCase;
+        private readonly RequestPasswordResetUseCase _requestPasswordResetUseCase;
+        private readonly ResetPasswordUseCase _resetPasswordUseCase;
 
-        public AuthController(IAuthService authService)
+        public AuthController(
+            LoginUserUseCase loginUserUseCase,
+            RefreshTokenUseCase refreshTokenUseCase,
+            RegisterUserUseCase registerUserUseCase,
+            RequestPasswordResetUseCase requestPasswordResetUseCase,
+            ResetPasswordUseCase resetPasswordUseCase)
         {
-            _authService = authService;
+            _loginUserUseCase = loginUserUseCase;
+            _refreshTokenUseCase = refreshTokenUseCase;
+            _registerUserUseCase = registerUserUseCase;
+            _requestPasswordResetUseCase = requestPasswordResetUseCase;
+            _resetPasswordUseCase = resetPasswordUseCase;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Logout()
+        /// <summary>
+        /// Authenticates a user and returns a JWT token
+        /// </summary>
+        [HttpPost("login")]
+        public async Task<ActionResult<LoginResponseDto>> Login([FromBody] LoginRequestDto request)
         {
-            try
-            {
-                var token = Request.GetJwtFromHeader();
-                var response = await _authService.LogoutAsync(token);
-                return Ok(response);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Ocorreu um erro ao fazer logout: {ex.Message}");
-            }
+            var response = await _loginUserUseCase.ExecuteAsync(request);
+            return Ok(response);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> TokenIsValid()
+        /// <summary>
+        /// Refreshes an expired JWT token
+        /// </summary>
+        [HttpPost("refresh-token")]
+        public async Task<ActionResult<LoginResponseDto>> RefreshToken([FromBody] RefreshTokenRequestDto request)
         {
-            try
-            {
-                var token = Request.GetJwtFromHeader();
-                var response = await _authService.TokenIsValid(token);
-                return Ok(response);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Ocorreu um erro ao fazer Validar o token: {ex.Message}");
-            }
+            var response = await _refreshTokenUseCase.ExecuteAsync(request.RefreshToken);
+            return Ok(response);
         }
 
-        [HttpPost]
-        [AllowAnonymous]
-        public async Task<IActionResult> Login([FromBody] LoginRequest request)
+        /// <summary>
+        /// Registers a new user
+        /// </summary>
+        [HttpPost("register")]
+        public async Task<ActionResult<UserDto>> Register([FromBody] RegisterUserDto request)
         {
-            try
-            {
-                var response = await _authService.LoginAsync(request.Email, request.Senha);
-                return Ok(response);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Ocorreu um erro ao fazer Login: {ex.Message}");
-            }
+            var response = await _registerUserUseCase.ExecuteAsync(request);
+            return Ok(response);
+        }
+
+        /// <summary>
+        /// Requests a password reset token
+        /// </summary>
+        [HttpPost("request-password-reset")]
+        public async Task<IActionResult> RequestPasswordReset([FromBody] RequestPasswordResetDto request)
+        {
+            await _requestPasswordResetUseCase.ExecuteAsync(request.Email);
+            return Ok();
+        }
+
+        /// <summary>
+        /// Resets the user's password using a reset token
+        /// </summary>
+        [HttpPost("reset-password")]
+        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDto request)
+        {
+            await _resetPasswordUseCase.ExecuteAsync(request);
+            return Ok();
         }
     }
 }

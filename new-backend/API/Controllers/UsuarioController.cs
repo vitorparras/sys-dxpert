@@ -1,6 +1,4 @@
-﻿using Domain.DTO.Request;
-using Microsoft.AspNetCore.Mvc;
-using Service.Interfaces;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
@@ -9,7 +7,7 @@ namespace API.Controllers
     [ApiController]
     public class UsuarioController : ControllerBase
     {
-        private readonly IUsuarioService _usuarioService;
+       /* private readonly IUsuarioService _usuarioService;
 
         public UsuarioController(IUsuarioService usuarioService)
         {
@@ -98,6 +96,6 @@ namespace API.Controllers
             {
                 return StatusCode(500, $"Ocorreu um erro: {ex.Message}");
             }
-        }
+        }*/
     }
 }

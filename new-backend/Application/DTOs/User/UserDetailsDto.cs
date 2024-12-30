@@ -4,15 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.DTOs
+namespace Application.DTOs.User
 {
-    public class RegisterUserDto
+    public class UserDetailsDto
     {
+        public Guid Id { get; set; }
         public string Email { get; set; }
         public string Name { get; set; }
-        public string CPF { get; set; }
-        public string Password { get; set; }
-        public string ConfirmPassword { get; set; }
         public string? Phone { get; set; }
+        public string CPF { get; set; }
+        public string Role { get; set; }
     }
 }

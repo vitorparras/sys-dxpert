@@ -1,4 +1,5 @@
 ﻿using Core.Interfaces;
+using Core.Services;
 using Infrastructure.ExternalServices;
 using Infrastructure.Persistence.Repositorys;
 
@@ -15,6 +16,7 @@ namespace API.Configuration
             // Services
             services.AddScoped<IAuthService, JwtAuthService>();
             services.AddScoped<IEmailService, EmailService>();
+            services.AddScoped<IUserService, UserService>();
 
             return services;
         }

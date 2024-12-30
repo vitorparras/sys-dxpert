@@ -40,6 +40,10 @@ namespace API.Middlewares
                     code = HttpStatusCode.BadRequest;
                     result = JsonSerializer.Serialize(new { error = domainException.Message });
                     break;
+                case NotFoundException notFoundException:
+                    code = HttpStatusCode.NotFound;
+                    result = JsonSerializer.Serialize(new { error = notFoundException.Message });
+                    break;
                 case UnauthorizedAccessException:
                     code = HttpStatusCode.Unauthorized;
                     result = JsonSerializer.Serialize(new { error = "Unauthorized access" });

@@ -23,6 +23,16 @@ namespace Infrastructure.Persistence.Repositorys
             return await _context.Users.FirstOrDefaultAsync(u => u.Email.Value == email);
         }
 
+        public async Task<User> GetByCPFAsync(string cpf)
+        {
+            return await _context.Users.FirstOrDefaultAsync(u => u.CPF == cpf);
+        }
+
+        public async Task<IEnumerable<User>> GetAllAsync()
+        {
+            return await _context.Users.ToListAsync();
+        }
+
         public async Task<User> CreateAsync(User user)
         {
             await _context.Users.AddAsync(user);
@@ -33,6 +43,12 @@ namespace Infrastructure.Persistence.Repositorys
         public async Task UpdateAsync(User user)
         {
             _context.Users.Update(user);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task DeleteAsync(User user)
+        {
+            _context.Users.Remove(user);
             await _context.SaveChangesAsync();
         }
     }

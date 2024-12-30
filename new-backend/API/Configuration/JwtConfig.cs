@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Infrastructure.Configurations;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -6,40 +8,45 @@ namespace API.Configuration
 {
     public static class JwtConfig
     {
-        public static IServiceCollection AddJwtConfiguration(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection ConfigureJwtAuthentication(this IServiceCollection services, IConfiguration configuration)
         {
-            var jwtSettingsSection = configuration.GetSection("Jwt");
-            services.Configure<JwtSettings>(jwtSettingsSection);
+            // Bind and validate settings
+            services.Configure<AppSettings>(configuration);
 
-            var jwtSettings = jwtSettingsSection.Get<JwtSettings>();
+            var serviceProvider = services.BuildServiceProvider();
+            var appSettings = serviceProvider.GetRequiredService<IOptions<AppSettings>>().Value;
+
+            var jwtSettings = appSettings.Jwt;
+            if (string.IsNullOrWhiteSpace(jwtSettings.Secret))
+            {
+                throw new InvalidOperationException("JWT Secret key is not configured. Please check the application settings.");
+            }
+
             var key = Encoding.ASCII.GetBytes(jwtSettings.Secret);
 
-            services.AddAuthentication(x =>
+            // Configure authentication
+            services.AddAuthentication(options =>
             {
-                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             })
-            .AddJwtBearer(x =>
+            .AddJwtBearer(options =>
             {
-                x.RequireHttpsMetadata = false;
-                x.SaveToken = true;
-                x.TokenValidationParameters = new TokenValidationParameters
+                options.RequireHttpsMetadata = true;
+                options.SaveToken = true;
+                options.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidateIssuer = false,
-                    ValidateAudience = false,
+                    ValidateIssuer = !string.IsNullOrWhiteSpace(jwtSettings.Issuer),
+                    ValidIssuer = jwtSettings.Issuer,
+                    ValidateAudience = !string.IsNullOrWhiteSpace(jwtSettings.Audience),
+                    ValidAudience = jwtSettings.Audience,
                     ClockSkew = TimeSpan.Zero
                 };
             });
 
             return services;
         }
-    }
-
-    public class JwtSettings
-    {
-        public string Secret { get; set; }
-        public int ExpirationInMinutes { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Core.Exceptions;
+﻿using API.DTOs;
+using Core.Exceptions;
 using System.Net;
 using System.Text.Json;
 
@@ -31,33 +32,35 @@ namespace API.Middlewares
 
         private Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
-            var code = HttpStatusCode.InternalServerError;
-            var result = string.Empty;
+            var (statusCode, errorResponse) = MapExceptionToResponse(exception);
 
-            switch (exception)
-            {
-                case DomainException domainException:
-                    code = HttpStatusCode.BadRequest;
-                    result = JsonSerializer.Serialize(new { error = domainException.Message });
-                    break;
-                case NotFoundException notFoundException:
-                    code = HttpStatusCode.NotFound;
-                    result = JsonSerializer.Serialize(new { error = notFoundException.Message });
-                    break;
-                case UnauthorizedAccessException:
-                    code = HttpStatusCode.Unauthorized;
-                    result = JsonSerializer.Serialize(new { error = "Unauthorized access" });
-                    break;
-                default:
-                    _logger.LogError(exception, "An unhandled exception has occurred");
-                    result = JsonSerializer.Serialize(new { error = _env.IsDevelopment() ? exception.ToString() : "An error occurred processing your request." });
-                    break;
-            }
+            _logger.LogError(exception, "An exception occurred while processing the request");
 
             context.Response.ContentType = "application/json";
-            context.Response.StatusCode = (int)code;
+            context.Response.StatusCode = statusCode;
 
-            return context.Response.WriteAsync(result);
+            var response = JsonSerializer.Serialize(errorResponse, new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            });
+
+            return context.Response.WriteAsync(response);
+        }
+
+        private (int, ErrorResponse) MapExceptionToResponse(Exception exception)
+        {
+            return exception switch
+            {
+                DomainException domainException => ((int)HttpStatusCode.BadRequest,
+                    new ErrorResponse("Bad Request", domainException.Message)),
+                NotFoundException notFoundException => ((int)HttpStatusCode.NotFound,
+                    new ErrorResponse("Not Found", notFoundException.Message)),
+                UnauthorizedAccessException => ((int)HttpStatusCode.Unauthorized,
+                    new ErrorResponse("Unauthorized", "Unauthorized access")),
+                _ => ((int)HttpStatusCode.InternalServerError,
+                    new ErrorResponse("Internal Server Error",
+                        _env.IsDevelopment() ? exception.ToString() : "An error occurred processing your request."))
+            };
         }
     }
 }

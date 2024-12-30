@@ -13,13 +13,11 @@ namespace API.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
-        private readonly IAuthService _authService;
         private readonly ILogger<UserController> _logger;
 
-        public UserController(IUserService userService, IAuthService authService, ILogger<UserController> logger)
+        public UserController(IUserService userService, ILogger<UserController> logger)
         {
             _userService = userService;
-            _authService = authService;
             _logger = logger;
         }
 
@@ -39,20 +37,11 @@ namespace API.Controllers
         {
             _logger.LogInformation("Creating new user: {Email}", createUserDto.Email);
 
-            var user = new User(
-                Email.Create(createUserDto.Email),
-                createUserDto.Name,
-                createUserDto.CPF,
-                PasswordHash.Create(_authService.HashPassword(createUserDto.Password)),
-                Enum.Parse<Role>(createUserDto.Role),
-                createUserDto.Phone
-            );
+            var createdUser = await _userService.CreateUserAsync(createUserDto);
 
-            var createdUser = await _userService.CreateUserAsync(user);
+            _logger.LogInformation("User created successfully: {Email}", createdUser.Email);
 
-            _logger.LogInformation("User created successfully: {Email}", createdUser.Email.Value);
-
-            return Ok(MapToUserDetailsDto(createdUser));
+            return Ok(createdUser);
         }
 
         /// <summary>
@@ -73,12 +62,12 @@ namespace API.Controllers
         {
             var user = await _userService.GetUserByIdAsync(id);
 
-            if (User.IsInRole(Role.User.ToString()) && User.Identity.Name != user.Email.Value)
+            if (User.IsInRole(Role.User.ToString()) && User.Identity.Name != user.Email)
             {
                 return Forbid();
             }
 
-            return Ok(MapToUserDetailsDto(user));
+            return Ok(user);
         }
 
         /// <summary>
@@ -93,7 +82,7 @@ namespace API.Controllers
         public async Task<ActionResult<IEnumerable<UserDetailsDto>>> GetAllUsers()
         {
             var users = await _userService.GetAllUsersAsync();
-            return Ok(users.Select(MapToUserDetailsDto));
+            return Ok(users);
         }
 
         /// <summary>
@@ -117,15 +106,14 @@ namespace API.Controllers
         {
             var user = await _userService.GetUserByIdAsync(id);
 
-            if (User.IsInRole(Role.User.ToString()) && User.Identity.Name != user.Email.Value)
+            if (User.IsInRole(Role.User.ToString()) && User.Identity.Name != user.Email)
             {
                 return Forbid();
             }
 
-            user.Update(updateUserDto.Name, updateUserDto.Phone);
-            await _userService.UpdateUserAsync(user);
+            await _userService.UpdateUserAsync(id, updateUserDto);
 
-            _logger.LogInformation("User updated successfully: {Email}", user.Email.Value);
+            _logger.LogInformation("User updated successfully: {Email}", user.Email);
 
             return NoContent();
         }
@@ -150,18 +138,6 @@ namespace API.Controllers
 
             return NoContent();
         }
-
-        private static UserDetailsDto MapToUserDetailsDto(User user)
-        {
-            return new UserDetailsDto
-            {
-                Id = user.Id,
-                Email = user.Email.Value,
-                Name = user.Name,
-                Phone = user.Phone,
-                CPF = user.CPF,
-                Role = user.Role.ToString()
-            };
-        }
     }
 }
+

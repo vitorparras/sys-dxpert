@@ -1,56 +1,52 @@
 ﻿using Core.Interfaces;
-using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
-using System.Text;
+using System.Security.Claims;
 
 namespace API.Middlewares
 {
     public class JwtMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly IConfiguration _configuration;
+        private readonly IAuthService _authService;
 
-        public JwtMiddleware(RequestDelegate next, IConfiguration configuration)
+        public JwtMiddleware(RequestDelegate next, IAuthService authService)
         {
             _next = next;
-            _configuration = configuration;
+            _authService = authService;
         }
 
         public async Task Invoke(HttpContext context, IUserRepository userRepository)
         {
-            var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+            var token = ExtractTokenFromHeader(context);
 
-            if (token != null)
-                await AttachUserToContext(context, userRepository, token);
+            if (!string.IsNullOrEmpty(token) && _authService.ValidateToken(token))
+            {
+                var userId = ExtractUserIdFromToken(token);
+
+                if (userId.HasValue)
+                {
+                    context.Items["User"] = await userRepository.GetByIdAsync(userId.Value);
+                }
+            }
 
             await _next(context);
         }
 
-        private async Task AttachUserToContext(HttpContext context, IUserRepository userRepository, string token)
+        private string? ExtractTokenFromHeader(HttpContext context)
         {
-            try
-            {
-                var tokenHandler = new JwtSecurityTokenHandler();
-                var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Secret"]);
-                tokenHandler.ValidateToken(token, new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidateIssuer = false,
-                    ValidateAudience = false,
-                    ClockSkew = TimeSpan.Zero
-                }, out SecurityToken validatedToken);
+            var authorizationHeader = context.Request.Headers["Authorization"].FirstOrDefault();
+            return authorizationHeader?.StartsWith("Bearer ") == true
+                ? authorizationHeader.Substring("Bearer ".Length).Trim()
+                : null;
+        }
 
-                var jwtToken = (JwtSecurityToken)validatedToken;
-                var userId = Guid.Parse(jwtToken.Claims.First(x => x.Type == "nameid").Value);
+        private Guid? ExtractUserIdFromToken(string token)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var jwtToken = tokenHandler.ReadJwtToken(token);
 
-                context.Items["User"] = await userRepository.GetByIdAsync(userId);
-            }
-            catch
-            {
-                // Do nothing if token validation fails
-                // The user is not attached to context so the request won't have access to secure routes
-            }
+            var userIdClaim = jwtToken.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
+            return Guid.TryParse(userIdClaim, out var userId) ? userId : null;
         }
     }
 }

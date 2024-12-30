@@ -1,24 +1,45 @@
-﻿using Serilog;
-
-namespace API.Middlewares
+﻿namespace API.Middlewares
 {
     public class RequestLoggingMiddleware
     {
         private readonly RequestDelegate _next;
+        private readonly ILogger<RequestLoggingMiddleware> _logger;
 
-        public RequestLoggingMiddleware(RequestDelegate next)
+        public RequestLoggingMiddleware(RequestDelegate next, ILogger<RequestLoggingMiddleware> logger)
         {
             _next = next;
+            _logger = logger;
         }
 
         public async Task InvokeAsync(HttpContext context)
         {
-            Log.Information("HTTP {RequestMethod} {RequestPath} started", context.Request.Method, context.Request.Path);
+            var startTime = DateTime.UtcNow;
 
-            await _next(context);
+            try
+            {
+                _logger.LogInformation("HTTP {RequestMethod} {RequestPath} started at {StartTime}",
+                    context.Request.Method,
+                    context.Request.Path,
+                    startTime);
 
-            Log.Information("HTTP {RequestMethod} {RequestPath} completed with status code {StatusCode}",
-                context.Request.Method, context.Request.Path, context.Response.StatusCode);
+                await _next(context);
+
+                var elapsedTime = DateTime.UtcNow - startTime;
+
+                _logger.LogInformation("HTTP {RequestMethod} {RequestPath} completed with status code {StatusCode} in {ElapsedTime}ms",
+                    context.Request.Method,
+                    context.Request.Path,
+                    context.Response.StatusCode,
+                    elapsedTime.TotalMilliseconds);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "HTTP {RequestMethod} {RequestPath} failed with an unhandled exception",
+                    context.Request.Method,
+                    context.Request.Path);
+
+                throw;
+            }
         }
     }
 }

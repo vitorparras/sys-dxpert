@@ -1,5 +1,7 @@
-﻿using Application.DTOs.User;
-using Application.DTOs;
+﻿using Application.DTOs;
+using Application.DTOs.User;
+using Application.UseCases.User;
+using Core.Shared.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Net;

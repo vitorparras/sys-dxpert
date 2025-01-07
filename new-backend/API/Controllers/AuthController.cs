@@ -4,6 +4,7 @@ using Swashbuckle.AspNetCore.Annotations;
 using System.Net;
 using Core.Shared.Helpers;
 using Application.UseCases.Login;
+using Application.UseCases.User;
 
 namespace API.Controllers
 {

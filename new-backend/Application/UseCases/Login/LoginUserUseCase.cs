@@ -1,26 +1,28 @@
 ﻿using Application.DTOs;
 using Application.Mappers;
+using Core.Entities;
 using Core.Interfaces;
 using Microsoft.Extensions.Logging;
+using System.Security.Authentication;
 
-namespace Application.UseCases
+namespace Application.UseCases.Login
 {
     public class LoginUserUseCase
     {
         private readonly IUserRepository _userRepository;
         private readonly IAuthService _authService;
-        private readonly IRefreshTokenRepository _refreshTokenRepository;
+        private readonly ITokenService _tokenService;
         private readonly ILogger<LoginUserUseCase> _logger;
 
         public LoginUserUseCase(
             IUserRepository userRepository,
             IAuthService authService,
-            IRefreshTokenRepository refreshTokenRepository,
+            ITokenService tokenService,
             ILogger<LoginUserUseCase> logger)
         {
             _userRepository = userRepository;
             _authService = authService;
-            _refreshTokenRepository = refreshTokenRepository;
+            _tokenService = tokenService;
             _logger = logger;
         }
 
@@ -31,24 +33,22 @@ namespace Application.UseCases
             var user = await _userRepository.GetByEmailAsync(request.Email);
             if (user == null || !_authService.ValidatePassword(request.Password, user.PasswordHash.Value))
             {
-                _logger.LogWarning("Login failed for user: {Email}", request.Email);
-                throw new UnauthorizedAccessException("Invalid email or password");
+                _logger.LogWarning("Invalid login attempt for user: {Email}", request.Email);
+                throw new InvalidCredentialsException("Invalid email or password");
             }
 
-            var jwtToken = _authService.GenerateJwtToken(user);
-            var refreshToken = _authService.GenerateRefreshToken(user);
-            await _refreshTokenRepository.CreateAsync(refreshToken);
+            var tokens = _tokenService.GenerateTokens(user);
+            await _tokenService.PersistRefreshTokenAsync(tokens.RefreshToken);
 
             _logger.LogInformation("Login successful for user: {Email}", request.Email);
 
             return new LoginResponseDto
             {
-                Token = jwtToken,
-                RefreshToken = refreshToken.Token,
-                ExpiresAt = refreshToken.ExpiresAt,
+                Token = tokens.JwtToken,
+                RefreshToken = tokens.RefreshToken.Token,
+                ExpiresAt = tokens.RefreshToken.ExpiresAt,
                 User = UserMapper.ToDto(user)
             };
         }
     }
 }
-

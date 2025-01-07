@@ -1,7 +1,7 @@
 ﻿using Application.DTOs;
 using Core.Interfaces;
 
-namespace Application.UseCases
+namespace Application.UseCases.Login
 {
     public class ResetPasswordUseCase
     {

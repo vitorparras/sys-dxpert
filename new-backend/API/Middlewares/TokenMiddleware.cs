@@ -4,12 +4,12 @@ using System.Security.Claims;
 
 namespace API.Middlewares
 {
-    public class JwtMiddleware
+    public class TokenMiddleware
     {
         private readonly RequestDelegate _next;
         private readonly IAuthService _authService;
 
-        public JwtMiddleware(RequestDelegate next, IAuthService authService)
+        public TokenMiddleware(RequestDelegate next, IAuthService authService)
         {
             _next = next;
             _authService = authService;

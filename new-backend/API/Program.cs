@@ -32,7 +32,7 @@ app.UseHttpsRedirection();
 
 app.UseMiddleware<RequestLoggingMiddleware>();
 app.UseMiddleware<ErrorHandlingMiddleware>();
-app.UseMiddleware<JwtMiddleware>();
+app.UseMiddleware<TokenMiddleware>();
 
 app.UseCors("AllowSpecificOrigins");
 

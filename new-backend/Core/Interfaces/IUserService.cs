@@ -3,16 +3,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using Application.DTOs.User;
 
 namespace Core.Interfaces
 {
     public interface IUserService
     {
-        Task<User> CreateUserAsync(User user);
-        Task<User> GetUserByIdAsync(Guid id);
-        Task<IEnumerable<User>> GetAllUsersAsync();
-        Task UpdateUserAsync(User user);
+        Task<UserDetailsDto> CreateUserAsync(CreateUserDto createUserDto);
+        Task<UserDetailsDto> GetUserByIdAsync(Guid id);
+        Task<IEnumerable<UserDetailsDto>> GetAllUsersAsync();
+        Task UpdateUserAsync(Guid id, UpdateUserDto updateUserDto);
         Task DeleteUserAsync(Guid id);
     }
 }

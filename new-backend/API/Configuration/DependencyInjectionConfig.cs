@@ -30,7 +30,7 @@ namespace API.Configuration
 
         private static void RegisterServices(IServiceCollection services)
         {
-            services.AddScoped<IAuthService, JwtAuthService>();
+            services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<IUserService, UserService>();
         }

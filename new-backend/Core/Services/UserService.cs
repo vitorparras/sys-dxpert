@@ -1,4 +1,5 @@
-﻿using Core.Entities;
+﻿using AutoMapper;
+using Core.Entities;
 using Core.Exceptions;
 using Core.Interfaces;
 using System;
@@ -13,53 +14,61 @@ namespace Core.Services
     {
         private readonly IUserRepository _userRepository;
         private readonly IAuthService _authService;
+        private readonly IMapper _mapper;
 
-        public UserService(IUserRepository userRepository, IAuthService authService)
+        public UserService(IUserRepository userRepository, IAuthService authService, IMapper mapper)
         {
             _userRepository = userRepository;
             _authService = authService;
+            _mapper = mapper;
         }
 
-        public async Task<User> CreateUserAsync(User user)
+        public async Task<UserDetailsDto> CreateUserAsync(CreateUserDto createUserDto)
         {
-            var existingUser = await _userRepository.GetByEmailAsync(user.Email.Value);
+            var existingUser = await _userRepository.GetByEmailAsync(createUserDto.Email);
             if (existingUser != null)
             {
                 throw new DomainException("User with this email already exists");
             }
 
-            existingUser = await _userRepository.GetByCPFAsync(user.CPF);
+            existingUser = await _userRepository.GetByCPFAsync(createUserDto.CPF);
             if (existingUser != null)
             {
                 throw new DomainException("User with this CPF already exists");
             }
 
-            return await _userRepository.CreateAsync(user);
+            var user = _mapper.Map<User>(createUserDto);
+            user.PasswordHash = Core.ValueObjects.PasswordHash.Create(_authService.HashPassword(createUserDto.Password));
+
+            var createdUser = await _userRepository.CreateAsync(user);
+            return _mapper.Map<UserDetailsDto>(createdUser);
         }
 
-        public async Task<User> GetUserByIdAsync(Guid id)
+        public async Task<UserDetailsDto> GetUserByIdAsync(Guid id)
         {
             var user = await _userRepository.GetByIdAsync(id);
             if (user == null)
             {
                 throw new NotFoundException("User not found");
             }
-            return user;
+            return _mapper.Map<UserDetailsDto>(user);
         }
 
-        public async Task<IEnumerable<User>> GetAllUsersAsync()
+        public async Task<IEnumerable<UserDetailsDto>> GetAllUsersAsync()
         {
-            return await _userRepository.GetAllAsync();
+            var users = await _userRepository.GetAllAsync();
+            return _mapper.Map<IEnumerable<UserDetailsDto>>(users);
         }
 
-        public async Task UpdateUserAsync(User user)
+        public async Task UpdateUserAsync(Guid id, UpdateUserDto updateUserDto)
         {
-            var existingUser = await _userRepository.GetByIdAsync(user.Id);
-            if (existingUser == null)
+            var user = await _userRepository.GetByIdAsync(id);
+            if (user == null)
             {
                 throw new NotFoundException("User not found");
             }
 
+            _mapper.Map(updateUserDto, user);
             await _userRepository.UpdateAsync(user);
         }
 

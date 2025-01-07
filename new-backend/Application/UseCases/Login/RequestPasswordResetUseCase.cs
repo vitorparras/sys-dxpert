@@ -1,7 +1,7 @@
 ﻿using Core.Interfaces;
 using System.Security.Cryptography;
 
-namespace Application.UseCases
+namespace Application.UseCases.Login
 {
     public class RequestPasswordResetUseCase
     {

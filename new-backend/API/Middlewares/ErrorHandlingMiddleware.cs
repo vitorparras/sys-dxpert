@@ -1,4 +1,4 @@
-﻿using API.DTOs;
+﻿using Application.DTOs.Shared;
 using Core.Exceptions;
 using System.Net;
 using System.Text.Json;

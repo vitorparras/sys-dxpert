@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Net;
-using Core.Helpers;
+using Core.Shared.Helpers;
 
 namespace API.Controllers
 {

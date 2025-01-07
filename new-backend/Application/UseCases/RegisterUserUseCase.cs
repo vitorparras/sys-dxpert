@@ -1,9 +1,9 @@
 ﻿using Application.DTOs;
 using Core.Entities;
-using Core.Enums;
 using Core.Exceptions;
 using Core.Interfaces;
 using Core.ValueObjects;
+using Core.ValueObjects.Enums;
 using Microsoft.Extensions.Logging;
 
 namespace Application.UseCases

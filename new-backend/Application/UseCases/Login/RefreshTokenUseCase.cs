@@ -2,7 +2,7 @@
 using Application.Mappers;
 using Core.Interfaces;
 
-namespace Application.UseCases
+namespace Application.UseCases.Login
 {
     public class RefreshTokenUseCase
     {

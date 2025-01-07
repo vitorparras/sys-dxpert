@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
-namespace Core.Helpers
+namespace Core.Shared.Helpers
 {
     public static class ResponseHelper
     {

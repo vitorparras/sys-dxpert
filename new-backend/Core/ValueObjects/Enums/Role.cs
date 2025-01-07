@@ -1,6 +1,4 @@
-﻿
-
-namespace Core.Enums
+﻿namespace Core.ValueObjects.Enums
 {
     public enum Role
     {

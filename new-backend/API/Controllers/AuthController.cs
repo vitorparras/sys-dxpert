@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Net;
 using Core.Shared.Helpers;
+using Application.UseCases.Login;
 
 namespace API.Controllers
 {

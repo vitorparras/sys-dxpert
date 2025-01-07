@@ -1,53 +1,78 @@
 ﻿using Application.DTOs;
-using Application.Mappers;
-using Core.Entities;
+using Application.Handlers;
+using AutoMapper;
+using Core.Exceptions;
 using Core.Interfaces;
 using Microsoft.Extensions.Logging;
-using System.Security.Authentication;
 
 namespace Application.UseCases.Login
 {
-    public class LoginUserUseCase
+    public interface ILoginUserUseCase
+    {
+        Task<LoginResponseDto> ExecuteAsync(LoginRequestDto request);
+    }
+
+    public class LoginUserUseCase : ILoginUserUseCase
     {
         private readonly IUserRepository _userRepository;
         private readonly IAuthService _authService;
         private readonly ITokenService _tokenService;
+        private readonly IAuditService _auditService;
         private readonly ILogger<LoginUserUseCase> _logger;
+        private readonly IMapper _mapper;
+        private readonly LoginFailureHandler _loginFailureHandler;
 
         public LoginUserUseCase(
             IUserRepository userRepository,
             IAuthService authService,
             ITokenService tokenService,
-            ILogger<LoginUserUseCase> logger)
+            IAuditService auditService,
+            ILogger<LoginUserUseCase> logger,
+            IMapper mapper,
+            LoginFailureHandler loginFailureHandler)
         {
             _userRepository = userRepository;
             _authService = authService;
             _tokenService = tokenService;
+            _auditService = auditService;
             _logger = logger;
+            _mapper = mapper;
+            _loginFailureHandler = loginFailureHandler;
         }
 
         public async Task<LoginResponseDto> ExecuteAsync(LoginRequestDto request)
         {
-            _logger.LogInformation("Attempting login for user: {Email}", request.Email);
+            _logger.LogInformation("Login attempt started for email: {Email}", request.Email);
 
             var user = await _userRepository.GetByEmailAsync(request.Email);
-            if (user == null || !_authService.ValidatePassword(request.Password, user.PasswordHash.Value))
+
+            if (user == null)
             {
-                _logger.LogWarning("Invalid login attempt for user: {Email}", request.Email);
-                throw new InvalidCredentialsException("Invalid email or password");
+                await _loginFailureHandler.HandleInvalidLoginAttemptAsync(request.Email);
+                throw new InvalidCredentialsException("Invalid email or password.");
+            }
+
+            var isPasswordValid = _authService.ValidatePassword(request.Password, user.PasswordHash.Value);
+            if (!isPasswordValid)
+            {
+                await _loginFailureHandler.HandleInvalidLoginAttemptAsync(request.Email);
+                throw new InvalidCredentialsException("Invalid email or password.");
             }
 
             var tokens = _tokenService.GenerateTokens(user);
+
             await _tokenService.PersistRefreshTokenAsync(tokens.RefreshToken);
 
-            _logger.LogInformation("Login successful for user: {Email}", request.Email);
+            await _auditService.RecordLoginSuccess(user.Id);
+
+            _logger.LogInformation("Login successful for user ID: {UserId}, email: {Email}", user.Id, request.Email);
 
             return new LoginResponseDto
             {
                 Token = tokens.JwtToken,
                 RefreshToken = tokens.RefreshToken.Token,
                 ExpiresAt = tokens.RefreshToken.ExpiresAt,
-                User = UserMapper.ToDto(user)
+                User = _mapper.Map<UserDto>(user)
             };
         }
     }

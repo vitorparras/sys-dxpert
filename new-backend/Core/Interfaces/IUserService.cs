@@ -1,18 +1,14 @@
 ﻿using Core.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Application.DTOs.User;
 
 namespace Core.Interfaces
 {
     public interface IUserService
     {
-        Task<UserDetailsDto> CreateUserAsync(CreateUserDto createUserDto);
-        Task<UserDetailsDto> GetUserByIdAsync(Guid id);
-        Task<IEnumerable<UserDetailsDto>> GetAllUsersAsync();
-        Task UpdateUserAsync(Guid id, UpdateUserDto updateUserDto);
-        Task DeleteUserAsync(Guid id);
+        Task<User> GetByIdAsync(Guid userId);
+        Task<User> GetByEmailAsync(string email);
+        Task CreateUserAsync(User user);
+        Task UpdateUserAsync(User user);
+        Task DeleteUserAsync(Guid userId);
+        Task<List<User>> GetAllUsersAsync();
     }
 }

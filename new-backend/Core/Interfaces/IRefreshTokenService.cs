@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Core.Entities;
 
 namespace Core.Interfaces
 {
-    internal interface IRefreshTokenService
+    public interface IRefreshTokenService
     {
+        Task<RefreshToken> GenerateRefreshTokenAsync(User user);
+        Task ValidateRefreshTokenAsync(string token);
+        Task RevokeRefreshTokenAsync(string token);
     }
 }

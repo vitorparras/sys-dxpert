@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Core.Interfaces
+﻿namespace Core.Interfaces
 {
-    internal interface INotificationPreferencesService
+    public interface INotificationPreferencesService
     {
+        Task<NotificationPreferences> GetNotificationPreferencesAsync(Guid userId);
+        Task UpdateNotificationPreferencesAsync(Guid userId, NotificationPreferences preferences);
     }
 }

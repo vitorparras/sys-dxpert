@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Extensions.Configuration;
 
 namespace Core.Interfaces
 {
-    internal interface IConfigurationService
+    public interface IConfigurationService
     {
+        Task<List<Configuration>> GetAllConfigurationsAsync();
+        Task<Configuration> GetConfigurationByIdAsync(Guid id);
+        Task AddConfigurationAsync(Configuration configuration);
+        Task UpdateConfigurationAsync(Guid id, string key, string value);
+        Task DeleteConfigurationAsync(Guid id);
     }
 }

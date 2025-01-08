@@ -59,7 +59,7 @@ namespace Application.UseCases.Login
                 throw new InvalidCredentialsException("Invalid email or password.");
             }
 
-            var tokens = _tokenService.GenerateTokens(user);
+            var tokens = _tokenService.GenerateToken(user);
 
             await _tokenService.PersistRefreshTokenAsync(tokens.RefreshToken);
 

@@ -1,86 +1,115 @@
-﻿using AutoMapper;
-using Core.Entities;
+﻿using Core.Entities;
 using Core.Exceptions;
 using Core.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace Core.Services
 {
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
-        private readonly IAuthService _authService;
-        private readonly IMapper _mapper;
+        private readonly ILogger<UserService> _logger;
 
-        public UserService(IUserRepository userRepository, IAuthService authService, IMapper mapper)
+        public UserService(IUserRepository userRepository, ILogger<UserService> logger)
         {
             _userRepository = userRepository;
-            _authService = authService;
-            _mapper = mapper;
+            _logger = logger;
         }
 
-        public async Task<UserDetailsDto> CreateUserAsync(CreateUserDto createUserDto)
+        public async Task<User> GetByIdAsync(Guid userId)
         {
-            var existingUser = await _userRepository.GetByEmailAsync(createUserDto.Email);
-            if (existingUser != null)
-            {
-                throw new DomainException("User with this email already exists");
-            }
+            _logger.LogInformation("Fetching user with ID: {UserId}", userId);
 
-            existingUser = await _userRepository.GetByCPFAsync(createUserDto.CPF);
-            if (existingUser != null)
-            {
-                throw new DomainException("User with this CPF already exists");
-            }
-
-            var user = _mapper.Map<User>(createUserDto);
-            user.PasswordHash = Core.ValueObjects.PasswordHash.Create(_authService.HashPassword(createUserDto.Password));
-
-            var createdUser = await _userRepository.CreateAsync(user);
-            return _mapper.Map<UserDetailsDto>(createdUser);
-        }
-
-        public async Task<UserDetailsDto> GetUserByIdAsync(Guid id)
-        {
-            var user = await _userRepository.GetByIdAsync(id);
+            var user = await _userRepository.GetByIdAsync(userId);
             if (user == null)
             {
-                throw new NotFoundException("User not found");
+                _logger.LogWarning("User not found with ID: {UserId}", userId);
+                throw new UserNotFoundException($"User with ID {userId} not found.");
             }
-            return _mapper.Map<UserDetailsDto>(user);
+
+            _logger.LogInformation("User with ID: {UserId} successfully retrieved.", userId);
+            return user;
         }
 
-        public async Task<IEnumerable<UserDetailsDto>> GetAllUsersAsync()
+        public async Task<User> GetByEmailAsync(string email)
         {
-            var users = await _userRepository.GetAllAsync();
-            return _mapper.Map<IEnumerable<UserDetailsDto>>(users);
-        }
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                _logger.LogWarning("Attempted to fetch user with empty email.");
+                throw new ArgumentException("Email cannot be empty.");
+            }
 
-        public async Task UpdateUserAsync(Guid id, UpdateUserDto updateUserDto)
-        {
-            var user = await _userRepository.GetByIdAsync(id);
+            _logger.LogInformation("Fetching user with Email: {Email}", email);
+
+            var user = await _userRepository.GetByEmailAsync(email);
             if (user == null)
             {
-                throw new NotFoundException("User not found");
+                _logger.LogWarning("User not found with Email: {Email}", email);
+                throw new UserNotFoundException($"User with email {email} not found.");
             }
 
-            _mapper.Map(updateUserDto, user);
+            _logger.LogInformation("User with Email: {Email} successfully retrieved.", email);
+            return user;
+        }
+
+        public async Task CreateUserAsync(User user)
+        {
+            _logger.LogInformation("Initiating user creation for Email: {Email}", user.Email.Value);
+
+            var existingUser = await _userRepository.GetByEmailAsync(user.Email.Value);
+            if (existingUser != null)
+            {
+                _logger.LogWarning("User creation failed: Email already exists ({Email})", user.Email.Value);
+                throw new ConflictException("A user with this email already exists.");
+            }
+
+            await _userRepository.CreateAsync(user);
+            _logger.LogInformation("User with Email: {Email} created successfully.", user.Email.Value);
+        }
+
+        public async Task UpdateUserAsync(User user)
+        {
+            _logger.LogInformation("Initiating update for user ID: {UserId}", user.Id);
+
+            var existingUser = await _userRepository.GetByIdAsync(user.Id);
+            if (existingUser == null)
+            {
+                _logger.LogWarning("User update failed: User not found (ID: {UserId})", user.Id);
+                throw new UserNotFoundException($"User with ID {user.Id} not found.");
+            }
+
             await _userRepository.UpdateAsync(user);
+            _logger.LogInformation("User with ID: {UserId} updated successfully.", user.Id);
         }
 
-        public async Task DeleteUserAsync(Guid id)
+        public async Task DeleteUserAsync(Guid userId)
         {
-            var user = await _userRepository.GetByIdAsync(id);
+            _logger.LogInformation("Initiating deletion of user ID: {UserId}", userId);
+
+            var user = await _userRepository.GetByIdAsync(userId);
             if (user == null)
             {
-                throw new NotFoundException("User not found");
+                _logger.LogWarning("User deletion failed: User not found (ID: {UserId})", userId);
+                throw new UserNotFoundException($"User with ID {userId} not found.");
             }
 
             await _userRepository.DeleteAsync(user);
+            _logger.LogInformation("User with ID: {UserId} deleted successfully.", userId);
+        }
+
+        public async Task<List<User>> GetAllUsersAsync()
+        {
+            _logger.LogInformation("Fetching all users from the system.");
+
+            var users = await _userRepository.GetAllAsync();
+            if (users == null || !users.Any())
+            {
+                _logger.LogWarning("No users found in the system.");
+                throw new UserNotFoundException("No users were found.");
+            }
+
+            _logger.LogInformation("{UserCount} users retrieved successfully.", users.Count);
+            return users;
         }
     }
 }

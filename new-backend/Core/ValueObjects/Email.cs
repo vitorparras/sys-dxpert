@@ -1,35 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Core.ValueObjects
 {
     public class Email
     {
-        public string Value { get; }
+        [Required]
+        [MaxLength(100)]
+        [EmailAddress(ErrorMessage = "Invalid email format.")]
+        public string Value { get; private set; }
 
-        private Email(string value)
+        private Email() { }
+
+        public Email(string value)
         {
+            if (!IsValidEmail(value))
+                throw new ArgumentException("Invalid email format.");
+
             Value = value;
         }
 
-        public static Email Create(string email)
+        public static bool IsValidEmail(string value)
         {
-            if (string.IsNullOrWhiteSpace(email))
-                throw new ArgumentNullException(nameof(email));
-
-            email = email.Trim();
-
-            if (email.Length > 256)
-                throw new ArgumentException("Email is too long");
-
-            if (!Regex.IsMatch(email, @"^(.+)@(.+)$"))
-                throw new ArgumentException("Email is invalid");
-
-            return new Email(email);
+            return !string.IsNullOrWhiteSpace(value) &&
+                   value.Contains("@") &&
+                   value.Contains(".");
         }
+
+        public override string ToString() => Value;
     }
 }

@@ -3,8 +3,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Core.Entities
 {
-    [Table("RefreshTokens")]
-    public class RefreshToken
+    [Table("PasswordResetTokens")]
+    public class PasswordResetToken
     {
         [Key]
         public Guid Id { get; private set; }
@@ -20,34 +20,30 @@ namespace Core.Entities
         public DateTime ExpiresAt { get; private set; }
 
         [Required]
-        public bool Revoked { get; private set; }
-
-        [Required]
-        public DateTime CreatedAt { get; private set; }
+        public bool IsUsed { get; private set; }
 
         [ForeignKey("UserId")]
         public virtual User User { get; private set; }
 
-        private RefreshToken() { }
+        private PasswordResetToken() { }
 
-        public RefreshToken(User user, DateTime expiresAt)
+        public PasswordResetToken(User user, DateTime expiresAt)
         {
             Id = Guid.NewGuid();
             UserId = user.Id;
             Token = Guid.NewGuid().ToString();
             ExpiresAt = expiresAt;
-            CreatedAt = DateTime.UtcNow;
-            Revoked = false;
+            IsUsed = false;
         }
 
-        public bool IsExpired()
-        {
-            return DateTime.UtcNow >= ExpiresAt;
-        }
+        public bool IsExpired() => DateTime.UtcNow >= ExpiresAt;
 
-        public void Revoke()
+        public void MarkAsUsed()
         {
-            Revoked = true;
+            if (IsExpired())
+                throw new InvalidOperationException("Cannot use an expired token.");
+
+            IsUsed = true;
         }
     }
 }

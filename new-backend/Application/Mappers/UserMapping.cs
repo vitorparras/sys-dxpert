@@ -2,8 +2,8 @@
 using Application.DTOs.User;
 using AutoMapper;
 using Core.Entities;
+using Core.Entities.Enums;
 using Core.ValueObjects;
-using Core.ValueObjects.Enums;
 
 namespace Application.Mappers
 {

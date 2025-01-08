@@ -1,26 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Core.ValueObjects
 {
     public class PasswordHash
     {
-        public string Value { get; }
+        [Required(ErrorMessage = "Password hash cannot be empty.")]
+        public string Value { get; private set; }
 
-        private PasswordHash(string value)
+        private PasswordHash() { }
+
+        public PasswordHash(string value)
         {
+            if (string.IsNullOrWhiteSpace(value))
+                throw new ArgumentException("Password hash cannot be empty.");
             Value = value;
         }
 
-        public static PasswordHash Create(string passwordHash)
-        {
-            if (string.IsNullOrWhiteSpace(passwordHash))
-                throw new ArgumentNullException(nameof(passwordHash));
-
-            return new PasswordHash(passwordHash);
-        }
+        public override string ToString() => Value;
     }
 }

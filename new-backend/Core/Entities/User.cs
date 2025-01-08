@@ -1,59 +1,74 @@
-﻿using Core.ValueObjects;
-using Core.ValueObjects.Enums;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Core.Entities.Enums;
+using Core.ValueObjects;
 
 namespace Core.Entities
 {
+    [Table(nameof(User))]
     public class User
     {
+        [Key]
         public Guid Id { get; private set; }
-        public Email Email { get; private set; }
+
+        [Required(ErrorMessage = "Name is required.")]
+        [MaxLength(100, ErrorMessage = "Name must be at most 100 characters.")]
         public string Name { get; private set; }
-        public string? Phone { get; private set; }
-        public string CPF { get; private set; }
+
+        [Required(ErrorMessage = "Email is required.")]
+        [MaxLength(100)]
+        public Email Email { get; private set; }
+
+        [Required(ErrorMessage = "Password hash is required.")]
         public PasswordHash PasswordHash { get; private set; }
+
+        [Required(ErrorMessage = "Role is required.")]
+        [EnumDataType(typeof(Role))]
         public Role Role { get; private set; }
-        public string? PasswordResetToken { get; private set; }
-        public DateTime? PasswordResetTokenExpires { get; private set; }
 
-        private User() { } // For EF Core
+        [Required]
+        public DateTime CreatedAt { get; private set; }
 
-        public User(Email email, string name, string cpf, PasswordHash passwordHash, Role role, string? phone = null)
+        public DateTime? UpdatedAt { get; private set; }
+
+        [Required]
+        public NotificationPreferences NotificationPreferences { get; private set; }
+
+        public List<LoginHistory> LoginHistory { get; private set; } = new();
+
+        public List<RefreshToken> RefreshTokens { get; private set; } = new();
+
+        // Construtor para EF Core
+        private User() { }
+
+        public User(string name, Email email, PasswordHash passwordHash, Role role)
         {
             Id = Guid.NewGuid();
-            Email = email;
             Name = name;
-            CPF = cpf;
+            Email = email;
             PasswordHash = passwordHash;
             Role = role;
-            Phone = phone;
+            CreatedAt = DateTime.UtcNow;
+            NotificationPreferences = new NotificationPreferences(true, true, true);
         }
 
-        public void Update(string name, string? phone)
+        public void Update(string name, Email email)
         {
             Name = name;
-            Phone = phone;
+            Email = email;
+            UpdatedAt = DateTime.UtcNow;
         }
 
-        public void UpdatePassword(PasswordHash newPasswordHash)
+        public void ChangePassword(PasswordHash newPassword)
         {
-            PasswordHash = newPasswordHash;
+            PasswordHash = newPassword;
+            UpdatedAt = DateTime.UtcNow;
         }
 
-        public void SetPasswordResetToken(string token, DateTime expires)
+        public void UpdateNotificationPreferences(bool emailEnabled, bool smsEnabled, bool pushEnabled)
         {
-            PasswordResetToken = token;
-            PasswordResetTokenExpires = expires;
-        }
-
-        public void ClearPasswordResetToken()
-        {
-            PasswordResetToken = null;
-            PasswordResetTokenExpires = null;
-        }
-
-        public bool IsPasswordResetTokenValid(string token)
-        {
-            return PasswordResetToken == token && PasswordResetTokenExpires > DateTime.UtcNow;
+            NotificationPreferences.UpdatePreferences(emailEnabled, smsEnabled, pushEnabled);
+            UpdatedAt = DateTime.UtcNow;
         }
     }
 }

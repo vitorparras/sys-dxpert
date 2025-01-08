@@ -1,5 +1,5 @@
 ﻿using Core.Entities;
-using Core.Interfaces;
+using Infrastructure.Persistence.Repositorys.interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Persistence.Repositorys
@@ -13,31 +13,37 @@ namespace Infrastructure.Persistence.Repositorys
             _context = context;
         }
 
-        public async Task<User> GetByIdAsync(Guid id)
+        public async Task<User?> GetByIdAsync(Guid userId)
         {
-            return await _context.Users.FindAsync(id);
+            return await _context.Users
+                .Include(u => u.NotificationPreferences)
+                .Include(u => u.LoginHistory)
+                .Include(u => u.RefreshTokens)
+                .FirstOrDefaultAsync(u => u.Id == userId);
         }
 
-        public async Task<User> GetByEmailAsync(string email)
+        public async Task<User?> GetByEmailAsync(string email)
         {
-            return await _context.Users.FirstOrDefaultAsync(u => u.Email.Value == email);
+            return await _context.Users
+                .Include(u => u.NotificationPreferences)
+                .Include(u => u.LoginHistory)
+                .Include(u => u.RefreshTokens)
+                .FirstOrDefaultAsync(u => u.Email.Value == email);
         }
 
-        public async Task<User> GetByCPFAsync(string cpf)
+        public async Task<List<User>> GetAllAsync()
         {
-            return await _context.Users.FirstOrDefaultAsync(u => u.CPF == cpf);
+            return await _context.Users
+                .Include(u => u.NotificationPreferences)
+                .Include(u => u.LoginHistory)
+                .Include(u => u.RefreshTokens)
+                .ToListAsync();
         }
 
-        public async Task<IEnumerable<User>> GetAllAsync()
-        {
-            return await _context.Users.ToListAsync();
-        }
-
-        public async Task<User> CreateAsync(User user)
+        public async Task CreateAsync(User user)
         {
             await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
-            return user;
         }
 
         public async Task UpdateAsync(User user)
@@ -50,6 +56,11 @@ namespace Infrastructure.Persistence.Repositorys
         {
             _context.Users.Remove(user);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<bool> ExistsByEmailAsync(string email)
+        {
+            return await _context.Users.AnyAsync(u => u.Email.Value == email);
         }
     }
 }

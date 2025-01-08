@@ -3,6 +3,7 @@ using Core.Interfaces;
 using Core.Services;
 using Infrastructure.ExternalServices;
 using Infrastructure.Persistence.Repositorys;
+using Infrastructure.Persistence.Repositorys.interfaces;
 
 namespace API.Configuration
 {
@@ -26,6 +27,12 @@ namespace API.Configuration
         {
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
+            services.AddScoped<INotificationPreferencesRepository, NotificationPreferencesRepository>();
+            services.AddScoped<IConfigurationRepository, ConfigurationRepository>();
+            services.AddScoped<ISystemMetricsRepository, SystemMetricsRepository>();
+            services.AddScoped<IUserMetricsRepository, UserMetricsRepository>();
+            services.AddScoped<ILoginHistoryRepository, LoginHistoryRepository>();
+            services.AddScoped<IPasswordResetTokenRepository, PasswordResetTokenRepository>();
         }
 
         private static void RegisterServices(IServiceCollection services)
@@ -33,7 +40,13 @@ namespace API.Configuration
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IRefreshTokenService, RefreshTokenService>();
+            services.AddScoped<INotificationPreferencesService, NotificationPreferencesService>();
+            services.AddScoped<IConfigurationService, ConfigurationService>();
+            services.AddScoped<ISystemMetricsService, SystemMetricsService>();
+            services.AddScoped<IUserMetricsService, UserMetricsService>();
         }
+
 
         private static void RegisterAutoMapper(IServiceCollection services)
         {

@@ -1,4 +1,5 @@
 ﻿using Core.Interfaces;
+using Infrastructure.Persistence.Repositorys.interfaces;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 

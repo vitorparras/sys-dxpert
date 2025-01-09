@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.RateLimiting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using System.Threading.RateLimiting;
+﻿using System.Threading.RateLimiting;
 
 namespace API.Configuration
 {

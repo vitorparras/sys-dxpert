@@ -1,7 +1,5 @@
-﻿using Application.DTOs;
-using Application.DTOs.User;
-using Application.UseCases.User;
-using Core.Shared.Helpers;
+﻿using API.Helpers;
+using Application.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Net;
@@ -12,7 +10,7 @@ namespace API.Controllers
     [Route("api/[controller]/[action]")]
     public class UserController : ControllerBase
     {
-        private readonly IGetAllUsersUseCase _getAllUsersUseCase;
+       /* private readonly IGetAllUsersUseCase _getAllUsersUseCase;
         private readonly ICreateUserUseCase _createUserUseCase;
         private readonly IUpdateUserUseCase _updateUserUseCase;
         private readonly IDeleteUserUseCase _deleteUserUseCase;
@@ -133,7 +131,7 @@ namespace API.Controllers
                 _logger.LogWarning(ex, "User not found for metrics");
                 return ResponseHelper.CreateResponse(ex.Message, HttpStatusCode.NotFound);
             }
-        }
+        }*/
     }
 
 }

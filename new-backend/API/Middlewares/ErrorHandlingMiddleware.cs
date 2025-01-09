@@ -1,5 +1,5 @@
 ﻿using Application.DTOs.Shared;
-using Core.Exceptions;
+using Domain.Exceptions;
 using System.Net;
 using System.Text.Json;
 

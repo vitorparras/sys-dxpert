@@ -1,5 +1,4 @@
-﻿using Application.UseCases.Configurations;
-using Core.Shared.Helpers;
+﻿using API.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Net;
@@ -10,7 +9,7 @@ namespace API.Controllers
     [Route("api/[controller]/[action]")]
     public class ConfigurationsController : ControllerBase
     {
-        private readonly IGetConfigurationsUseCase _getConfigurationsUseCase;
+      /*  private readonly IGetConfigurationsUseCase _getConfigurationsUseCase;
         private readonly IUpdateConfigurationUseCase _updateConfigurationUseCase;
         private readonly IDeleteConfigurationUseCase _deleteConfigurationUseCase;
         private readonly IGetConfigurationsWithFilterUseCase _getConfigurationsWithFilterUseCase;
@@ -83,7 +82,7 @@ namespace API.Controllers
                 _logger.LogWarning(ex, "Invalid filter parameters provided");
                 return ResponseHelper.CreateResponse(ex.Message, HttpStatusCode.BadRequest);
             }
-        }
+        }*/
     }
 
 }

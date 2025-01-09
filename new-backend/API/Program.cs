@@ -39,7 +39,7 @@ app.UseCors("AllowSpecificOrigins");
 app.UseAuthentication();
 app.UseAuthorization();
 
- app.UseRateLimiter();
+app.UseRateLimiter();
 
 app.MapControllers();
 

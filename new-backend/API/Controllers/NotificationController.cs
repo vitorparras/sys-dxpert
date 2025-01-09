@@ -1,5 +1,4 @@
-﻿using Application.UseCases.Notifications;
-using Core.Shared.Helpers;
+﻿using API.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Net;
@@ -10,7 +9,7 @@ namespace API.Controllers
     [Route("api/[controller]/[action]")]
     public class NotificationController : ControllerBase
     {
-        private readonly IGetNotificationPreferencesUseCase _getNotificationPreferencesUseCase;
+        /*private readonly IGetNotificationPreferencesUseCase _getNotificationPreferencesUseCase;
         private readonly IUpdateNotificationPreferencesUseCase _updateNotificationPreferencesUseCase;
         private readonly ILogger<NotificationController> _logger;
 
@@ -56,7 +55,7 @@ namespace API.Controllers
                 _logger.LogError(ex, "Error while updating notification preferences");
                 return ResponseHelper.CreateResponse("An error occurred while updating notification preferences.", HttpStatusCode.InternalServerError);
             }
-        }
+        }*/
     }
 
 }

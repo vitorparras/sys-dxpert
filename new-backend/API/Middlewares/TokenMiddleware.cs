@@ -1,5 +1,5 @@
-﻿using Core.Interfaces;
-using Infrastructure.Persistence.Repositorys.interfaces;
+﻿using Application.Interfaces;
+using Infrastructure.Repositorys.interfaces;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
@@ -8,19 +8,19 @@ namespace API.Middlewares
     public class TokenMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly IAuthService _authService;
+        private readonly ITokenService _tokenService;
 
-        public TokenMiddleware(RequestDelegate next, IAuthService authService)
+        public TokenMiddleware(RequestDelegate next, ITokenService tokenService)
         {
             _next = next;
-            _authService = authService;
+            _tokenService = tokenService;
         }
 
         public async Task Invoke(HttpContext context, IUserRepository userRepository)
         {
             var token = ExtractTokenFromHeader(context);
 
-            if (!string.IsNullOrEmpty(token) && _authService.ValidateToken(token))
+            if (!string.IsNullOrEmpty(token) && _tokenService.ValidateToken(token))
             {
                 var userId = ExtractUserIdFromToken(token);
 

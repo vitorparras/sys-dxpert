@@ -1,5 +1,4 @@
-﻿using Application.UseCases.System;
-using Core.Shared.Helpers;
+﻿using API.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Net;
@@ -10,7 +9,7 @@ namespace API.Controllers
     [Route("api/[controller]/[action]")]
     public class MetricsController : ControllerBase
     {
-        private readonly IGetSystemMetricsUseCase _getSystemMetricsUseCase;
+        /*private readonly IGetSystemMetricsUseCase _getSystemMetricsUseCase;
         private readonly ILogger<MetricsController> _logger;
 
         public MetricsController(
@@ -37,6 +36,6 @@ namespace API.Controllers
                 _logger.LogError(ex, "Error while fetching system metrics");
                 return ResponseHelper.CreateResponse("An error occurred while fetching system metrics.", HttpStatusCode.InternalServerError);
             }
-        }
+        }*/
     }
 }

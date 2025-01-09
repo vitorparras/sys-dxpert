@@ -1,9 +1,7 @@
 ﻿using Application.Mappers;
-using Core.Interfaces;
-using Core.Services;
 using Infrastructure.ExternalServices;
-using Infrastructure.Persistence.Repositorys;
-using Infrastructure.Persistence.Repositorys.interfaces;
+using Infrastructure.Repositorys;
+using Infrastructure.Repositorys.interfaces;
 
 namespace API.Configuration
 {
@@ -26,25 +24,25 @@ namespace API.Configuration
         private static void RegisterRepositories(IServiceCollection services)
         {
             services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
+            /*services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
             services.AddScoped<INotificationPreferencesRepository, NotificationPreferencesRepository>();
             services.AddScoped<IConfigurationRepository, ConfigurationRepository>();
             services.AddScoped<ISystemMetricsRepository, SystemMetricsRepository>();
             services.AddScoped<IUserMetricsRepository, UserMetricsRepository>();
             services.AddScoped<ILoginHistoryRepository, LoginHistoryRepository>();
-            services.AddScoped<IPasswordResetTokenRepository, PasswordResetTokenRepository>();
+            services.AddScoped<IPasswordResetTokenRepository, PasswordResetTokenRepository>();*/
         }
 
         private static void RegisterServices(IServiceCollection services)
         {
-            services.AddScoped<IAuthService, AuthService>();
+       /*   services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IRefreshTokenService, RefreshTokenService>();
             services.AddScoped<INotificationPreferencesService, NotificationPreferencesService>();
             services.AddScoped<IConfigurationService, ConfigurationService>();
             services.AddScoped<ISystemMetricsService, SystemMetricsService>();
-            services.AddScoped<IUserMetricsService, UserMetricsService>();
+            services.AddScoped<IUserMetricsService, UserMetricsService>();*/
         }
 
 

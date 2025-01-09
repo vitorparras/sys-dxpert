@@ -14,15 +14,15 @@ namespace Infrastructure.Persistence.Helpers
                 var scopedServices = scope.ServiceProvider;
 
                 var context = scopedServices.GetRequiredService<SysDbContext>();
-                var logger = scopedServices.GetRequiredService<ILogger<DatabaseMigrationHelper>>();
+            //    var logger = scopedServices.GetRequiredService<ILogger<DatabaseMigrationHelper>>();
 
                 context.Database.Migrate();
-                logger.LogInformation("Database migrated successfully.");
+             //   logger.LogInformation("Database migrated successfully.");
             }
             catch (Exception ex)
             {
-                var logger = services.GetRequiredService<ILogger<DatabaseMigrationHelper>>();
-                logger.LogError(ex, "An error occurred while migrating the database.");
+              //  var logger = services.GetRequiredService<ILogger<DatabaseMigrationHelper>>();
+             //   logger.LogError(ex, "An error occurred while migrating the database.");
                 throw; // Opcional: Re-lançar exceções para gerenciamento em níveis superiores
             }
         }

@@ -4,7 +4,6 @@ using Application.Queries.Notification;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using System.Net;
 
 namespace API.Controllers
 {

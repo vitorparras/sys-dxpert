@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using Application.DTOs;
 
-namespace Application.Validators
+namespace Application.Commands.Notification.Validators
 {
     public class UpdateNotificationPreferencesValidator : AbstractValidator<UpdateNotificationPreferencesDto>
     {

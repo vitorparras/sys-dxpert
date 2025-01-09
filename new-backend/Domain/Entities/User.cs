@@ -46,12 +46,12 @@ namespace Domain.Entities
 
         public DateTime? UpdatedAt { get; private set; }
 
-      
+        [Required]
+        public NotificationPreferences NotificationPreferences { get; private set; }
 
-        //    [Required]
-        //     public NotificationPreferences NotificationPreferences { get; private set; }
 
         //   public List<LoginHistory> LoginHistory { get; private set; } = new();
+
         public List<RefreshToken> RefreshTokens { get; private set; } = new();
 
         // Constructor for EF Core (Protected for ORM use)
@@ -77,7 +77,7 @@ namespace Domain.Entities
             Department = department;
             Role = role;
             CreatedAt = DateTime.UtcNow;
-            //NotificationPreferences = new NotificationPreferences(true, true, true);
+            NotificationPreferences = new NotificationPreferences();
         }
 
         public void UpdateUserInfo(string name, Email email, PhoneNumber phoneNumber, string department)
@@ -95,9 +95,23 @@ namespace Domain.Entities
             UpdatedAt = DateTime.UtcNow;
         }
 
-        public void UpdateNotificationPreferences(bool emailEnabled, bool smsEnabled, bool pushEnabled)
+
+        /// <summary>
+        /// Updates the notification preferences for the user.
+        /// </summary>
+        /// <param name="newPreferences">New notification preferences object.</param>
+        public void UpdateNotificationPreferences(NotificationPreferences newPreferences)
         {
-           // NotificationPreferences.UpdatePreferences(emailEnabled, smsEnabled, pushEnabled);
+            if (newPreferences == null)
+            {
+                throw new ArgumentNullException(nameof(newPreferences), "Notification preferences cannot be null.");
+            }
+
+            if (!NotificationPreferences.Equals(newPreferences))
+            {
+                NotificationPreferences = newPreferences;
+            }
+
             UpdatedAt = DateTime.UtcNow;
         }
 

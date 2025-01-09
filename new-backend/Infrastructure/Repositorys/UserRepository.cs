@@ -4,6 +4,7 @@ using Infrastructure.Persistence;
 using Infrastructure.Repositorys.interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using System.Security.Claims;
 
 namespace Infrastructure.Repositorys
 {
@@ -143,5 +144,27 @@ namespace Infrastructure.Repositorys
 
             return user;
         }
+
+        /// <summary>
+        /// Retrieves the current authenticated user based on the provided userId.
+        /// </summary>
+        /// <param name="userId">Unique identifier of the authenticated user.</param>
+        public async Task<User?> GetCurrentUserAsync(Guid userId)
+        {
+            _logger.LogInformation("Fetching current user with ID: {UserId}", userId);
+
+            var user = await _context.Users
+                .AsNoTracking()
+                .FirstOrDefaultAsync(u => u.Id == userId);
+
+            if (user == null)
+            {
+                _logger.LogWarning("User not found with ID: {UserId}", userId);
+            }
+
+            return user;
+        }
+
+
     }
 }

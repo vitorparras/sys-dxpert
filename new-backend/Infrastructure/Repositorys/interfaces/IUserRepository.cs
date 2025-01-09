@@ -41,5 +41,10 @@ namespace Infrastructure.Repositorys.interfaces
         /// Checks if a user exists by their email address.
         /// </summary>
         Task<bool> ExistsByEmailAsync(string email);
+
+        /// <summary>
+        /// Retrieves the current authenticated user by their unique identifier.
+        /// </summary>
+        Task<User?> GetCurrentUserAsync(Guid userId);
     }
 }

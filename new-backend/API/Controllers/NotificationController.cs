@@ -1,4 +1,7 @@
-﻿using API.Helpers;
+﻿using Application.Commands.Notification;
+using Application.DTOs;
+using Application.Queries.Notification;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Net;
@@ -6,56 +9,52 @@ using System.Net;
 namespace API.Controllers
 {
     [ApiController]
-    [Route("api/[controller]/[action]")]
+    [Route("api/[controller]")]
     public class NotificationController : ControllerBase
     {
-        /*private readonly IGetNotificationPreferencesUseCase _getNotificationPreferencesUseCase;
-        private readonly IUpdateNotificationPreferencesUseCase _updateNotificationPreferencesUseCase;
+        private readonly IMediator _mediator;
         private readonly ILogger<NotificationController> _logger;
 
-        public NotificationController(
-            IGetNotificationPreferencesUseCase getNotificationPreferencesUseCase,
-            IUpdateNotificationPreferencesUseCase updateNotificationPreferencesUseCase,
-            ILogger<NotificationController> logger)
+        public NotificationController(IMediator mediator, ILogger<NotificationController> logger)
         {
-            _getNotificationPreferencesUseCase = getNotificationPreferencesUseCase;
-            _updateNotificationPreferencesUseCase = updateNotificationPreferencesUseCase;
+            _mediator = mediator;
             _logger = logger;
         }
 
-        [HttpGet]
-        [SwaggerOperation(Summary = "Get notification preferences", Description = "Fetches the notification preferences of the logged-in user")]
-        [SwaggerResponse(200, "Notification preferences retrieved successfully", typeof(NotificationPreferencesDto))]
-        public async Task<IActionResult> GetNotificationPreferences()
+        /// <summary>
+        /// Fetches the current notification preferences for the authenticated user.
+        /// </summary>
+        [HttpGet("preferences/{userId:guid}")]
+        [SwaggerOperation(Summary = "Get Notification Preferences", Description = "Fetch the notification preferences of the authenticated user.")]
+        [SwaggerResponse(200, "Notification preferences retrieved successfully.", typeof(NotificationPreferencesDto))]
+        [SwaggerResponse(401, "Unauthorized")]
+        public async Task<IActionResult> GetNotificationPreferences(Guid userId)
         {
-            try
-            {
-                var preferences = await _getNotificationPreferencesUseCase.ExecuteAsync();
-                return ResponseHelper.CreateResponse("Notification preferences retrieved successfully", HttpStatusCode.OK, preferences);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error while fetching notification preferences");
-                return ResponseHelper.CreateResponse("An error occurred while fetching notification preferences.", HttpStatusCode.InternalServerError);
-            }
+            _logger.LogInformation("API call to get notification preferences for UserId: {UserId}", userId);
+            var response = await _mediator.Send(new GetNotificationPreferencesQuery(userId));
+            return Ok(response);
+
         }
 
-        [HttpPut]
-        [SwaggerOperation(Summary = "Update notification preferences", Description = "Updates the notification preferences of the logged-in user")]
-        [SwaggerResponse(204, "Notification preferences updated successfully")]
-        public async Task<IActionResult> UpdateNotificationPreferences([FromBody] UpdateNotificationPreferencesDto request)
+        /// <summary>
+        /// Update the notification preferences for the authenticated user.
+        /// </summary>
+        [HttpPut("preferences/{userId:guid}")]
+        [SwaggerOperation(Summary = "Update Notification Preferences", Description = "Update the notification preferences of the authenticated user.")]
+        [SwaggerResponse(204, "Notification preferences updated successfully.")]
+        [SwaggerResponse(400, "Invalid request data.")]
+        [SwaggerResponse(401, "Unauthorized.")]
+        [SwaggerResponse(500, "Internal server error.")]
+        public async Task<IActionResult> UpdateNotificationPreferences(Guid userId, [FromBody] UpdateNotificationPreferencesDto request)
         {
-            try
-            {
-                await _updateNotificationPreferencesUseCase.ExecuteAsync(request);
-                return ResponseHelper.CreateResponse("Notification preferences updated successfully", HttpStatusCode.NoContent);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error while updating notification preferences");
-                return ResponseHelper.CreateResponse("An error occurred while updating notification preferences.", HttpStatusCode.InternalServerError);
-            }
-        }*/
-    }
+            _logger.LogInformation("API call to update notification preferences for UserId: {UserId}", userId);
 
+            var command = new UpdateNotificationPreferencesCommand(userId, request);
+            await _mediator.Send(command);
+
+            _logger.LogInformation("Notification preferences updated successfully for UserId: {UserId}", userId);
+            return NoContent();
+
+        }
+    }
 }

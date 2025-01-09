@@ -1,41 +1,22 @@
-﻿using Microsoft.Extensions.Configuration;
-using System.Net;
-using System.Net.Mail;
+﻿using Infrastructure.ExternalServices.Interfaces;
+using Microsoft.Extensions.Logging;
 
-namespace Infrastructure.ExternalServices
+namespace Infrastructure.Services
 {
-    public class EmailService
+    public class EmailService : IEmailService
     {
-        private readonly IConfiguration _configuration;
+        private readonly ILogger<EmailService> _logger;
 
-        public EmailService(IConfiguration configuration)
+        public EmailService(ILogger<EmailService> logger)
         {
-            _configuration = configuration;
+            _logger = logger;
         }
 
-        public async Task SendPasswordResetEmailAsync(string email, string resetToken)
+        public async Task SendEmailAsync(string to, string subject, string body)
         {
-            var smtpServer = _configuration["Email:SmtpServer"];
-            var smtpPort = int.Parse(_configuration["Email:SmtpPort"]);
-            var smtpUsername = _configuration["Email:SmtpUsername"];
-            var smtpPassword = _configuration["Email:SmtpPassword"];
-
-            using var client = new SmtpClient(smtpServer, smtpPort)
-            {
-                Credentials = new NetworkCredential(smtpUsername, smtpPassword),
-                EnableSsl = true
-            };
-
-            var mailMessage = new MailMessage
-            {
-                From = new MailAddress(_configuration["Email:FromAddress"]),
-                Subject = "Password Reset",
-                Body = $"Use this token to reset your password: {resetToken}",
-                IsBodyHtml = false,
-            };
-            mailMessage.To.Add(email);
-
-            await client.SendMailAsync(mailMessage);
+            _logger.LogInformation("Simulating email sending to: {To}", to);
+            await Task.Delay(500); // Simulação de tempo de envio de email
+            _logger.LogInformation("Email sent to: {To}", to);
         }
     }
 }

@@ -45,7 +45,7 @@ namespace API.Controllers
 
             return Ok(response);
         }
-/*
+
         /// <summary>
         /// Refreshes the user's JWT token using a valid refresh token.
         /// </summary>
@@ -66,7 +66,7 @@ namespace API.Controllers
 
             return Ok(response);
         }
-
+        
         /// <summary>
         /// Sends an email with a password reset link to the registered email address.
         /// </summary>
@@ -85,7 +85,7 @@ namespace API.Controllers
 
             return Ok("Password reset request submitted successfully.");
         }
-
+        
         /// <summary>
         /// Resets a user's password using a valid token.
         /// </summary>
@@ -122,6 +122,6 @@ namespace API.Controllers
             await _mediator.Send(command);
 
             return NoContent();
-        }*/
+        }
     }
 }

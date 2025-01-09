@@ -1,7 +1,7 @@
 ﻿using Infrastructure.ExternalServices.Interfaces;
 using Microsoft.Extensions.Logging;
 
-namespace Infrastructure.Services
+namespace Infrastructure.ExternalServices
 {
     public class EmailService : IEmailService
     {

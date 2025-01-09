@@ -5,6 +5,8 @@
         public string JwtToken { get; private set; }
         public RefreshToken RefreshToken { get; private set; }
 
+        private TokenResponse() { }
+
         public TokenResponse(string jwtToken, RefreshToken refreshToken)
         {
             JwtToken = jwtToken;

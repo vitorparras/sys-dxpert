@@ -8,6 +8,9 @@
 
         public bool Revoked { get; private set; }
 
+        private RefreshToken() { }
+
+
         public RefreshToken(string token, DateTime expiresAt)
         {
             Token = token;

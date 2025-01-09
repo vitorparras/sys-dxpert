@@ -1,4 +1,5 @@
 ﻿using Application.Interfaces;
+using Application.Services;
 using Infrastructure.Repositorys.interfaces;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -8,19 +9,22 @@ namespace API.Middlewares
     public class TokenMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly ITokenService _tokenService;
+        private readonly IServiceScopeFactory _scopeFactory;
 
-        public TokenMiddleware(RequestDelegate next, ITokenService tokenService)
+        public TokenMiddleware(RequestDelegate next, IServiceScopeFactory scopeFactory)
         {
             _next = next;
-            _tokenService = tokenService;
+            _scopeFactory = scopeFactory;
         }
 
         public async Task Invoke(HttpContext context, IUserRepository userRepository)
         {
+            using var scope = _scopeFactory.CreateScope();
+            var tokenService = scope.ServiceProvider.GetRequiredService<ITokenService>();
+
             var token = ExtractTokenFromHeader(context);
 
-            if (!string.IsNullOrEmpty(token) && _tokenService.ValidateToken(token))
+            if (!string.IsNullOrEmpty(token) && tokenService.ValidateToken(token))
             {
                 var userId = ExtractUserIdFromToken(token);
 

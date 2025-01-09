@@ -27,30 +27,29 @@ namespace Application.Services
 
         public TokenResponse GenerateToken(User user)
         {
-            var jwtKey = _configuration["Jwt:Key"];
-            var jwtIssuer = _configuration["Jwt:Issuer"];
-            var jwtAudience = _configuration["Jwt:Audience"];
-            var jwtExpirationMinutes = int.Parse(_configuration["Jwt:ExpirationMinutes"]);
+            var secretKey = _configuration["Jwt:Secret"];
+            var issuer = _configuration["Jwt:Issuer"];
+            var audience = _configuration["Jwt:Audience"];
+            var expirationMinutes = int.Parse(_configuration["Jwt:ExpirationMinutes"]);
 
-            if (string.IsNullOrWhiteSpace(jwtKey))
-                throw new InvalidOperationException("JWT key is not configured.");
+            if (string.IsNullOrWhiteSpace(secretKey))
+                throw new InvalidOperationException("JWT Secret is not configured properly.");
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
+            var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(secretKey));
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var claims = new[]
             {
                 new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
                 new Claim(JwtRegisteredClaimNames.Email, user.Email.Value),
-                new Claim(ClaimTypes.Role, user.Role.ToString()),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                new Claim(ClaimTypes.Role, user.Role.ToString())
             };
 
             var token = new JwtSecurityToken(
-                issuer: jwtIssuer,
-                audience: jwtAudience,
+                issuer: issuer,
+                audience: audience,
                 claims: claims,
-                expires: DateTime.UtcNow.AddMinutes(jwtExpirationMinutes),
+                expires: DateTime.UtcNow.AddMinutes(expirationMinutes),
                 signingCredentials: credentials
             );
 

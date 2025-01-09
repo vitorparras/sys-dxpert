@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -7,44 +8,45 @@ namespace API.Configuration
 {
     public static class JwtConfig
     {
+        /// <summary>
+        /// Configures JWT authentication using direct configuration from appsettings.json.
+        /// </summary>
         public static IServiceCollection ConfigureJwtAuthentication(this IServiceCollection services, IConfiguration configuration)
         {
-            // Bind and validate settings
-            /*    services.Configure<AppSettings>(configuration);
+            var secretKey = configuration["Jwt:Secret"];
+            var issuer = configuration["Jwt:Issuer"];
+            var audience = configuration["Jwt:Audience"];
 
-                var serviceProvider = services.BuildServiceProvider();
-                var appSettings = serviceProvider.GetRequiredService<IOptions<AppSettings>>().Value;
+            if (string.IsNullOrWhiteSpace(secretKey))
+            {
+                throw new InvalidOperationException("JWT Secret key is not configured properly in appsettings.json.");
+            }
 
-                var jwtSettings = appSettings.Jwt;
-                if (string.IsNullOrWhiteSpace(jwtSettings.Secret))
+            var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(secretKey));
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                options.RequireHttpsMetadata = true;
+                options.SaveToken = true;
+                options.TokenValidationParameters = new TokenValidationParameters
                 {
-                    throw new InvalidOperationException("JWT Secret key is not configured. Please check the application settings.");
-                }
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = key,
+                    ValidateIssuer = !string.IsNullOrWhiteSpace(issuer),
+                    ValidIssuer = issuer,
+                    ValidateAudience = !string.IsNullOrWhiteSpace(audience),
+                    ValidAudience = audience,
+                    ClockSkew = TimeSpan.Zero,
+                    RequireExpirationTime = true,
+                    ValidateLifetime = true
+                };
+            });
 
-                var key = Encoding.ASCII.GetBytes(jwtSettings.Secret);
-
-                // Configure authentication
-                services.AddAuthentication(options =>
-                {
-                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                })
-                .AddJwtBearer(options =>
-                {
-                    options.RequireHttpsMetadata = true;
-                    options.SaveToken = true;
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(key),
-                        ValidateIssuer = !string.IsNullOrWhiteSpace(jwtSettings.Issuer),
-                        ValidIssuer = jwtSettings.Issuer,
-                        ValidateAudience = !string.IsNullOrWhiteSpace(jwtSettings.Audience),
-                        ValidAudience = jwtSettings.Audience,
-                        ClockSkew = TimeSpan.Zero
-                    };
-                });
-            */
             return services;
         }
     }

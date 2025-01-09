@@ -16,7 +16,7 @@ namespace Infrastructure.Persistence.Helpers
                 var context = scopedServices.GetRequiredService<SysDbContext>();
             //    var logger = scopedServices.GetRequiredService<ILogger<DatabaseMigrationHelper>>();
 
-                context.Database.Migrate();
+            //    context.Database.Migrate();
              //   logger.LogInformation("Database migrated successfully.");
             }
             catch (Exception ex)

@@ -4,6 +4,8 @@
     {
         public string Value { get; private set; }
 
+        private CPF() { }
+
         public CPF(string value)
         {
             if (string.IsNullOrWhiteSpace(value) || value.Length != 11)

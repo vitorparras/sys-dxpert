@@ -4,6 +4,8 @@
     {
         public string Hash { get; private set; }
 
+        private PasswordHash() { }
+
         public PasswordHash(string plainTextPassword)
         {
             if (string.IsNullOrWhiteSpace(plainTextPassword))

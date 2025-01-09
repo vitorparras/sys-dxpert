@@ -1,7 +1,12 @@
-﻿using Application.Mappers;
+﻿using Application.Interfaces;
+using Application.Mappers;
+using Application.Services;
+using FluentValidation;
 using Infrastructure.ExternalServices;
+using Infrastructure.ExternalServices.Interfaces;
 using Infrastructure.Repositorys;
 using Infrastructure.Repositorys.interfaces;
+
 
 namespace API.Configuration
 {
@@ -9,14 +14,15 @@ namespace API.Configuration
     {
         public static IServiceCollection ConfigureDependencyInjection(this IServiceCollection services)
         {
-            // Register Repositories
             RegisterRepositories(services);
 
-            // Register Services
             RegisterServices(services);
 
-            // Register AutoMapper Profiles
             RegisterAutoMapper(services);
+
+            RegisterFluentValidation(services);
+
+            RegisterMediatR(services);
 
             return services;
         }
@@ -24,25 +30,13 @@ namespace API.Configuration
         private static void RegisterRepositories(IServiceCollection services)
         {
             services.AddScoped<IUserRepository, UserRepository>();
-            /*services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
-            services.AddScoped<INotificationPreferencesRepository, NotificationPreferencesRepository>();
-            services.AddScoped<IConfigurationRepository, ConfigurationRepository>();
-            services.AddScoped<ISystemMetricsRepository, SystemMetricsRepository>();
-            services.AddScoped<IUserMetricsRepository, UserMetricsRepository>();
-            services.AddScoped<ILoginHistoryRepository, LoginHistoryRepository>();
-            services.AddScoped<IPasswordResetTokenRepository, PasswordResetTokenRepository>();*/
+
         }
 
         private static void RegisterServices(IServiceCollection services)
         {
-       /*   services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IEmailService, EmailService>();
-            services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IRefreshTokenService, RefreshTokenService>();
-            services.AddScoped<INotificationPreferencesService, NotificationPreferencesService>();
-            services.AddScoped<IConfigurationService, ConfigurationService>();
-            services.AddScoped<ISystemMetricsService, SystemMetricsService>();
-            services.AddScoped<IUserMetricsService, UserMetricsService>();*/
         }
 
 
@@ -58,6 +52,16 @@ namespace API.Configuration
             }
 
             services.AddAutoMapper(mapperProfiles);
+        }
+
+        private static void RegisterFluentValidation(IServiceCollection services)
+        {
+            services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
+        }
+
+        private static void RegisterMediatR(IServiceCollection services)
+        {
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
         }
     }
 }

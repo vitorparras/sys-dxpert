@@ -1,5 +1,8 @@
-﻿namespace Domain.ValueObjects
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace Domain.ValueObjects
 {
+    [Owned]
     public class PasswordHash
     {
         public string Hash { get; private set; }

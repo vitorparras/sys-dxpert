@@ -1,5 +1,8 @@
-﻿namespace Domain.ValueObjects
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace Domain.ValueObjects
 {
+    [Owned]
     public class PhoneNumber
     {
         public string Number { get; private set; }

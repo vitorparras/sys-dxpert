@@ -1,7 +1,13 @@
-﻿namespace Domain.ValueObjects
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+
+namespace Domain.ValueObjects
 {
+    [Owned]
     public class CPF
     {
+        [Required]
+        [MaxLength(11)]
         public string Value { get; private set; }
 
         private CPF() { }

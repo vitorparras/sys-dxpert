@@ -8,7 +8,7 @@ namespace Domain.Entities
     [Table("Users")]
     public class User
     {
-        [Key] // Chave primária
+        [Key]
         public Guid Id { get; private set; }
 
         [Required(ErrorMessage = "Name is required.")]
@@ -19,16 +19,15 @@ namespace Domain.Entities
         [MaxLength(100)]
         public Email Email { get; private set; }
 
+        [Required(ErrorMessage = "CPF is required.")]
+        public CPF CPF { get; private set; }
+
         [Required(ErrorMessage = "Password hash is required.")]
         public PasswordHash PasswordHash { get; private set; }
 
         [Required(ErrorMessage = "Role is required.")]
         [EnumDataType(typeof(Role))]
         public Role Role { get; private set; }
-
-        [Required(ErrorMessage = "CPF is required.")]
-        [MaxLength(11, ErrorMessage = "CPF must be exactly 11 digits.")]
-        public CPF CPF { get; private set; }
 
         [Required(ErrorMessage = "Phone number is required.")]
         [MaxLength(11, ErrorMessage = "Phone number must be 10 or 11 digits.")]
@@ -47,10 +46,12 @@ namespace Domain.Entities
 
         public DateTime? UpdatedAt { get; private set; }
 
-        [Required]
-        public NotificationPreferences NotificationPreferences { get; private set; }
+      
 
-        public List<LoginHistory> LoginHistory { get; private set; } = new();
+        //    [Required]
+        //     public NotificationPreferences NotificationPreferences { get; private set; }
+
+        //   public List<LoginHistory> LoginHistory { get; private set; } = new();
         public List<RefreshToken> RefreshTokens { get; private set; } = new();
 
         // Constructor for EF Core (Protected for ORM use)
@@ -96,7 +97,7 @@ namespace Domain.Entities
 
         public void UpdateNotificationPreferences(bool emailEnabled, bool smsEnabled, bool pushEnabled)
         {
-            NotificationPreferences.UpdatePreferences(emailEnabled, smsEnabled, pushEnabled);
+           // NotificationPreferences.UpdatePreferences(emailEnabled, smsEnabled, pushEnabled);
             UpdatedAt = DateTime.UtcNow;
         }
 
